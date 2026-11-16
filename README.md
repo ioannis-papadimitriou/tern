@@ -102,7 +102,7 @@ tern has two parts:
 | [uv](https://docs.astral.sh/uv/) | recommended (`pip` also works, see below) |
 | Node.js | **22**, only to build the extension (`.nvmrc`; nvm recommended) |
 | `zip` | to package the extension as `tern.xpi` (`make ext-xpi`) |
-| A local model server | An OpenAI-compatible chat server on `127.0.0.1` with **tool calling and streaming**. tern is developed and tested on **[Strata](https://github.com/Niko1221/Strata)** (model `iq3_xxs`, 512k context). Other servers such as LM Studio work too, but smaller models loop, run slowly or cite poorly. |
+| A local model server | An OpenAI-compatible chat server on `127.0.0.1` with **tool calling and streaming**. tern is developed and tested on **[Strata](https://github.com/Niko1221/Strata)** (model Qwen3.8-Flash-Next (IQ3_XXS), 512k context). Other servers such as LM Studio work too, but smaller models loop, run slowly or cite poorly. |
 | Embedding model | optional, and not used in the tested setup; only tern's own vector search (`tern search`, MCP `search_messages`) uses it |
 
 Python dependencies are declared in `pyproject.toml` and pinned in `uv.lock`. `requirements.txt`
@@ -153,7 +153,7 @@ This writes `~/.mozilla/native-messaging-hosts/tern.json`, which points Thunderb
 ### 4. Configure your model server
 
 Start your model server first. The built-in defaults are the tested setup: Strata serving
-`iq3_xxs` with a 512k context on port 47831, no embedding model, no limit on tool calls or answer
+Qwen3.8-Flash-Next (IQ3_XXS), with a 512k context on port 47831, no embedding model, no limit on tool calls or answer
 time, and a 200k-token tool-output budget. With that setup you need no config file at all. Check
 that the server answers and that the model id matches:
 `curl -s http://127.0.0.1:47831/v1/models`.
