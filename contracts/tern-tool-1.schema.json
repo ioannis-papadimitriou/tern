@@ -1,0 +1,111 @@
+{
+  "$defs": {
+    "Effect": {
+      "description": "What a tool may touch (#6). Closed: a tool cannot declare anything else.",
+      "enum": [
+        "read_index",
+        "read_live",
+        "mail_meta",
+        "mail_move",
+        "mail_delete",
+        "drafts",
+        "contacts_write",
+        "calendar_write",
+        "filters_write"
+      ],
+      "title": "Effect",
+      "type": "string"
+    },
+    "Tier": {
+      "description": "Permission tiers (#7). Values equal bridge 1.0's ``Tier`` literals.",
+      "enum": [
+        "R0",
+        "R1",
+        "W1",
+        "W2",
+        "W3"
+      ],
+      "title": "Tier",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "The metadata document every tool exports (``tern tools describe``). Its JSON Schema is\nthe frozen ``contracts/tern-tool-1.schema.json``; a change needs ``tern-tool/2``.",
+  "properties": {
+    "contract": {
+      "const": "tern-tool/1",
+      "title": "Contract",
+      "type": "string"
+    },
+    "counts_targets": {
+      "title": "Counts Targets",
+      "type": "boolean"
+    },
+    "declares_recipients": {
+      "title": "Declares Recipients",
+      "type": "boolean"
+    },
+    "description": {
+      "minLength": 1,
+      "title": "Description",
+      "type": "string"
+    },
+    "effective_tier": {
+      "$ref": "#/$defs/Tier"
+    },
+    "effects": {
+      "items": {
+        "$ref": "#/$defs/Effect"
+      },
+      "title": "Effects",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "input_schema": {
+      "additionalProperties": true,
+      "title": "Input Schema",
+      "type": "object"
+    },
+    "name": {
+      "pattern": "^[a-z][a-z0-9_]{0,63}$",
+      "title": "Name",
+      "type": "string"
+    },
+    "origin": {
+      "enum": [
+        "builtin",
+        "plugin"
+      ],
+      "title": "Origin",
+      "type": "string"
+    },
+    "output_schema": {
+      "additionalProperties": true,
+      "title": "Output Schema",
+      "type": "object"
+    },
+    "tier": {
+      "$ref": "#/$defs/Tier"
+    },
+    "untrusted_output": {
+      "title": "Untrusted Output",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "contract",
+    "name",
+    "description",
+    "tier",
+    "effective_tier",
+    "effects",
+    "untrusted_output",
+    "counts_targets",
+    "declares_recipients",
+    "input_schema",
+    "output_schema",
+    "origin"
+  ],
+  "title": "ToolMeta",
+  "type": "object"
+}

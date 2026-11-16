@@ -1,0 +1,19 @@
+{"transcript":"errors_cli","client":"socket","description":"Error replies after a successful cli hello; the connection stays usable after each one. Messages carry field locations and error types only, never input values."}
+{"from":"client","msg":{"jsonrpc":"2.0","id":1,"method":"hello","params":{"protocol":"tern-bridge/1","minor":0,"role":"cli","version":"0.1.0","capabilities":[]}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":1,"result":{"protocol":"tern-bridge/1","minor":0,"role":"daemon","version":"0.0.0-golden","capabilities":[]}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":2,"method":"nope.method","params":{}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":2,"error":{"code":-32601,"message":"method 'nope.method' is not in tern-bridge/1.0","data":{"name":"method_not_available"}}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":3,"method":"search.query","params":{}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":3,"error":{"code":-32602,"message":"query: missing","data":{"name":"invalid_params"}}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":4,"method":"search.query","params":{"query":"SENTINEL-golden-input","bogus":true}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":4,"error":{"code":-32602,"message":"bogus: extra_forbidden","data":{"name":"invalid_params"}}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":5,"method":"approvals.decide","params":{"approval_id":"ap-0001","nonce":"n-7c1d","decision":"approve"}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":5,"error":{"code":-32006,"message":"approvals.decide is not allowed for role cli","data":{"name":"role_rejected"}}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":6,"method":"mail.accounts.list","params":{}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":6,"error":{"code":-32601,"message":"mail.accounts.list is not served by the daemon","data":{"name":"method_not_available"}}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":7,"method":"hello","params":{"protocol":"tern-bridge/1","minor":0,"role":"cli","version":"0.1.0","capabilities":[]}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":7,"error":{"code":-32602,"message":"hello was already exchanged on this connection","data":{"name":"invalid_params"}}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":8,"method":"bridge.ping_extension","params":{"n":0}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":8,"error":{"code":-32602,"message":"n: greater_than_equal","data":{"name":"invalid_params"}}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":9,"method":"bridge.ping","params":{}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":9,"result":{}}}

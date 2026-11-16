@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "tern",
+  "version": "0.1.0",
+  "description": "Local-first AI layer for Thunderbird (talks only to the local ternd daemon).",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tern@tern.invalid",
+      "strict_min_version": "153.0"
+    }
+  },
+  "permissions": [
+    "nativeMessaging",
+    "messagesRead",
+    "messagesTagsList",
+    "accountsRead",
+    "storage",
+    "alarms"
+  ],
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; img-src 'self' data:"
+  },
+  "background": {
+    "scripts": ["background/main.js"],
+    "type": "module"
+  }
+}

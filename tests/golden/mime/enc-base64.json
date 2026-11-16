@@ -1,0 +1,8 @@
+{
+  "subject": "Volunteer rota (base64)",
+  "from_addr": "taylor.b@example.org",
+  "main_text": "Hi Alex,\n\nI spoke to the landlord and he agreed to fix the heating. Lunch on Wednesday works for me. I will bring the printed copies along.\n\nBest,\nTaylor",
+  "quoted_text": "",
+  "parse_status": "ok",
+  "attachments": []
+}

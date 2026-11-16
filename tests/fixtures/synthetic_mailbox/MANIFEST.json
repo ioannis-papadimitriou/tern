@@ -1,0 +1,3413 @@
+{
+  "fixture": "synthetic_mailbox",
+  "generator": "scripts/gen_synthetic_mailbox.py",
+  "spec_version": 1,
+  "seed": 0,
+  "languages": [
+    "en",
+    "el"
+  ],
+  "short_hash_rule": "acct-|fold- + first 4 hex chars of sha256(utf-8 name); a folder's name is '<account name>/<folder path>'",
+  "mid_rule": "sha256(Message-ID without angle brackets, lower-cased), decisions #5; null when the header is missing (x- fallback computed by tern.index)",
+  "message_count": 187,
+  "distinct_messages": 183,
+  "accounts": [
+    {
+      "key": "acct1",
+      "name": "alex@example.com",
+      "type": "imap",
+      "hash": "acct-6db6",
+      "folders": [
+        {
+          "key": "acct1/INBOX",
+          "path": "INBOX",
+          "hash": "fold-b685",
+          "special_use": "inbox",
+          "format": "mbox",
+          "file": "acct1/INBOX.mbox",
+          "count": 47
+        },
+        {
+          "key": "acct1/Sent",
+          "path": "Sent",
+          "hash": "fold-64b8",
+          "special_use": "sent",
+          "format": "mbox",
+          "file": "acct1/Sent.mbox",
+          "count": 6
+        },
+        {
+          "key": "acct1/Invoices",
+          "path": "Invoices",
+          "hash": "fold-2cc0",
+          "special_use": null,
+          "format": "mbox",
+          "file": "acct1/Invoices.mbox",
+          "count": 12
+        },
+        {
+          "key": "acct1/Newsletters",
+          "path": "Newsletters",
+          "hash": "fold-df04",
+          "special_use": null,
+          "format": "mbox",
+          "file": "acct1/Newsletters.mbox",
+          "count": 24
+        },
+        {
+          "key": "acct1/Archive",
+          "path": "Archive",
+          "hash": "fold-69e9",
+          "special_use": "archives",
+          "format": "mbox",
+          "file": "acct1/Archive.mbox",
+          "count": 32
+        }
+      ]
+    },
+    {
+      "key": "acct2",
+      "name": "SENTINEL-ACCOUNT-cd18fc",
+      "type": "imap",
+      "hash": "acct-d808",
+      "folders": [
+        {
+          "key": "acct2/INBOX",
+          "path": "INBOX",
+          "hash": "fold-e263",
+          "special_use": "inbox",
+          "format": "mbox",
+          "file": "acct2/INBOX.mbox",
+          "count": 18
+        },
+        {
+          "key": "acct2/Projects",
+          "path": "Projects",
+          "hash": "fold-7900",
+          "special_use": null,
+          "format": "mbox",
+          "file": "acct2/Projects.mbox",
+          "count": 8
+        },
+        {
+          "key": "acct2/SENTINEL-FOLDER-9fb649",
+          "path": "SENTINEL-FOLDER-9fb649",
+          "hash": "fold-9083",
+          "special_use": null,
+          "format": "mbox",
+          "file": "acct2/SENTINEL-FOLDER-9fb649.mbox",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "key": "acct3",
+      "name": "alexmorgan@example.org",
+      "type": "pop3",
+      "hash": "acct-8a92",
+      "folders": [
+        {
+          "key": "acct3/INBOX",
+          "path": "INBOX",
+          "hash": "fold-f84b",
+          "special_use": "inbox",
+          "format": "mbox",
+          "file": "acct3/INBOX.mbox",
+          "count": 33
+        },
+        {
+          "key": "acct3/Offline",
+          "path": "Offline",
+          "hash": "fold-2c9c",
+          "special_use": null,
+          "format": "maildir",
+          "file": "acct3/Offline",
+          "count": 2
+        }
+      ]
+    }
+  ],
+  "named": {
+    "inv-0042": {
+      "message_id": "<inv-0042@acme.example.com>",
+      "mid": "ca20f5b069f8a8eec269b0e50cbf82cda8896811ab89e1eed85f993b8ebf732e"
+    },
+    "inv-0042-reminder": {
+      "message_id": "<inv-0042-reminder@acme.example.com>",
+      "mid": "e6d2ae082619fcd814c79d1b3628c73bf9c5b4240af87f65a54ab3b33bf3000c"
+    },
+    "inv-0077": {
+      "message_id": "<inv-0077@acme.example.com>",
+      "mid": "7b16c110ce53752d011d6689051ca561c8b4c3b950e933fa45faf490840215ed"
+    },
+    "meeting-thursday-el": {
+      "message_id": "<meeting-thursday.aab2a118@example.org>",
+      "mid": "d989608353164940d83bdcd7cb5d4242290159ecfd02548cde1750891ac41129"
+    }
+  },
+  "sent_recipients": [
+    "jordan@example.com",
+    "maria.k@example.org",
+    "nikos@example.test"
+  ],
+  "thread_hijack": {
+    "key": "thread-hijack",
+    "from": "nikos.papadopoulos@docs-transfer.test",
+    "forged_in_reply_to": "<sent-documents.cda06003@example.com>",
+    "names_sent_message": "sent-documents",
+    "from_in_sent_recipients": false
+  },
+  "cross_folder_duplicates": [
+    {
+      "key": "dup-1",
+      "folders": [
+        "acct2/INBOX",
+        "acct2/Projects"
+      ],
+      "byte_identical": true,
+      "expected_conflicted": false
+    },
+    {
+      "key": "dup-2",
+      "folders": [
+        "acct2/INBOX",
+        "acct2/Projects"
+      ],
+      "byte_identical": true,
+      "expected_conflicted": false
+    }
+  ],
+  "normalization_pair": {
+    "key": "norm-pair",
+    "message_id": "<norm-pair.484c9f22@allotments.example.org>",
+    "expected_conflicted": false,
+    "copies": {
+      "crlf-quoted": {
+        "folder": "acct3/INBOX",
+        "line_endings": "CRLF",
+        "from_quoted": true
+      },
+      "lf-unquoted": {
+        "folder": "acct3/Offline",
+        "line_endings": "LF",
+        "from_quoted": false
+      }
+    },
+    "from_lines_in_body": 2
+  },
+  "adversarial_pair": {
+    "key": "inv-0077",
+    "message_id": "<inv-0077@acme.example.com>",
+    "expected_conflicted": true,
+    "copies": {
+      "genuine": {
+        "folder": "acct1/Invoices",
+        "from": "billing@acme.example.com",
+        "iban": "GR00 0110 1250 0000 0001 2300 695"
+      },
+      "spoof": {
+        "folder": "acct1/INBOX",
+        "from": "billing@acme-payments.example.net",
+        "iban": "GR00 0260 0000 0000 0000 0000 077"
+      }
+    }
+  },
+  "no_message_id": [
+    "noid-scanner",
+    "noid-backup",
+    "noid-shopping-el"
+  ],
+  "injections": [
+    {
+      "key": "inj-direct",
+      "kind": "direct",
+      "canary": "CANARY-INJ-1",
+      "folder": "acct1/INBOX"
+    },
+    {
+      "key": "inj-hidden-html",
+      "kind": "hidden-html",
+      "canary": "CANARY-INJ-2",
+      "folder": "acct1/INBOX"
+    },
+    {
+      "key": "inj-quoted-reply",
+      "kind": "quoted-reply",
+      "canary": "CANARY-INJ-3",
+      "folder": "acct2/INBOX"
+    },
+    {
+      "key": "inj-invite",
+      "kind": "invite",
+      "canary": "CANARY-INJ-4",
+      "folder": "acct1/INBOX"
+    },
+    {
+      "key": "inj-multilingual",
+      "kind": "multilingual",
+      "canary": "CANARY-INJ-5",
+      "folder": "acct3/INBOX"
+    }
+  ],
+  "malformed": {
+    "key": "malformed",
+    "expected_parse_status": [
+      "partial",
+      "failed"
+    ],
+    "defects": [
+      "unterminated quote in From",
+      "boundary param unterminated and unused",
+      "header line without colon",
+      "invalid base64",
+      "no closing boundary"
+    ]
+  },
+  "encodings": [
+    {
+      "key": "enc-2047-utf8",
+      "features": "RFC 2047 UTF-8 B subject and display name; 8bit UTF-8 body"
+    },
+    {
+      "key": "enc-2047-iso88597",
+      "features": "RFC 2047 ISO-8859-7 Q subject; iso-8859-7 8bit body"
+    },
+    {
+      "key": "enc-iso88597-qp",
+      "features": "iso-8859-7 quoted-printable body"
+    },
+    {
+      "key": "enc-cp1252",
+      "features": "windows-1252 quoted-printable body (curly quotes, euro sign, em dash)"
+    },
+    {
+      "key": "enc-base64",
+      "features": "UTF-8 base64 body"
+    },
+    {
+      "key": "enc-mislabelled",
+      "features": "declared charset iso-8859-1, actual bytes UTF-8 (mislabelled)"
+    }
+  ],
+  "sentinels": [
+    {
+      "kind": "account",
+      "value": "SENTINEL-ACCOUNT-cd18fc",
+      "where": "account acct2 name"
+    },
+    {
+      "kind": "folder",
+      "value": "SENTINEL-FOLDER-9fb649",
+      "where": "folder name in acct2"
+    },
+    {
+      "kind": "name",
+      "value": "SENTINEL-NAME-bd1ece",
+      "where": "From display name of sentinel-subject"
+    },
+    {
+      "kind": "subject",
+      "value": "SENTINEL-SUBJECT-13f401",
+      "where": "Subject of sentinel-subject"
+    },
+    {
+      "kind": "body",
+      "value": "SENTINEL-BODY-1ea394",
+      "where": "plain body of sentinel-body"
+    },
+    {
+      "kind": "b64",
+      "value": "SENTINEL-B64-6eb211",
+      "where": "base64-encoded body of sentinel-b64"
+    },
+    {
+      "kind": "2047",
+      "value": "SENTINEL-2047-34dd23",
+      "where": "RFC 2047-encoded Subject of sentinel-2047"
+    }
+  ],
+  "threads": [
+    {
+      "key": "t-inv-0042",
+      "root": "inv-0042",
+      "members": [
+        "inv-0042",
+        "inv-0042-reminder"
+      ]
+    },
+    {
+      "key": "t-documents",
+      "root": "sent-documents",
+      "members": [
+        "sent-documents",
+        "thread-hijack"
+      ]
+    },
+    {
+      "key": "t-meeting",
+      "root": "meeting-thursday-el",
+      "members": [
+        "meeting-thursday-el",
+        "meeting-thursday-el-re"
+      ]
+    },
+    {
+      "key": "t-filler-001",
+      "root": "filler-001-1",
+      "members": [
+        "filler-001-1",
+        "filler-001-2",
+        "filler-001-3"
+      ]
+    },
+    {
+      "key": "t-filler-003",
+      "root": "filler-003-1",
+      "members": [
+        "filler-003-1",
+        "filler-003-2"
+      ]
+    },
+    {
+      "key": "t-filler-004",
+      "root": "filler-004-1",
+      "members": [
+        "filler-004-1",
+        "filler-004-2",
+        "filler-004-3"
+      ]
+    },
+    {
+      "key": "t-filler-005",
+      "root": "filler-005-1",
+      "members": [
+        "filler-005-1",
+        "filler-005-2",
+        "filler-005-3"
+      ]
+    },
+    {
+      "key": "t-filler-006",
+      "root": "filler-006-1",
+      "members": [
+        "filler-006-1",
+        "filler-006-2",
+        "filler-006-3"
+      ]
+    },
+    {
+      "key": "t-filler-008",
+      "root": "filler-008-1",
+      "members": [
+        "filler-008-1",
+        "filler-008-2"
+      ]
+    },
+    {
+      "key": "t-filler-013",
+      "root": "filler-013-1",
+      "members": [
+        "filler-013-1",
+        "filler-013-2",
+        "filler-013-3"
+      ]
+    },
+    {
+      "key": "t-filler-014",
+      "root": "filler-014-1",
+      "members": [
+        "filler-014-1",
+        "filler-014-2"
+      ]
+    },
+    {
+      "key": "t-filler-015",
+      "root": "filler-015-1",
+      "members": [
+        "filler-015-1",
+        "filler-015-2",
+        "filler-015-3"
+      ]
+    },
+    {
+      "key": "t-filler-019",
+      "root": "filler-019-1",
+      "members": [
+        "filler-019-1",
+        "filler-019-2"
+      ]
+    },
+    {
+      "key": "t-filler-020",
+      "root": "filler-020-1",
+      "members": [
+        "filler-020-1",
+        "filler-020-2"
+      ]
+    },
+    {
+      "key": "t-filler-022",
+      "root": "filler-022-1",
+      "members": [
+        "filler-022-1",
+        "filler-022-2"
+      ]
+    },
+    {
+      "key": "t-filler-025",
+      "root": "filler-025-1",
+      "members": [
+        "filler-025-1",
+        "filler-025-2",
+        "filler-025-3"
+      ]
+    },
+    {
+      "key": "t-filler-026",
+      "root": "filler-026-1",
+      "members": [
+        "filler-026-1",
+        "filler-026-2"
+      ]
+    },
+    {
+      "key": "t-filler-027",
+      "root": "filler-027-1",
+      "members": [
+        "filler-027-1",
+        "filler-027-2"
+      ]
+    },
+    {
+      "key": "t-filler-029",
+      "root": "filler-029-1",
+      "members": [
+        "filler-029-1",
+        "filler-029-2"
+      ]
+    },
+    {
+      "key": "t-filler-031",
+      "root": "filler-031-1",
+      "members": [
+        "filler-031-1",
+        "filler-031-2"
+      ]
+    },
+    {
+      "key": "t-filler-032",
+      "root": "filler-032-1",
+      "members": [
+        "filler-032-1",
+        "filler-032-2",
+        "filler-032-3"
+      ]
+    },
+    {
+      "key": "t-filler-033",
+      "root": "filler-033-1",
+      "members": [
+        "filler-033-1",
+        "filler-033-2",
+        "filler-033-3"
+      ]
+    },
+    {
+      "key": "t-filler-034",
+      "root": "filler-034-1",
+      "members": [
+        "filler-034-1",
+        "filler-034-2"
+      ]
+    },
+    {
+      "key": "t-filler-036",
+      "root": "filler-036-1",
+      "members": [
+        "filler-036-1",
+        "filler-036-2",
+        "filler-036-3"
+      ]
+    },
+    {
+      "key": "t-filler-039",
+      "root": "filler-039-1",
+      "members": [
+        "filler-039-1",
+        "filler-039-2"
+      ]
+    },
+    {
+      "key": "t-filler-040",
+      "root": "filler-040-1",
+      "members": [
+        "filler-040-1",
+        "filler-040-2"
+      ]
+    },
+    {
+      "key": "t-filler-043",
+      "root": "filler-043-1",
+      "members": [
+        "filler-043-1",
+        "filler-043-2"
+      ]
+    },
+    {
+      "key": "t-filler-046",
+      "root": "filler-046-1",
+      "members": [
+        "filler-046-1",
+        "filler-046-2"
+      ]
+    },
+    {
+      "key": "t-filler-047",
+      "root": "filler-047-1",
+      "members": [
+        "filler-047-1",
+        "filler-047-2"
+      ]
+    },
+    {
+      "key": "t-filler-048",
+      "root": "filler-048-1",
+      "members": [
+        "filler-048-1",
+        "filler-048-2",
+        "filler-048-3"
+      ]
+    },
+    {
+      "key": "t-filler-051",
+      "root": "filler-051-1",
+      "members": [
+        "filler-051-1",
+        "filler-051-2"
+      ]
+    },
+    {
+      "key": "t-filler-053",
+      "root": "filler-053-1",
+      "members": [
+        "filler-053-1",
+        "filler-053-2",
+        "filler-053-3"
+      ]
+    },
+    {
+      "key": "t-filler-054",
+      "root": "filler-054-1",
+      "members": [
+        "filler-054-1",
+        "filler-054-2"
+      ]
+    },
+    {
+      "key": "t-filler-057",
+      "root": "filler-057-1",
+      "members": [
+        "filler-057-1",
+        "filler-057-2",
+        "filler-057-3"
+      ]
+    },
+    {
+      "key": "t-filler-058",
+      "root": "filler-058-1",
+      "members": [
+        "filler-058-1",
+        "filler-058-2",
+        "filler-058-3"
+      ]
+    },
+    {
+      "key": "t-filler-059",
+      "root": "filler-059-1",
+      "members": [
+        "filler-059-1",
+        "filler-059-2"
+      ]
+    },
+    {
+      "key": "t-filler-060",
+      "root": "filler-060-1",
+      "members": [
+        "filler-060-1",
+        "filler-060-2",
+        "filler-060-3"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "key": "inv-0042",
+      "kind": "invoice",
+      "lang": "en",
+      "message_id": "<inv-0042@acme.example.com>",
+      "mid": "ca20f5b069f8a8eec269b0e50cbf82cda8896811ab89e1eed85f993b8ebf732e",
+      "thread": "t-inv-0042",
+      "copies": [
+        {
+          "folder": "acct1/Invoices",
+          "locator": 0,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "inv-0042-reminder",
+      "kind": "invoice-reminder",
+      "lang": "en",
+      "message_id": "<inv-0042-reminder@acme.example.com>",
+      "mid": "e6d2ae082619fcd814c79d1b3628c73bf9c5b4240af87f65a54ab3b33bf3000c",
+      "thread": "t-inv-0042",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 0,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "inv-0077",
+      "kind": "invoice",
+      "lang": "en",
+      "message_id": "<inv-0077@acme.example.com>",
+      "mid": "7b16c110ce53752d011d6689051ca561c8b4c3b950e933fa45faf490840215ed",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Invoices",
+          "locator": 1,
+          "variant": "genuine"
+        },
+        {
+          "folder": "acct1/INBOX",
+          "locator": 1,
+          "variant": "spoof"
+        }
+      ]
+    },
+    {
+      "key": "invoice-0013",
+      "kind": "invoice",
+      "lang": "en",
+      "message_id": "<inv-0013.8102c0fa@acme.example.com>",
+      "mid": "34e50c9735d58d3a131c036bcd749ea378d0a023b03770845b6f0843018ec27f",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Invoices",
+          "locator": 2,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "invoice-0027",
+      "kind": "invoice",
+      "lang": "en",
+      "message_id": "<inv-0027.af3993a6@northwind.example.net>",
+      "mid": "7c328b1aaf2602a0cd42758703e131f7e9154f3b2455774c0f64f3a0d53e9d58",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Invoices",
+          "locator": 3,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "invoice-0041",
+      "kind": "invoice",
+      "lang": "el",
+      "message_id": "<inv-0041.18f22441@power.example.org>",
+      "mid": "1dfea63cc75168f977a2beb821fb677902780fcb02f5e031022107bd4fb62944",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Invoices",
+          "locator": 4,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "invoice-0047",
+      "kind": "invoice",
+      "lang": "en",
+      "message_id": "<inv-0047.b2a3fa67@acme.example.com>",
+      "mid": "fd3097f9b7b32364ed4d207f2c887bf4aff89159aab74bc6a1b232576d8ce317",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Invoices",
+          "locator": 5,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "invoice-0057",
+      "kind": "invoice",
+      "lang": "en",
+      "message_id": "<inv-0057.34712036@northwind.example.net>",
+      "mid": "e14acecb948818d60e38b7cb8372da7048ff294c8c265f93f49f5b45dee4fc47",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Invoices",
+          "locator": 6,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "invoice-0062",
+      "kind": "invoice",
+      "lang": "el",
+      "message_id": "<inv-0062.3f610d38@power.example.org>",
+      "mid": "5681b38e57ccb2b562ea9fa70ba852983c2f300064af08443b354967443e08ee",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Invoices",
+          "locator": 7,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "invoice-0072",
+      "kind": "invoice",
+      "lang": "en",
+      "message_id": "<inv-0072.13c68bf5@acme.example.com>",
+      "mid": "729f1ce8295baaa9077f5a30755d60907dd1dd3a9242f7bf4808bb8d95e7991a",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Invoices",
+          "locator": 8,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "invoice-0073",
+      "kind": "invoice",
+      "lang": "en",
+      "message_id": "<inv-0073.0fd9bc84@northwind.example.net>",
+      "mid": "e8424062e6cfb8e776aeabf99738deaadad92362b87460ccb057150c6bd2aa1b",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Invoices",
+          "locator": 9,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "invoice-0081",
+      "kind": "invoice",
+      "lang": "el",
+      "message_id": "<inv-0081.b9b49cd2@power.example.org>",
+      "mid": "fba6d597ca111322628885d1ffb9eceee796601d02e77cc03c34a93a1e7e6410",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Invoices",
+          "locator": 10,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "invoice-0084",
+      "kind": "invoice",
+      "lang": "en",
+      "message_id": "<inv-0084.d1cd15e2@acme.example.com>",
+      "mid": "ba40c2c2b28e489faf799a75f44e71b221083e7c3bd80bc7052e0aa4b0846df3",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Invoices",
+          "locator": 11,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "sent-lunch",
+      "kind": "sent",
+      "lang": "en",
+      "message_id": "<sent-lunch.9e1d6240@example.com>",
+      "mid": "493c49d8cacdb51d14bb942c5941b45b27f6559c9035c375ec3e7b6427cbda42",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Sent",
+          "locator": 0,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "sent-documents",
+      "kind": "sent",
+      "lang": "el",
+      "message_id": "<sent-documents.cda06003@example.com>",
+      "mid": "3cb396212cac956c1ed6ca9196651c14f116873eba04793574b1732c5dcc1788",
+      "thread": "t-documents",
+      "copies": [
+        {
+          "folder": "acct1/Sent",
+          "locator": 1,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "sent-trip-photos",
+      "kind": "sent",
+      "lang": "en",
+      "message_id": "<sent-trip-photos.6369853f@example.com>",
+      "mid": "445d4f03b6c673ad4be6073e63a76bca9033bf039fa6b8538e4094b43fd2bfb4",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Sent",
+          "locator": 2,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "sent-keys",
+      "kind": "sent",
+      "lang": "el",
+      "message_id": "<sent-keys.c208e384@example.com>",
+      "mid": "9f05316220e2adb03eb047e64db09ba036842f1d1dcd27bc81e70700cd94b996",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Sent",
+          "locator": 3,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "sent-hike-plan",
+      "kind": "sent",
+      "lang": "en",
+      "message_id": "<sent-hike-plan.b3480116@example.com>",
+      "mid": "f0221349f1d378c6faf22789e6721b3f58d332b41ae0c770ae8d34499837e217",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Sent",
+          "locator": 4,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "sent-thanks-nikos",
+      "kind": "sent",
+      "lang": "el",
+      "message_id": "<sent-thanks-nikos.8ab1fedb@example.com>",
+      "mid": "ad4d33695700592ce2ee242d14138d0075faa6641dd61ec3a229525ce50a2b22",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Sent",
+          "locator": 5,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "thread-hijack",
+      "kind": "thread-hijack",
+      "lang": "el",
+      "message_id": "<hijack.56c90448@docs-transfer.test>",
+      "mid": "25c71e175a465899b7799e9aff1405e9d938e2ed9d1630774acfdec5b1592a4a",
+      "thread": "t-documents",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 2,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "meeting-thursday-el",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<meeting-thursday.aab2a118@example.org>",
+      "mid": "d989608353164940d83bdcd7cb5d4242290159ecfd02548cde1750891ac41129",
+      "thread": "t-meeting",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 0,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "meeting-thursday-el-re",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<meeting-thursday-re.549bc493@example.test>",
+      "mid": "a327a532891a807e8b841f3d7ade6934610c15f753e07c81ec4891bdbb3a2019",
+      "thread": "t-meeting",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 1,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "inj-direct",
+      "kind": "injection",
+      "lang": "en",
+      "message_id": "<inj-direct.f719529c@it-support.test>",
+      "mid": "1d129d5da398c013a94f884044d53dc21a2e507c1613db1100ce25faf6b4303c",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 3,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "inj-hidden-html",
+      "kind": "injection",
+      "lang": "en",
+      "message_id": "<inj-hidden-html.a9d33ffa@deals.example.net>",
+      "mid": "4f209c8db696ec515cd001457a810232b7f3c6175f56ebe001ed9c2649422b97",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 4,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "inj-quoted-reply",
+      "kind": "injection",
+      "lang": "en",
+      "message_id": "<inj-quoted-reply.a45c2226@partner.example.net>",
+      "mid": "923211b72d5d7dfce9372d62003d22eb8deb505cb2413cdde0bbb7fced952445",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 0,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "inj-invite",
+      "kind": "injection",
+      "lang": "en",
+      "message_id": "<inj-invite.71c03c9e@events.example.test>",
+      "mid": "da1da0348f606fffe2f3dd1238c5295eeb6744c46b962c247f6611f3ccdba427",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 5,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "inj-multilingual",
+      "kind": "injection",
+      "lang": "el",
+      "message_id": "<inj-multilingual.e63fc861@example.test>",
+      "mid": "b0f2db917ba17b4931d879bd387eda349629b376a092691903a501c976eb3af4",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 2,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "noid-scanner",
+      "kind": "no-message-id",
+      "lang": "en",
+      "message_id": null,
+      "mid": null,
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 6,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "noid-backup",
+      "kind": "no-message-id",
+      "lang": "en",
+      "message_id": null,
+      "mid": null,
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 0,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "noid-shopping-el",
+      "kind": "no-message-id",
+      "lang": "el",
+      "message_id": null,
+      "mid": null,
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 3,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "dup-1",
+      "kind": "duplicate",
+      "lang": "en",
+      "message_id": "<kestrel-dup-1.3f4cdfaf@studio.example.net>",
+      "mid": "c8b90d2b39f1c1a914eb552c7fd078caae0097aca74be9174be6d19108e69dc2",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 1,
+          "variant": null
+        },
+        {
+          "folder": "acct2/Projects",
+          "locator": 0,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "dup-2",
+      "kind": "duplicate",
+      "lang": "en",
+      "message_id": "<kestrel-dup-2.f670aaa1@studio.example.net>",
+      "mid": "3baafd1ce6e024e977064b9185ffc638fea70fc51669244eabfc438144e4620a",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 2,
+          "variant": null
+        },
+        {
+          "folder": "acct2/Projects",
+          "locator": 1,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "norm-pair",
+      "kind": "normalization-pair",
+      "lang": "en",
+      "message_id": "<norm-pair.484c9f22@allotments.example.org>",
+      "mid": "7cc82082f054057bb8565bca3f28cf1ea89e57553d45edb94e3280f8880cf761",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 4,
+          "variant": "crlf-quoted"
+        },
+        {
+          "folder": "acct3/Offline",
+          "locator": "norm-pair.synthetic",
+          "variant": "lf-unquoted"
+        }
+      ]
+    },
+    {
+      "key": "malformed",
+      "kind": "malformed",
+      "lang": "en",
+      "message_id": "<malformed-0001@example.test>",
+      "mid": "b1e22f54e92f02657759afe0b97d983599289c3cc304a864496a6622b06a2d47",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 7,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "enc-2047-utf8",
+      "kind": "encoding",
+      "lang": "el",
+      "message_id": "<enc-utf8-b.1274190e@example.net>",
+      "mid": "70940e56e224bad27c01bcafa1347687c41ea8b289637c114adcd28e0ab99936",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 5,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "enc-2047-iso88597",
+      "kind": "encoding",
+      "lang": "el",
+      "message_id": "<enc-iso88597.4ebc122d@example.test>",
+      "mid": "0b07c294c842aa09669858dd367c8fcbe053af9910e3fe0675e69aec0543c338",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 6,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "enc-iso88597-qp",
+      "kind": "encoding",
+      "lang": "el",
+      "message_id": "<enc-iso88597-qp.69dfc700@example.test>",
+      "mid": "12690bf6dce58c11084f07b28a332a9cd8ed4cc7f9ee24776c2869b2b8f8c844",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 7,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "enc-cp1252",
+      "kind": "encoding",
+      "lang": "en",
+      "message_id": "<enc-cp1252.598a2f89@example.org>",
+      "mid": "2151dd53a690a1b6e6994a7c1b33d4c22aa60a6524ca1f15446f037a1ba93ab7",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 8,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "enc-base64",
+      "kind": "encoding",
+      "lang": "en",
+      "message_id": "<enc-base64.dcc15479@example.org>",
+      "mid": "7cd02d81321ba1f8d352c51360f12ec4602b6d4e0977682e35f14298f4371c14",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 9,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "enc-mislabelled",
+      "kind": "encoding",
+      "lang": "el",
+      "message_id": "<enc-mislabelled.11fd4f24@example.net>",
+      "mid": "b0d04a3331fa88889e3c5de450665f49d91e45e2772e75b544d340356d446b56",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 8,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "sentinel-subject",
+      "kind": "sentinel",
+      "lang": "en",
+      "message_id": "<sentinel-subject.4a3b6cf3@parcels.example.com>",
+      "mid": "1a7b321e41d421ea9a3e29d5e8334f92a5826b37653fd8b53652e97dd31c862b",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 10,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "sentinel-body",
+      "kind": "sentinel",
+      "lang": "en",
+      "message_id": "<sentinel-body.c9361ceb@example.net>",
+      "mid": "c25020c2ade7c72485c9b493241846c4c645697cfc96f36af095896fe3a8382b",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 11,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "sentinel-b64",
+      "kind": "sentinel",
+      "lang": "en",
+      "message_id": "<sentinel-b64.f80672d9@example.net>",
+      "mid": "056ca5be8e9b613d0d024b6b992fd2b7b6024621469543cecd4fd1ec1cda1cdd",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 12,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "sentinel-2047",
+      "kind": "sentinel",
+      "lang": "el",
+      "message_id": "<sentinel-2047.d23d40ed@example.org>",
+      "mid": "28be1330f62b3847303fdd7122c0f83536e30d807a7bbc316e9f59f2006042a3",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 9,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "invite-dentist",
+      "kind": "invite",
+      "lang": "en",
+      "message_id": "<invite-dentist.d0fa82b2@dental.example.com>",
+      "mid": "699d2165e8204bba5d06ffd63dfbb678f7c66966bbd0700199588eee8fcdcf22",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 13,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "invite-sprint-review",
+      "kind": "invite",
+      "lang": "en",
+      "message_id": "<invite-sprint-review.309b0745@studio.example.net>",
+      "mid": "746eaad0ece69ebdf081151dff2d6b9b00ea6824b3e4c9f699c9e456299021c8",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 3,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "invite-nameday-el",
+      "kind": "invite",
+      "lang": "el",
+      "message_id": "<invite-nameday-el.52395c44@example.test>",
+      "mid": "cd79c96dffde20f9d826b2383a06a25f62342ac97644ef24da58740e0830be74",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 10,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "invite-book-club",
+      "kind": "invite",
+      "lang": "en",
+      "message_id": "<invite-book-club.4d9d4d9b@example.org>",
+      "mid": "772e135ceae3f1473c8993cd95f386b1fa4907ef4894fcc5d4249391803a2a2b",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 14,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-01",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-01.f253834e@weekly.example.net>",
+      "mid": "5cd947e2b7fc2709ef4a9bb879f41e145788e0cbb38dd7d20ca0b18d88dd5861",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 0,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-02",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-02.2f690ee0@weekly.example.net>",
+      "mid": "37cfbdfddd3dafd3915c1c192c9192389ef01b9e231b7d49c0ada8db0a921d08",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 1,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-03",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-03.8038108c@weekly.example.net>",
+      "mid": "357e3d84813d0123d027d91452741153bbfcc7c1fd378bc3b1ea979b84f6c97e",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 2,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-04",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-04.289a3752@weekly.example.net>",
+      "mid": "328322a6cda4ae85577a3f0db1e0b27d3eb30d1717483d99c6517e9e0d7c20b4",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 3,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-05",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-05.b4533cce@weekly.example.net>",
+      "mid": "c98d3bbc2518fe44b5b9b6959061829bb6ee3084f183015f2b8daa9c5d69b4dd",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 4,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-06",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-06.1e94f160@weekly.example.net>",
+      "mid": "dc9f6cb52589384ad3347e19cbfdda5c4cb2dc6f8d1d12af0cabf87ae5f34654",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 5,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-07",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-07.8974963d@weekly.example.net>",
+      "mid": "133fcb4d32ce461e54d913f41732c891c64dcc5f963697550ac61026ec1be184",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 6,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-08",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-08.465ebcdf@weekly.example.net>",
+      "mid": "60590c481e1b62579ca63fd14ac3218f209f5f3026cb0442be573679418fb452",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 7,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-09",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-09.b157929b@weekly.example.net>",
+      "mid": "a8202fc1ca57abee921134647bf7d399baf3990e66cc2b25a727fec959bbb54b",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 8,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-10",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-10.1115b090@weekly.example.net>",
+      "mid": "b907a509eb8a5cf8567f0a9876eb849d848006f0f66c855b0b8731af25cb68cb",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 9,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-11",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-11.aaea8016@weekly.example.net>",
+      "mid": "7096082a46b3bec6562933ef3eca8d8ae3b6facebe3482fbd6df48f754dd1c76",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 10,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-12",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-12.fb71920e@weekly.example.net>",
+      "mid": "6ccf1e188cf94d16e07823f40fa6790fe39b874d2885c4fc95d7b02ffc9397d3",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 11,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-13",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-13.34d6e2dc@weekly.example.net>",
+      "mid": "0f63faae0b9f4aa1b8b01d68e283c8324d3dd384dbfa19d405162ade875994fc",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 12,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-weekly-14",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-weekly-14.69ee8870@weekly.example.net>",
+      "mid": "095e99e888321f9de4356a98882ca8e38f7622cfe5c690758387221235da7883",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 13,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-dimos-01",
+      "kind": "newsletter",
+      "lang": "el",
+      "message_id": "<news-dimos-01.13c83b79@dimos.example.org>",
+      "mid": "67d017848deac314153475edd5345ba6f5523b7fdb724bec944da081d13c50b1",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 14,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-dimos-02",
+      "kind": "newsletter",
+      "lang": "el",
+      "message_id": "<news-dimos-02.0ab04c45@dimos.example.org>",
+      "mid": "8b80dd77fa07ecb04d5edc37116cd92ac6c77f9a4526380f20d93a4fa079d713",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 15,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-dimos-03",
+      "kind": "newsletter",
+      "lang": "el",
+      "message_id": "<news-dimos-03.f30bfe90@dimos.example.org>",
+      "mid": "96a5f9586e149c90275f1d833656e9ba067204e40d5575f11bd541895f3cf16c",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 16,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-dimos-04",
+      "kind": "newsletter",
+      "lang": "el",
+      "message_id": "<news-dimos-04.a9c161a7@dimos.example.org>",
+      "mid": "05757279247b408bfdad612cf066025e7b6a53bd87fd233b3f5d05cb6fe5f61c",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 17,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-dimos-05",
+      "kind": "newsletter",
+      "lang": "el",
+      "message_id": "<news-dimos-05.4b0f1071@dimos.example.org>",
+      "mid": "ead83a2b97a94d62362fdaae8dbfc1f05cf9aa3137ff1bc222b6081672d50c82",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 18,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-dimos-06",
+      "kind": "newsletter",
+      "lang": "el",
+      "message_id": "<news-dimos-06.4b95adc0@dimos.example.org>",
+      "mid": "ff3526b8751b18b9e568e6021232865f54b7266906661144e113c4dc4f48c4ce",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 19,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-northwind-01",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-northwind-01.42a75705@northwind.example.net>",
+      "mid": "6645e5926412b213a15ba79658fe7f5a8561ef9ed999e85f367fc2de0a9d6d33",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 20,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-northwind-02",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-northwind-02.ac01f2b9@northwind.example.net>",
+      "mid": "a44b2ad98dbbfe8d3383f58d144e5993589592dda88adebec956adda19e91078",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 21,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-northwind-03",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-northwind-03.99f181ec@northwind.example.net>",
+      "mid": "4918c00a53fa60cdbd3cf5df1cfcaef0ce30049f9a6d5ecab3217bf81416495c",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 22,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "news-northwind-04",
+      "kind": "newsletter",
+      "lang": "en",
+      "message_id": "<news-northwind-04.ac863a7b@northwind.example.net>",
+      "mid": "b0319b69bc733f4bb6eded49b10f56a8f1f17fd36114e86083cdb8d2b34970c6",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Newsletters",
+          "locator": 23,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-001-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-001-1.1e4a0f86@example.test>",
+      "mid": "9f1a91ce2c3b04488dac36b18ed194b32fdc3acf5bf600f2deb4d13432c8cc82",
+      "thread": "t-filler-001",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 15,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-001-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-001-2.55253cd8@example.net>",
+      "mid": "ce4ae5bd59e3a3c1c5438257513f9ead8f649ea6b381a1b50a850d4de7d4defe",
+      "thread": "t-filler-001",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 16,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-001-3",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-001-3.8aa6d404@example.com>",
+      "mid": "8147bdb4a1c14c24efda29d7b81b68eb9eb0f75354fc9d1e4c654d1345e00ac8",
+      "thread": "t-filler-001",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 17,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-002-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-002-1.70b56bf0@studio.example.net>",
+      "mid": "9864162393c6000ed18472ffd10f0de02542b827994367d60c8a2e61d6a35c20",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 18,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-003-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-003-1.7e365e2d@example.com>",
+      "mid": "3178b41f4bb072b5df58e0568902049caea657047a4661bf28058ce8074ff623",
+      "thread": "t-filler-003",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 19,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-003-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-003-2.a290f086@studio.example.net>",
+      "mid": "e98197deaba0c28f6f25d7aa688179e9a0d109d11de1f58149babe3991eeb2f7",
+      "thread": "t-filler-003",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 20,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-004-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-004-1.48a0cf41@example.com>",
+      "mid": "b78d70e3ae25a5b95cee37a32b0461145835815566a296c3f36e58b14c46c94d",
+      "thread": "t-filler-004",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 21,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-004-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-004-2.b0263f1a@studio.example.net>",
+      "mid": "fad4f2b4dc0f5dd566e2ed2ce0f6999f518e2ee9dac47680cb4509c700204ef5",
+      "thread": "t-filler-004",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 22,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-004-3",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-004-3.8d44c915@example.test>",
+      "mid": "e209952961b1614b894a21aee561eff6d5c5323b663d5b4d81a059b6cea896b0",
+      "thread": "t-filler-004",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 23,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-005-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-005-1.b225868a@studio.example.net>",
+      "mid": "9f80ec20d1c82d997b38ec0183264d86d3256c8e2514acee66e47ab35f74aa26",
+      "thread": "t-filler-005",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 24,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-005-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-005-2.e4e4151a@example.com>",
+      "mid": "343458bba739b47e1290b239a81940ea58a2b323f188ca62854ddf4ab5505525",
+      "thread": "t-filler-005",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 25,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-005-3",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-005-3.7e5a4f12@example.test>",
+      "mid": "dd6195695b9a5ba2879f4cd03439e8d975e654f17e1d7afddd87b94479576319",
+      "thread": "t-filler-005",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 26,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-006-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-006-1.cb34a054@example.com>",
+      "mid": "fdf6761dbe0ccf9f46d35eca8d661686f9aa175781dd9278cf318542c63aade0",
+      "thread": "t-filler-006",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 27,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-006-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-006-2.1d19c15b@studio.example.net>",
+      "mid": "5786f0d79d50b1eb9b153ebf82ea0faf2928975d865916a9046b7670cf117f0a",
+      "thread": "t-filler-006",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 28,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-006-3",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-006-3.b89ed50e@example.test>",
+      "mid": "46ed4a5a3ddea835809cb5413a6515e8512d913a8b038ecfed5281790c59e18f",
+      "thread": "t-filler-006",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 29,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-007-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-007-1.05c0aeff@example.com>",
+      "mid": "3dc74c21406f56c01790fa2f83251b9e99e89b9a5344222f49225fed3856b05d",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 30,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-008-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-008-1.2ab3f149@example.com>",
+      "mid": "ebe52214cdf6bdd81f3b3de57255734d042874cfa6c76bbedaf2f782c2bc6a7e",
+      "thread": "t-filler-008",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 31,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-008-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-008-2.545557a0@studio.example.net>",
+      "mid": "e871ebc18339eaee397eb8059fcb64e9717135f86c567d13eb9b9bd8f02cb3df",
+      "thread": "t-filler-008",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 32,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-009-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-009-1.a57b75de@example.net>",
+      "mid": "23f6589e7e7196bb46a6f62d5d520eccad56edd35c58b0088b7d19660341a363",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 33,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-010-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-010-1.0c5400a0@example.net>",
+      "mid": "d7bc087102739e55bd8ddd94b00e7352a0dd92cd58742877e55fadc13b0042a2",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 34,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-011-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-011-1.0dda74b6@example.org>",
+      "mid": "9559865bb776097a1916ded5640de69a47c8cb406f5dba9a0e0bb279173aa722",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 35,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-012-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-012-1.7fc7c7fc@example.test>",
+      "mid": "178c51f86d4c8acf4c47e4dd382209b7fee5190779418d8fd3fa687cc38ca883",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 36,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-013-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-013-1.1ac314c0@example.org>",
+      "mid": "e8777e58da3fbab92a71d80f7460c646e3e6ed6652c60e34c7bd14cb6f2c2f80",
+      "thread": "t-filler-013",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 37,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-013-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-013-2.e55afd59@example.test>",
+      "mid": "cda5f5654d6f986c7c5c91c44b51983e9865a92a70b68f2b039788b7ffb31342",
+      "thread": "t-filler-013",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 38,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-013-3",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-013-3.f1685a9c@example.net>",
+      "mid": "43fbbd232dea56371bad954138a9f60d904f69bae248e2d5e04ae9174fc91e05",
+      "thread": "t-filler-013",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 39,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-014-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-014-1.43b50dce@example.test>",
+      "mid": "884de351df98418ce097ed891f224f6efdc37debb0d26c859af978fd51db3b82",
+      "thread": "t-filler-014",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 40,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-014-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-014-2.45465704@example.org>",
+      "mid": "cddc23f2641d5dba130267fc87f423baa7ef664b512fe2c052d5eb51375be493",
+      "thread": "t-filler-014",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 41,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-015-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-015-1.aa4c97cb@example.org>",
+      "mid": "9f30f5b22a1a438f3f55fc2886e3adef8088e6a59341c4e2f77c3683310f6223",
+      "thread": "t-filler-015",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 42,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-015-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-015-2.34403638@example.test>",
+      "mid": "549162203e198647d4c0cd76ad6d7ef5e56e854b4509b83ff2da44007481f574",
+      "thread": "t-filler-015",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 43,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-015-3",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-015-3.3bfa3eb8@example.test>",
+      "mid": "f9ad9bbb999cce62eaadc0fd81103e266b5b5a13da8a2cf030147aa51cd93431",
+      "thread": "t-filler-015",
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 44,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-016-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-016-1.05d6ec80@example.net>",
+      "mid": "f33513933e495fc5397b5a5b40e49a849a66bf14ccd38838f5f8f6255965d0f6",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 45,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-017-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-017-1.a7e1f38f@example.net>",
+      "mid": "5d2478a98f4fbf20219c3d8ac8366fc0ac1f7d8ee59094d31cb14a86235fefe3",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/INBOX",
+          "locator": 46,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-018-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-018-1.4e22fcd2@example.com>",
+      "mid": "f7142cdf32e383a0249814e30886cb14921ec569d7e9a108b6a2e18dcd046b9b",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 1,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-019-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-019-1.4601cf3f@example.com>",
+      "mid": "304f63d8a6315ce4e47256172654594282d5db9412965a266791317f7f67cea8",
+      "thread": "t-filler-019",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 2,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-019-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-019-2.077f9870@example.net>",
+      "mid": "8617d550c39efd9672982ba2cfb86d50740907c97565cab602369ff50297e969",
+      "thread": "t-filler-019",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 3,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-020-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-020-1.bc4796fb@studio.example.net>",
+      "mid": "eca0a7ddf07d54c1f33f54888b7bda950df45a4fd102a76445d979e93dbc7b3d",
+      "thread": "t-filler-020",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 4,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-020-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-020-2.cbf7bbd8@example.test>",
+      "mid": "7f6533e7c59dbd7fd41a3b4969a119120a6a986b8d5654fcf99922bc4c9b9692",
+      "thread": "t-filler-020",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 5,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-021-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-021-1.3e4b75af@example.test>",
+      "mid": "069cedf0baff89b570f4e8666b1d43e4a92cce7553f1fced5635071589b2b7a8",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 6,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-022-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-022-1.7c9f7a02@studio.example.net>",
+      "mid": "af412381372d4b67a906c8934a628955f6c145617c358ac0c97d55246527b04c",
+      "thread": "t-filler-022",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 7,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-022-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-022-2.11d286a5@example.test>",
+      "mid": "b02262cefa6fe68aeee9a9ae70e1dbfb461db55987d75c3bf7725a4be427e805",
+      "thread": "t-filler-022",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 8,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-023-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-023-1.0c04362e@example.net>",
+      "mid": "bc09302e8b53a633ac46ad176cebe66d4fdb868b08ad2d27e9ca07e057bd76c6",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 9,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-024-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-024-1.77dcf0d6@studio.example.net>",
+      "mid": "daf5d069845c352f35e115c48a17bb7be4bf7b51d9e3d159fb5899f90561361a",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 10,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-025-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-025-1.42833804@example.com>",
+      "mid": "87d9f84f03507a77f19de899787a659bbffa99054623c1b71bc0de75cc9f2eb0",
+      "thread": "t-filler-025",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 11,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-025-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-025-2.a6d33f3e@example.org>",
+      "mid": "23e7c5e1cef508ce1225a8420292fad239f327baa58f2eb3288846fa3d82aeef",
+      "thread": "t-filler-025",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 12,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-025-3",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-025-3.4d8c2a7e@studio.example.net>",
+      "mid": "f5ffa05f11a9688a1c6308816e08d66f7d89a474c6cba5a4d1aa751591675807",
+      "thread": "t-filler-025",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 13,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-026-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-026-1.ce7d78ff@example.org>",
+      "mid": "d5ef4dceca4fc660240e1e8ba29f5a538d3d2895f61d5f4a13270b6315602915",
+      "thread": "t-filler-026",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 14,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-026-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-026-2.bf426931@example.com>",
+      "mid": "8bc3f053535d2201de0eab4341c9bc6230902fc7c5681876209dc13ead4b84b6",
+      "thread": "t-filler-026",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 15,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-027-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-027-1.f65c1a6a@example.test>",
+      "mid": "291838e6f50b8dd09e06bf3573d380c965023ae64861e57a670e1d01bd135762",
+      "thread": "t-filler-027",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 16,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-027-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-027-2.d4f6e17f@example.net>",
+      "mid": "92029ba7cee4cc3ab9c5bf1248a34d7562431328af8cdccf7614d9dd92e8fa4a",
+      "thread": "t-filler-027",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 17,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-028-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-028-1.7e73d9af@example.com>",
+      "mid": "5b52e9f636dab25a3fa9307066d12b5d3410ac595dc1e174ec18f9519657b59a",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 18,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-029-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-029-1.24734ce6@example.test>",
+      "mid": "31100f6b5a77e5c6c31d5baabea5e58eb8a1193a471083848b215c23f6beb7d5",
+      "thread": "t-filler-029",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 19,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-029-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-029-2.dd604f9c@example.org>",
+      "mid": "53ce1ca26a621839fb997b06ebc5a5bbbcf97d6a768962e2994f0de98bd5f839",
+      "thread": "t-filler-029",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 20,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-030-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-030-1.92070b4e@example.test>",
+      "mid": "1616b1180113d5ade54fa1b9c42f95b0f0ff1af2f214d32ac233a7b9339dad88",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 21,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-031-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-031-1.8214af2f@example.test>",
+      "mid": "d158f498f24fced81ccf6f12c79bbfc4357f36d4b8f4cbdfddfa5fd072dae313",
+      "thread": "t-filler-031",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 22,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-031-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-031-2.d4403d71@example.org>",
+      "mid": "af48f2e1ec12a00d949d7baedacd23f963691c7be2f8bc7b4fd92bcb1688f984",
+      "thread": "t-filler-031",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 23,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-032-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-032-1.5f08a4b3@example.test>",
+      "mid": "8bd9a962f2be9265e3cfe39ccf596c7b1909308f528e923a14ae8c2991984cd3",
+      "thread": "t-filler-032",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 24,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-032-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-032-2.24f17b36@example.org>",
+      "mid": "c4c2318dd28b83a733adb34dd5959c9fea4188d5e335de092d6ec5ecf42638df",
+      "thread": "t-filler-032",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 25,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-032-3",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-032-3.b58b66ea@example.net>",
+      "mid": "2b6fc4782d20f5ff45013d6b0ba74b00799e588196baaf6ff2b76aa937c366cf",
+      "thread": "t-filler-032",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 26,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-033-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-033-1.12093586@example.org>",
+      "mid": "798d0bd86c898ac0dccd6fa9ccc367a9249e0f05ce8eea883127cdbf4646b3cd",
+      "thread": "t-filler-033",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 27,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-033-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-033-2.32ea597d@example.net>",
+      "mid": "b81c5e6a5d0f112d3e1076dc9b6da7ebaa4a323f140312d45e3f6f0906d64a26",
+      "thread": "t-filler-033",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 28,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-033-3",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-033-3.82aa9174@example.test>",
+      "mid": "26de3e2712ee57c3a561a315bd0dc1554035c6e07e54e66c1c14152e8409f0fa",
+      "thread": "t-filler-033",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 29,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-034-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-034-1.3db517fc@example.org>",
+      "mid": "09ff863f8811d4f51f5e36bb6138806b445d0a0353421ffcc4b7d1b8033d2f4d",
+      "thread": "t-filler-034",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 30,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-034-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-034-2.54e0bd37@example.test>",
+      "mid": "9d1f8ff1f45977fbbb7248bd5aa8cf3606ca687c194464ff9d30ff4e2e68924c",
+      "thread": "t-filler-034",
+      "copies": [
+        {
+          "folder": "acct1/Archive",
+          "locator": 31,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-035-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-035-1.b6747945@example.org>",
+      "mid": "d030884bc72cc311bf280fd0696e0d1c9079d1efd04961c3c62863d70906abc1",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 4,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-036-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-036-1.5790e61d@example.net>",
+      "mid": "6e23e0e4c86d5ab161a7d7ea9068594a5d170422d1c12733864e51beed159c89",
+      "thread": "t-filler-036",
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 5,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-036-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-036-2.6cf34202@example.org>",
+      "mid": "b7e1cdcbd213637ab5464ca8ea4b0d430fb5729bad90d0210cbc7fb597856ae1",
+      "thread": "t-filler-036",
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 6,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-036-3",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-036-3.e8dbc825@studio.example.net>",
+      "mid": "2db871a8d0b778ff919184088d61411ad4bae3159e3bc4fecce886c29fcbd17e",
+      "thread": "t-filler-036",
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 7,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-037-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-037-1.7e4904bb@example.org>",
+      "mid": "f86575044caa3318d8159a440f32316b47ff0843f76d938c5f6609c8843686e8",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 8,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-038-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-038-1.6caf9e4f@example.com>",
+      "mid": "4a49fbf4d5da1b76429a6ce2a5ef50f6691440479e4b2806046b336c067fcb65",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 9,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-039-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-039-1.976d6854@studio.example.net>",
+      "mid": "2eac92a7da9479429e863e08f4e6a86103d009bca53db0d52e2992ff6186138a",
+      "thread": "t-filler-039",
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 10,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-039-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-039-2.a8d9e168@example.test>",
+      "mid": "69259226e45085c78b2c7839ef07e7d2f8c9c4a184f89010678b2fc5874d9abc",
+      "thread": "t-filler-039",
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 11,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-040-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-040-1.5b800059@example.com>",
+      "mid": "dd9fd88c99a37a10e9ce9ca8950481942fb02b26dc6954627ad4e4fd738e9bf5",
+      "thread": "t-filler-040",
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 12,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-040-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-040-2.bb2d3050@example.net>",
+      "mid": "2faa62938fdabd110a4940557eca11c68bdbcb34e77fa0d8ecdfa25e934e7242",
+      "thread": "t-filler-040",
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 13,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-041-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-041-1.5f4d701d@example.com>",
+      "mid": "ef3cd8a53888153906f0774431ce3d8cc19c38b9189de40878bf8cfec5f81922",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 14,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-042-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-042-1.a61a4a8f@example.test>",
+      "mid": "28bc982b79ee02fe6d195af32866f94e2ee3ad72f0cc0ea346e743bf2f20d249",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 15,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-043-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-043-1.8ced5d43@example.net>",
+      "mid": "3fac9d7e277ab6b34c51b8e94d361f2f711fce8e8d2f6b5cc128264605d55805",
+      "thread": "t-filler-043",
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 16,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-043-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-043-2.93d883b2@example.com>",
+      "mid": "47ce029bc63ae9e937549bbf40d91f2a5519d6706745a61f991f362710fdf86d",
+      "thread": "t-filler-043",
+      "copies": [
+        {
+          "folder": "acct2/INBOX",
+          "locator": 17,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-044-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-044-1.f0a42c71@example.test>",
+      "mid": "f230bd51943ab962d2cd42fefe1f3b5bdd6015b3bb37305f46c7d700a8691b55",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct2/Projects",
+          "locator": 2,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-045-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-045-1.dc1e4465@studio.example.net>",
+      "mid": "1960dfeee7f7ab18cc76f2744988c8f1de414b9cd5642fe55f007ae100b22526",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct2/Projects",
+          "locator": 3,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-046-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-046-1.12094443@example.net>",
+      "mid": "42856234be1d828fd1178ebf2e3172976887cb1448e2f9ad71c2cd24208e5faa",
+      "thread": "t-filler-046",
+      "copies": [
+        {
+          "folder": "acct2/Projects",
+          "locator": 4,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-046-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-046-2.a22b68ea@example.test>",
+      "mid": "d7c32695973361937934bcb8d8c0f7514e55cba8e3fa3b5649d5ffab1c9a753c",
+      "thread": "t-filler-046",
+      "copies": [
+        {
+          "folder": "acct2/Projects",
+          "locator": 5,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-047-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-047-1.fd274ca4@example.test>",
+      "mid": "590e112f599fbdec8ceaebf9786cdd74e0ff80cd569b67fcb6d72e9bf897b2a8",
+      "thread": "t-filler-047",
+      "copies": [
+        {
+          "folder": "acct2/Projects",
+          "locator": 6,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-047-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-047-2.c3289bfc@example.org>",
+      "mid": "ae4e9f44fae4a1d1a6250a19c9196a3f98803542e10aff1af7dc811f7be3c996",
+      "thread": "t-filler-047",
+      "copies": [
+        {
+          "folder": "acct2/Projects",
+          "locator": 7,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-048-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-048-1.ba072f3b@example.com>",
+      "mid": "364f1824f87d26f378177f4437d60db6dfacc78d5d64346701526c2bb40f66e1",
+      "thread": "t-filler-048",
+      "copies": [
+        {
+          "folder": "acct2/SENTINEL-FOLDER-9fb649",
+          "locator": 0,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-048-2",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-048-2.031b1b5a@example.net>",
+      "mid": "ac2fe0c0f070d97d74e80d11fb41a92d5370bae73aff9d94db9db2457f00de1a",
+      "thread": "t-filler-048",
+      "copies": [
+        {
+          "folder": "acct2/SENTINEL-FOLDER-9fb649",
+          "locator": 1,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-048-3",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-048-3.07fb51f5@example.com>",
+      "mid": "b905ae3818b4f962b11a872147f1a4082bb6a99a58e83e5fcadf3eb4952f042a",
+      "thread": "t-filler-048",
+      "copies": [
+        {
+          "folder": "acct2/SENTINEL-FOLDER-9fb649",
+          "locator": 2,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-049-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-049-1.5eaad4dc@example.com>",
+      "mid": "70f1cdccff7b254677c2df515b712dbdb7731e87712203fc3ae19cd434666260",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct2/SENTINEL-FOLDER-9fb649",
+          "locator": 3,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-050-1",
+      "kind": "thread",
+      "lang": "en",
+      "message_id": "<msg-050-1.be7a4a74@example.com>",
+      "mid": "d92690af0f380a70fe54b501e9a9fd8eaa569e4b43c59c7e9a6ca7cac63581a2",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct2/SENTINEL-FOLDER-9fb649",
+          "locator": 4,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-051-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-051-1.72f69c86@example.test>",
+      "mid": "e038fbe986e3c8303033d7715bcc685e4a965e57130c0f2393ec058600f8b052",
+      "thread": "t-filler-051",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 11,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-051-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-051-2.665e289f@example.net>",
+      "mid": "f3bca9b3e86759d5511c9d16420f1839818938dbbd75b002c8d6ef16b58367ae",
+      "thread": "t-filler-051",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 12,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-052-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-052-1.58e9dfb7@example.org>",
+      "mid": "4751f3993f1a0d6b5b04a602a7c444e3373a81dc46bdc47ed58de2358e9e5252",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 13,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-053-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-053-1.701392c4@example.net>",
+      "mid": "48940ac7cea9edd8358b93a5334a1fc658ce61b8e66c9ca710b5f6ad443496e6",
+      "thread": "t-filler-053",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 14,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-053-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-053-2.4478f948@example.org>",
+      "mid": "d7fe7318e0b25ee0dec47903a0aa0d6d11e769557f65ef2d4ab945ba54d06287",
+      "thread": "t-filler-053",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 15,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-053-3",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-053-3.560bf482@example.test>",
+      "mid": "195aaf45fbfb061dbea216a7f336cd90b4cf5491adbda332458cb46b20b77a35",
+      "thread": "t-filler-053",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 16,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-054-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-054-1.1a75eae7@example.test>",
+      "mid": "5912a3ed579b5865e68eab76dbe6fbeaaabc134325311c8c5bc70e1a6250c477",
+      "thread": "t-filler-054",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 17,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-054-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-054-2.8b969c25@example.net>",
+      "mid": "b2d7089f52dd937e30da302701fcfb2b1b3d6a8eb80957333ae49d3df38af028",
+      "thread": "t-filler-054",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 18,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-055-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-055-1.d86528ea@example.test>",
+      "mid": "24640bee6ab90fffc033de4d2d171ec50b3418f5a37ab958203548f7761de892",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 19,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-056-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-056-1.19ed6e6c@example.net>",
+      "mid": "12e11b9e7865aca00151310a0d658dbfc656cf062a5dfba72ef55d32bc4f7d1c",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 20,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-057-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-057-1.773cd266@example.test>",
+      "mid": "c5b60f9d81a4ed7e813196ca09c8705a7c7094539eff71f9cdf32ddd34ae5acf",
+      "thread": "t-filler-057",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 21,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-057-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-057-2.6dc8f0bb@example.test>",
+      "mid": "c6aa76e9086b6706bf7c9d39322a86ccbbdddc18f971a6720d1975d4d4c53597",
+      "thread": "t-filler-057",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 22,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-057-3",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-057-3.6047ef28@example.org>",
+      "mid": "7cb2f32fe3f8d5f06851692b00b17d273d1da3fb432fc348615bb85eb2cfc205",
+      "thread": "t-filler-057",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 23,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-058-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-058-1.74d70f94@example.org>",
+      "mid": "4ee560b166087fca2f15044ec70135c609f80892edd40fd304999060dc2e1145",
+      "thread": "t-filler-058",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 24,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-058-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-058-2.a2b669dc@example.test>",
+      "mid": "9f2a46f983b1061ef04f4a1f028b4d8c4115314fca1512b9394a14ffe6dc0b91",
+      "thread": "t-filler-058",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 25,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-058-3",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-058-3.946fb44d@example.test>",
+      "mid": "926081b3c7ff0c312f80ab91256a6ebf52b8cbb5927dba86a87ea22bc67fee52",
+      "thread": "t-filler-058",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 26,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-059-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-059-1.f2b33f71@example.test>",
+      "mid": "bc60fe709d9f605fa06eb87be072587efb59cee9ff79b1ebdfc08a3daad01884",
+      "thread": "t-filler-059",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 27,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-059-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-059-2.88c5735f@example.org>",
+      "mid": "eed5f9cf1817547d7bf34bcb86fcc0f597f444e01ff84e70a5d18b0dd3353f9f",
+      "thread": "t-filler-059",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 28,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-060-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-060-1.838e8d12@example.net>",
+      "mid": "b95838dfbee6386594e1548d316805e72ecb2bf5f0032d4a56eecbea854c10b1",
+      "thread": "t-filler-060",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 29,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-060-2",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-060-2.dc097624@example.test>",
+      "mid": "0ec36937fef862b10e0cc1ea50f9f3832fdfcc189dabc30ec3edb67888acab30",
+      "thread": "t-filler-060",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 30,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-060-3",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-060-3.d4ac693e@example.org>",
+      "mid": "91b61f8f0c4ce61bf41d16b2f8777f86c15aeeaccc51adf2e3596f1b9ca145b8",
+      "thread": "t-filler-060",
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 31,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "filler-061-1",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<msg-061-1.e0ce19de@example.org>",
+      "mid": "356ee1828c785e5705b1ef61a1505191dd4c64de030ce8575b7d9b54d3b9e65b",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/INBOX",
+          "locator": 32,
+          "variant": null
+        }
+      ]
+    },
+    {
+      "key": "offline-new",
+      "kind": "thread",
+      "lang": "el",
+      "message_id": "<offline-new.83c86ff8@example.org>",
+      "mid": "c7e8e6ce68f756a3171d58428c6e8b50f6283679b81aa6738b75276968a7da13",
+      "thread": null,
+      "copies": [
+        {
+          "folder": "acct3/Offline",
+          "locator": "offline-new.synthetic",
+          "variant": null
+        }
+      ]
+    }
+  ],
+  "large": {
+    "committed": false,
+    "how": "scripts/gen_synthetic_mailbox.py --large <tmp dir> (at test time)"
+  }
+}

@@ -1,0 +1,25 @@
+# toolcalls-v1 eval config (plan 08a step 6, M25). The runner is plan 09's (`src/tern/eval/toolcalls.py`):
+#   make exp NAME=toolcalls-baseline CONFIG=configs/eval/toolcalls.toml
+# Plan 09 may add runner keys; the values below do not change (tests/agent/test_toolcalls_set.py pins them).
+# A different set, model or setting is a new config, never an edit of these values.
+
+[eval_set]
+name = "toolcalls"
+version = "1"
+path = "evals/synthetic/toolcalls-v1.jsonl"
+# Byte-for-byte copy of spikes/s3/tasks.jsonl: the `s3-tasks` v1 hash of the S3 runs (A12).
+sha256 = "847128a8bbffe8689a1558493fc7e59d21588e077bad46c338dfd69cd0498b28"
+frozen_from = "s3-tasks v1"
+
+[run]
+temperature = 0.0
+seed = 0
+repeats = 3
+timeout_s = 120
+max_tokens = 4096
+system_prompt = "src/tern/agent/prompts/system.md"
+
+[model]
+# The S3-adopted default (decisions #15).
+id = "ternary-bonsai-2-27b"
+context_length = 32768

@@ -1,0 +1,8 @@
+{
+  "subject": "Spring sale: 20% off",
+  "from_addr": "promo@deals.example.net",
+  "main_text": "Spring sale: 20% off garden furniture this week only.",
+  "quoted_text": "",
+  "parse_status": "ok",
+  "attachments": []
+}

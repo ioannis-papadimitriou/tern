@@ -1,0 +1,8 @@
+{
+  "subject": "Café booking for Friday",
+  "from_addr": "taylor.b@example.org",
+  "main_text": "I booked the “corner table” at the café — it is €12 per person, which seems fair.",
+  "quoted_text": "",
+  "parse_status": "ok",
+  "attachments": []
+}

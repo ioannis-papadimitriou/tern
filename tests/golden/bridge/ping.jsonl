@@ -1,0 +1,9 @@
+{"transcript":"ping","client":"extension","description":"bridge.ping in both directions: the daemon pings the extension (daemon ids count from 1 on its own side), then the extension pings the daemon."}
+{"from":"client","msg":{"jsonrpc":"2.0","id":1,"method":"hello","params":{"protocol":"tern-bridge/1","minor":0,"role":"extension","version":"0.1.0","capabilities":[],"profile_id":"6f1c2b0e-8a4d-4c3e-9b2a-1d5e7f9a0b3c"}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":1,"result":{"protocol":"tern-bridge/1","minor":0,"role":"daemon","version":"0.0.0-golden","capabilities":[]}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":2,"method":"approvals.pending","params":{}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":2,"result":[]}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":1,"method":"bridge.ping","params":{}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":1,"result":{}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":3,"method":"bridge.ping","params":{}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":3,"result":{}}}

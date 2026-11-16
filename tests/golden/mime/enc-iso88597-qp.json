@@ -1,0 +1,8 @@
+{
+  "subject": "Ανακοίνωση πολυκατοικίας",
+  "from_addr": "giorgos@example.test",
+  "main_text": "Η κοινή συνέλευση θα γίνει στην είσοδο της πολυκατοικίας.",
+  "quoted_text": "",
+  "parse_status": "ok",
+  "attachments": []
+}

@@ -1,0 +1,343 @@
+{
+  "description": "Citation grammar cases shared by extension/test/citations.test.ts and tests/agent/test_citation_grammar_parity.py (plan 08b step 4, A8). Synthetic mids only. `whitespace` lists every code point Python's str.isspace accepts; `mids` is per occurrence, in order.",
+  "max_ws": 8,
+  "removed_marker": "[citation removed]",
+  "whitespace": [
+    9, 10, 11, 12, 13, 28, 29, 30, 31, 32, 133, 160, 5760, 8192, 8193, 8194, 8195, 8196, 8197, 8198,
+    8199, 8200, 8201, 8202, 8232, 8233, 8239, 8287, 12288
+  ],
+  "cases": [
+    {
+      "name": "square brackets",
+      "text": "See [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa].",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "lenticular brackets",
+      "text": "See \u3010aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u3011.",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "prefix with spaces",
+      "text": "[ mid: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef ]",
+      "mids": ["0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"]
+    },
+    {
+      "name": "prefix without spaces",
+      "text": "[mid:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef]",
+      "mids": ["0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"]
+    },
+    {
+      "name": "x- mid",
+      "text": "[x-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb]",
+      "mids": ["x-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"]
+    },
+    {
+      "name": "x- mid after prefix",
+      "text": "\u3010mid: x-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\u3011",
+      "mids": ["x-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"]
+    },
+    {
+      "name": "two adjacent citations",
+      "text": "[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa][0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef]",
+      "mids": [
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+      ]
+    },
+    {
+      "name": "per occurrence, in order",
+      "text": "[0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef] then [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa] and [0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef] again",
+      "mids": [
+        "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+      ]
+    },
+    {
+      "name": "nested opener: the inner pair is the citation",
+      "text": "[[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "opener inside a dead span starts a new one",
+      "text": "[mid [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "8 spaces after the opener",
+      "text": "[        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "9 spaces after the opener: not a citation",
+      "text": "[         aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": []
+    },
+    {
+      "name": "8 spaces after mid:",
+      "text": "[mid:        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "9 spaces after mid: is not a citation",
+      "text": "[mid:         aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": []
+    },
+    {
+      "name": "8 spaces before the closer",
+      "text": "[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa        ]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "9 spaces before the closer: not a citation",
+      "text": "[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa         ]",
+      "mids": []
+    },
+    {
+      "name": "8 in each place",
+      "text": "[        mid:        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa        ]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "newlines and tabs are whitespace",
+      "text": "[\n\tmid:\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "mixed brackets [..\u3011 not a citation",
+      "text": "[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u3011",
+      "mids": []
+    },
+    {
+      "name": "mixed brackets \u3010..] not a citation",
+      "text": "\u3010aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": []
+    },
+    {
+      "name": "upper-case hex: not a citation",
+      "text": "[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaA]",
+      "mids": []
+    },
+    {
+      "name": "upper-case MID: prefix: not a citation",
+      "text": "[MID:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": []
+    },
+    {
+      "name": "upper-case X- : not a citation",
+      "text": "[X-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb]",
+      "mids": []
+    },
+    {
+      "name": "x without dash: not a citation",
+      "text": "[xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb]",
+      "mids": []
+    },
+    {
+      "name": "63 hex digits: not a citation",
+      "text": "[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": []
+    },
+    {
+      "name": "65 hex digits: not a citation",
+      "text": "[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": []
+    },
+    {
+      "name": "bare mid: not a citation",
+      "text": "see aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa here",
+      "mids": []
+    },
+    {
+      "name": "unclosed at the end: not a citation",
+      "text": "see [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mids": []
+    },
+    {
+      "name": "space before the colon: not a citation",
+      "text": "[mid : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": []
+    },
+    {
+      "name": "prefix twice: not a citation",
+      "text": "[mid:mid:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": []
+    },
+    {
+      "name": "removed marker: not a citation",
+      "text": "[citation removed]",
+      "mids": []
+    },
+    {
+      "name": "removed marker before a citation",
+      "text": "[citation removed] [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "citation followed by a link target",
+      "text": "[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa](https://evil.test)",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "zero width space is not whitespace",
+      "text": "[\u200baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": []
+    },
+    {
+      "name": "byte order mark is not whitespace (JS \\s has it)",
+      "text": "[\ufeffaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": []
+    },
+    {
+      "name": "non-hex letter inside: not a citation",
+      "text": "[aaaaaaaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+      "mids": []
+    },
+    {
+      "name": "whitespace U+0009 in each place",
+      "text": "[\tmid:\taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\t]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+000A in each place",
+      "text": "[\nmid:\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+000B in each place",
+      "text": "[\u000bmid:\u000baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u000b]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+000C in each place",
+      "text": "[\fmid:\faaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\f]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+000D in each place",
+      "text": "[\rmid:\raaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\r]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+001C in each place",
+      "text": "[\u001cmid:\u001caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u001c]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+001D in each place",
+      "text": "[\u001dmid:\u001daaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u001d]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+001E in each place",
+      "text": "[\u001emid:\u001eaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u001e]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+001F in each place",
+      "text": "[\u001fmid:\u001faaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u001f]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+0020 in each place",
+      "text": "[ mid: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+0085 in each place",
+      "text": "[\u0085mid:\u0085aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u0085]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+00A0 in each place",
+      "text": "[\u00a0mid:\u00a0aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u00a0]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+1680 in each place",
+      "text": "[\u1680mid:\u1680aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u1680]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+2000 in each place",
+      "text": "[\u2000mid:\u2000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u2000]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+2001 in each place",
+      "text": "[\u2001mid:\u2001aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u2001]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+2002 in each place",
+      "text": "[\u2002mid:\u2002aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u2002]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+2003 in each place",
+      "text": "[\u2003mid:\u2003aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u2003]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+2004 in each place",
+      "text": "[\u2004mid:\u2004aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u2004]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+2005 in each place",
+      "text": "[\u2005mid:\u2005aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u2005]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+2006 in each place",
+      "text": "[\u2006mid:\u2006aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u2006]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+2007 in each place",
+      "text": "[\u2007mid:\u2007aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u2007]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+2008 in each place",
+      "text": "[\u2008mid:\u2008aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u2008]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+2009 in each place",
+      "text": "[\u2009mid:\u2009aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u2009]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+200A in each place",
+      "text": "[\u200amid:\u200aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u200a]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+2028 in each place",
+      "text": "[\u2028mid:\u2028aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u2028]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+2029 in each place",
+      "text": "[\u2029mid:\u2029aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u2029]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+202F in each place",
+      "text": "[\u202fmid:\u202faaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u202f]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+205F in each place",
+      "text": "[\u205fmid:\u205faaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u205f]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    },
+    {
+      "name": "whitespace U+3000 in each place",
+      "text": "[\u3000mid:\u3000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\u3000]",
+      "mids": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+    }
+  ]
+}

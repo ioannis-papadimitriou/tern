@@ -1,0 +1,646 @@
+From - Mon Mar 02 03:00:00 2026
+From: root@nas.example.test
+To: alex@example.com
+Subject: Backup report: OK
+Date: Mon, 02 Mar 2026 03:00:00 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Nightly backup finished. 0 errors, 1532 files.
+
+From - Fri Jul 10 09:00:00 2026
+From: Sam Carter <sam.carter@example.com>
+To: Alex Morgan <alex@example.com>
+Subject: Team offsite ideas
+Date: Fri, 10 Jul 2026 09:00:00 +0000
+Message-ID: <msg-018-1.4e22fcd2@example.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+We should book the tickets before the prices go up. The draft is in the shared folder now. I had a look and it all seems fine to me.
+
+Best,
+Sam
+
+From - Wed Mar 18 09:00:00 2026
+From: Jordan Lee <jordan@example.com>
+To: Alex Morgan <alex@example.com>
+Subject: Garden furniture
+Date: Wed, 18 Mar 2026 09:00:00 +0000
+Message-ID: <msg-019-1.4601cf3f@example.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+I will bring the printed copies along. Lunch on Wednesday works for me. Our team finished the first milestone a day early. The weather forecast looks good for the weekend.
+
+Best,
+Jordan
+
+From - Thu Mar 19 11:05:00 2026
+From: Priya Shah <priya@example.net>
+To: Alex Morgan <alex@example.com>
+Cc: Jordan Lee <jordan@example.com>
+Subject: Re: Garden furniture
+Date: Thu, 19 Mar 2026 11:05:00 +0000
+Message-ID: <msg-019-2.077f9870@example.net>
+In-Reply-To: <msg-019-1.4601cf3f@example.com>
+References: <msg-019-1.4601cf3f@example.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+I will bring the printed copies along. Happy to help with the move on Saturday morning. The weather forecast looks good for the weekend.
+
+Best,
+Priya
+
+From - Fri Feb 13 09:00:00 2026
+From: Robin Hale <robin@studio.example.net>
+To: Alex Morgan <alex@example.com>
+Subject: Book club in May
+Date: Fri, 13 Feb 2026 09:00:00 +0000
+Message-ID: <msg-020-1.bc4796fb@studio.example.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+The train was delayed again, so I only got home at nine. The numbers in section two do not add up yet. Could we move the call to later in the week?
+
+Best,
+Robin
+
+From - Sat Feb 14 11:05:00 2026
+From: Chris Novak <chris.novak@example.test>
+To: Alex Morgan <alex@example.com>
+Cc: Jordan Lee <jordan@example.com>
+Subject: Re: Book club in May
+Date: Sat, 14 Feb 2026 11:05:00 +0000
+Message-ID: <msg-020-2.cbf7bbd8@example.test>
+In-Reply-To: <msg-020-1.bc4796fb@studio.example.net>
+References: <msg-020-1.bc4796fb@studio.example.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+The train was delayed again, so I only got home at nine. Our team finished the first milestone a day early. Lunch on Wednesday works for me.
+
+Best,
+Chris
+
+From - Fri May 29 09:00:00 2026
+From: Chris Novak <chris.novak@example.test>
+To: Alex Morgan <alex@example.com>
+Subject: Volunteer rota
+Date: Fri, 29 May 2026 09:00:00 +0000
+Message-ID: <msg-021-1.3e4b75af@example.test>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+I had a look and it all seems fine to me. Can you double-check the address for the delivery?
+
+Best,
+Chris
+
+From - Thu Jul 23 09:00:00 2026
+From: Robin Hale <robin@studio.example.net>
+To: Alex Morgan <alex@example.com>
+Subject: Piano lessons
+Date: Thu, 23 Jul 2026 09:00:00 +0000
+Message-ID: <msg-022-1.7c9f7a02@studio.example.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+I will bring the printed copies along. The train was delayed again, so I only got home at nine. The draft is in the shared folder now.
+
+Best,
+Robin
+
+From - Fri Jul 24 11:05:00 2026
+From: Chris Novak <chris.novak@example.test>
+To: Alex Morgan <alex@example.com>
+Cc: Robin Hale <robin@studio.example.net>
+Subject: Re: Piano lessons
+Date: Fri, 24 Jul 2026 11:05:00 +0000
+Message-ID: <msg-022-2.11d286a5@example.test>
+In-Reply-To: <msg-022-1.7c9f7a02@studio.example.net>
+References: <msg-022-1.7c9f7a02@studio.example.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+Could we move the call to later in the week? Our team finished the first milestone a day early.
+
+Best,
+Chris
+
+From - Fri Jul 10 09:00:00 2026
+From: Priya Shah <priya@example.net>
+To: Alex Morgan <alex@example.com>
+Subject: Volunteer rota
+Date: Fri, 10 Jul 2026 09:00:00 +0000
+Message-ID: <msg-023-1.0c04362e@example.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+Lunch on Wednesday works for me. Thanks for sending this over so quickly.
+
+Best,
+Priya
+
+From - Wed Aug 05 09:00:00 2026
+From: Robin Hale <robin@studio.example.net>
+To: Alex Morgan <alex@example.com>
+Subject: Team offsite ideas
+Date: Wed, 05 Aug 2026 09:00:00 +0000
+Message-ID: <msg-024-1.77dcf0d6@studio.example.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+Our team finished the first milestone a day early. Thanks for sending this over so quickly. The numbers in section two do not add up yet.
+
+Best,
+Robin
+
+From - Mon Jan 19 09:00:00 2026
+From: Sam Carter <sam.carter@example.com>
+To: Alex Morgan <alex@example.com>
+Subject: Garden furniture
+Date: Mon, 19 Jan 2026 09:00:00 +0000
+Message-ID: <msg-025-1.42833804@example.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+Our team finished the first milestone a day early. Can you double-check the address for the delivery? Could we move the call to later in the week? The train was delayed again, so I only got home at nine.
+
+Best,
+Sam
+
+From - Tue Jan 20 11:05:00 2026
+From: Taylor Brooks <taylor.b@example.org>
+To: Alex Morgan <alex@example.com>
+Cc: Priya Shah <priya@example.net>
+Subject: Re: Garden furniture
+Date: Tue, 20 Jan 2026 11:05:00 +0000
+Message-ID: <msg-025-2.a6d33f3e@example.org>
+In-Reply-To: <msg-025-1.42833804@example.com>
+References: <msg-025-1.42833804@example.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+Could we move the call to later in the week? We should book the tickets before the prices go up. Happy to help with the move on Saturday morning.
+
+Best,
+Taylor
+
+From - Wed Jan 21 13:10:00 2026
+From: Robin Hale <robin@studio.example.net>
+To: Alex Morgan <alex@example.com>
+Cc: Sam Carter <sam.carter@example.com>
+Subject: Re: Garden furniture
+Date: Wed, 21 Jan 2026 13:10:00 +0000
+Message-ID: <msg-025-3.4d8c2a7e@studio.example.net>
+In-Reply-To: <msg-025-2.a6d33f3e@example.org>
+References: <msg-025-1.42833804@example.com>
+ <msg-025-2.a6d33f3e@example.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+I will bring the printed copies along. We should book the tickets before the prices go up.
+
+Best,
+Robin
+
+From - Sat Jan 17 09:00:00 2026
+From: Taylor Brooks <taylor.b@example.org>
+To: Alex Morgan <alex@example.com>
+Subject: Piano lessons
+Date: Sat, 17 Jan 2026 09:00:00 +0000
+Message-ID: <msg-026-1.ce7d78ff@example.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+The draft is in the shared folder now. We should book the tickets before the prices go up.
+
+Best,
+Taylor
+
+From - Sun Jan 18 11:05:00 2026
+From: Jordan Lee <jordan@example.com>
+To: Alex Morgan <alex@example.com>
+Cc: Chris Novak <chris.novak@example.test>
+Subject: Re: Piano lessons
+Date: Sun, 18 Jan 2026 11:05:00 +0000
+Message-ID: <msg-026-2.bf426931@example.com>
+In-Reply-To: <msg-026-1.ce7d78ff@example.org>
+References: <msg-026-1.ce7d78ff@example.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+I will bring the printed copies along. Thanks for sending this over so quickly.
+
+Best,
+Jordan
+
+From - Sat Mar 28 09:00:00 2026
+From: Chris Novak <chris.novak@example.test>
+To: Alex Morgan <alex@example.com>
+Subject: Conference travel
+Date: Sat, 28 Mar 2026 09:00:00 +0000
+Message-ID: <msg-027-1.f65c1a6a@example.test>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+Happy to help with the move on Saturday morning. The weather forecast looks good for the weekend.
+
+Best,
+Chris
+
+From - Sun Mar 29 11:05:00 2026
+From: Priya Shah <priya@example.net>
+To: Alex Morgan <alex@example.com>
+Cc: Taylor Brooks <taylor.b@example.org>
+Subject: Re: Conference travel
+Date: Sun, 29 Mar 2026 11:05:00 +0000
+Message-ID: <msg-027-2.d4f6e17f@example.net>
+In-Reply-To: <msg-027-1.f65c1a6a@example.test>
+References: <msg-027-1.f65c1a6a@example.test>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+Lunch on Wednesday works for me. I will bring the printed copies along. Happy to help with the move on Saturday morning. I spoke to the landlord and he agreed to fix the heating.
+
+Best,
+Priya
+
+From - Mon Jan 05 09:00:00 2026
+From: Jordan Lee <jordan@example.com>
+To: Alex Morgan <alex@example.com>
+Subject: Quarterly report draft
+Date: Mon, 05 Jan 2026 09:00:00 +0000
+Message-ID: <msg-028-1.7e73d9af@example.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Alex,
+
+The draft is in the shared folder now. Could we move the call to later in the week? I will bring the printed copies along. Happy to help with the move on Saturday morning.
+
+Best,
+Jordan
+
+From - Mon Aug 17 09:00:00 2026
+From: =?utf-8?b?zpPOuc+Oz4HOs86/z4IgzpTOt868zrfPhM+Bzq/Ov8+F?= <giorgos@example.test>
+To: Alex Morgan <alex@example.com>
+Subject: =?utf-8?b?zpLOuc6yzrvOr86xIM6zzrnOsSDPhM6/IM66zrHOu86/zrrOsc6vz4E=?=
+ =?utf-8?b?zrk=?=
+Date: Mon, 17 Aug 2026 12:00:00 +0300
+Message-ID: <msg-029-1.24734ce6@example.test>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+=CE=93=CE=B5=CE=B9=CE=B1 =CF=83=CE=BF=CF=85 Alex,
+
+=CE=95=CF=85=CF=87=CE=B1=CF=81=CE=B9=CF=83=CF=84=CF=8E =CF=80=CE=BF=CE=BB=
+=CF=8D =CE=B3=CE=B9=CE=B1 =CF=84=CE=B1 =CE=BD=CE=AD=CE=B1. =CE=A4=CE=BF =CE=
+=B2=CE=B9=CE=B2=CE=BB=CE=AF=CE=BF =CF=80=CE=BF=CF=85 =CE=BC=CE=BF=CF=85 =CF=
+=80=CF=81=CF=8C=CF=84=CE=B5=CE=B9=CE=BD=CE=B5=CF=82 =CE=AE=CF=84=CE=B1=CE=
+=BD =CE=B5=CE=BE=CE=B1=CE=B9=CF=81=CE=B5=CF=84=CE=B9=CE=BA=CF=8C. =CE=97 =
+=CF=80=CE=BB=CE=B7=CF=81=CF=89=CE=BC=CE=AE =CE=AD=CE=B3=CE=B9=CE=BD=CE=B5 =
+=CF=83=CE=AE=CE=BC=CE=B5=CF=81=CE=B1 =CF=84=CE=BF =CF=80=CF=81=CF=89=CE=AF.=
+ =CE=98=CE=B1 =CF=86=CE=AD=CF=81=CF=89 =CF=84=CE=B1 =CE=BA=CE=BB=CE=B5=CE=
+=B9=CE=B4=CE=B9=CE=AC =CF=84=CE=BF =CE=A3=CE=AC=CE=B2=CE=B2=CE=B1=CF=84=CE=
+=BF.
+
+=CE=A4=CE=B1 =CE=BB=CE=AD=CE=BC=CE=B5,
+=CE=93=CE=B9=CF=8E=CF=81=CE=B3=CE=BF=CF=82
+
+From - Tue Aug 18 11:05:00 2026
+From: =?utf-8?b?zpXOu86tzr3OtyDOk861z4nPgc6zzq/Ov8+F?= <eleni.g@example.org>
+To: Alex Morgan <alex@example.com>
+Cc: =?utf-8?b?zpzOsc+Bzq/OsSDOms+Jzr3Pg8+EzrHOvc+Ezq/Ovc6/z4U=?= <maria.k@example.org>
+Subject: =?utf-8?b?UmU6IM6SzrnOss67zq/OsSDOs865zrEgz4TOvyDOus6xzrvOv866zrE=?=
+ =?utf-8?b?zq/Pgc65?=
+Date: Tue, 18 Aug 2026 14:05:00 +0300
+Message-ID: <msg-029-2.dd604f9c@example.org>
+In-Reply-To: <msg-029-1.24734ce6@example.test>
+References: <msg-029-1.24734ce6@example.test>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Γεια σου Alex,
+
+Χρειάζομαι την υπογραφή σου στη δεύτερη σελίδα. Η παράδοση καθυστέρησε λόγω απεργίας.
+
+Τα λέμε,
+Ελένη
+
+From - Mon Jan 12 09:00:00 2026
+From: =?utf-8?b?zpPOuc+Oz4HOs86/z4IgzpTOt868zrfPhM+Bzq/Ov8+F?= <giorgos@example.test>
+To: Alex Morgan <alex@example.com>
+Subject: =?utf-8?b?zpzOsc64zq7OvM6xz4TOsSDOus6/zrvPjc68zrLOt8+DzrfPgg==?=
+Date: Mon, 12 Jan 2026 12:00:00 +0300
+Message-ID: <msg-030-1.92070b4e@example.test>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+=CE=93=CE=B5=CE=B9=CE=B1 =CF=83=CE=BF=CF=85 Alex,
+
+=CE=A7=CF=81=CE=B5=CE=B9=CE=AC=CE=B6=CE=BF=CE=BC=CE=B1=CE=B9 =CF=84=CE=B7=
+=CE=BD =CF=85=CF=80=CE=BF=CE=B3=CF=81=CE=B1=CF=86=CE=AE =CF=83=CE=BF=CF=85 =
+=CF=83=CF=84=CE=B7 =CE=B4=CE=B5=CF=8D=CF=84=CE=B5=CF=81=CE=B7 =CF=83=CE=B5=
+=CE=BB=CE=AF=CE=B4=CE=B1. =CE=A4=CE=B1 =CF=80=CE=B1=CE=B9=CE=B4=CE=B9=CE=AC=
+ =CF=80=CE=AD=CF=81=CE=B1=CF=83=CE=B1=CE=BD =CF=80=CE=BF=CE=BB=CF=8D =CF=89=
+=CF=81=CE=B1=CE=AF=CE=B1 =CF=83=CF=84=CE=B7=CE=BD =CE=B5=CE=BA=CE=B4=CF=81=
+=CE=BF=CE=BC=CE=AE.
+
+=CE=A4=CE=B1 =CE=BB=CE=AD=CE=BC=CE=B5,
+=CE=93=CE=B9=CF=8E=CF=81=CE=B3=CE=BF=CF=82
+
+From - Mon Apr 27 09:00:00 2026
+From: =?utf-8?b?zpPOuc+Oz4HOs86/z4IgzpTOt868zrfPhM+Bzq/Ov8+F?= <giorgos@example.test>
+To: Alex Morgan <alex@example.com>
+Subject: =?utf-8?b?zpHOvc6xzrrOsc6vzr3Ouc+DzrcgzrrOv8+FzrbOr869zrHPgg==?=
+Date: Mon, 27 Apr 2026 12:00:00 +0300
+Message-ID: <msg-031-1.8214af2f@example.test>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+=CE=93=CE=B5=CE=B9=CE=B1 =CF=83=CE=BF=CF=85 Alex,
+
+=CE=97 =CF=80=CE=BB=CE=B7=CF=81=CF=89=CE=BC=CE=AE =CE=AD=CE=B3=CE=B9=CE=BD=
+=CE=B5 =CF=83=CE=AE=CE=BC=CE=B5=CF=81=CE=B1 =CF=84=CE=BF =CF=80=CF=81=CF=89=
+=CE=AF. =CE=97 =CF=80=CE=B1=CF=81=CE=AC=CE=B4=CE=BF=CF=83=CE=B7 =CE=BA=CE=
+=B1=CE=B8=CF=85=CF=83=CF=84=CE=AD=CF=81=CE=B7=CF=83=CE=B5 =CE=BB=CF=8C=CE=
+=B3=CF=89 =CE=B1=CF=80=CE=B5=CF=81=CE=B3=CE=AF=CE=B1=CF=82. =CE=95=CF=85=CF=
+=87=CE=B1=CF=81=CE=B9=CF=83=CF=84=CF=8E =CF=80=CE=BF=CE=BB=CF=8D =CE=B3=CE=
+=B9=CE=B1 =CF=84=CE=B1 =CE=BD=CE=AD=CE=B1.
+
+=CE=A4=CE=B1 =CE=BB=CE=AD=CE=BC=CE=B5,
+=CE=93=CE=B9=CF=8E=CF=81=CE=B3=CE=BF=CF=82
+
+From - Tue Apr 28 11:05:00 2026
+From: =?utf-8?b?zpXOu86tzr3OtyDOk861z4nPgc6zzq/Ov8+F?= <eleni.g@example.org>
+To: Alex Morgan <alex@example.com>
+Cc: =?utf-8?b?zpzOsc+Bzq/OsSDOms+Jzr3Pg8+EzrHOvc+Ezq/Ovc6/z4U=?= <maria.k@example.org>
+Subject: =?utf-8?b?UmU6IM6Rzr3Osc66zrHOr869zrnPg863IM66zr/Phc62zq/Ovc6xz4I=?=
+Date: Tue, 28 Apr 2026 14:05:00 +0300
+Message-ID: <msg-031-2.d4403d71@example.org>
+In-Reply-To: <msg-031-1.8214af2f@example.test>
+References: <msg-031-1.8214af2f@example.test>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+=CE=93=CE=B5=CE=B9=CE=B1 =CF=83=CE=BF=CF=85 Alex,
+
+=CE=97 =CF=80=CE=BB=CE=B7=CF=81=CF=89=CE=BC=CE=AE =CE=AD=CE=B3=CE=B9=CE=BD=
+=CE=B5 =CF=83=CE=AE=CE=BC=CE=B5=CF=81=CE=B1 =CF=84=CE=BF =CF=80=CF=81=CF=89=
+=CE=AF. =CE=A4=CE=BF =CE=AD=CE=B3=CE=B3=CF=81=CE=B1=CF=86=CE=BF =CE=B5=CE=
+=AF=CE=BD=CE=B1=CE=B9 =CE=AD=CF=84=CE=BF=CE=B9=CE=BC=CE=BF =CE=BA=CE=B1=CE=
+=B9 =CF=84=CE=BF =CE=AD=CF=83=CF=84=CE=B5=CE=B9=CE=BB=CE=B1 =CF=83=CF=84=CE=
+=BF=CE=BD =CE=BB=CE=BF=CE=B3=CE=B9=CF=83=CF=84=CE=AE. =CE=A0=CE=B5=CF=82 =
+=CE=BC=CE=BF=CF=85 =CE=B1=CE=BD =CF=87=CF=81=CE=B5=CE=B9=CE=AC=CE=B6=CE=B5=
+=CF=83=CE=B1=CE=B9 =CE=BA=CE=AC=CF=84=CE=B9 =CE=AC=CE=BB=CE=BB=CE=BF.
+
+=CE=A4=CE=B1 =CE=BB=CE=AD=CE=BC=CE=B5,
+=CE=95=CE=BB=CE=AD=CE=BD=CE=B7
+
+From - Wed Jul 15 09:00:00 2026
+From: =?utf-8?b?zp3Or866zr/PgiDOoM6xz4DOsc60z4zPgM6/z4XOu86/z4I=?= <nikos@example.test>
+To: Alex Morgan <alex@example.com>
+Subject: =?utf-8?b?zpHOvc6xzrrOsc6vzr3Ouc+DzrcgzrrOv8+FzrbOr869zrHPgg==?=
+Date: Wed, 15 Jul 2026 12:00:00 +0300
+Message-ID: <msg-032-1.5f08a4b3@example.test>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+=CE=93=CE=B5=CE=B9=CE=B1 =CF=83=CE=BF=CF=85 Alex,
+
+=CE=9F =CE=BA=CE=B1=CE=B9=CF=81=CF=8C=CF=82 =CF=83=CF=84=CE=B7 =CE=98=CE=B5=
+=CF=83=CF=83=CE=B1=CE=BB=CE=BF=CE=BD=CE=AF=CE=BA=CE=B7 =CE=AE=CF=84=CE=B1=
+=CE=BD =CF=85=CF=80=CE=AD=CF=81=CE=BF=CF=87=CE=BF=CF=82. =CE=A7=CF=81=CE=B5=
+=CE=B9=CE=AC=CE=B6=CE=BF=CE=BC=CE=B1=CE=B9 =CF=84=CE=B7=CE=BD =CF=85=CF=80=
+=CE=BF=CE=B3=CF=81=CE=B1=CF=86=CE=AE =CF=83=CE=BF=CF=85 =CF=83=CF=84=CE=B7 =
+=CE=B4=CE=B5=CF=8D=CF=84=CE=B5=CF=81=CE=B7 =CF=83=CE=B5=CE=BB=CE=AF=CE=B4=
+=CE=B1.
+
+=CE=A4=CE=B1 =CE=BB=CE=AD=CE=BC=CE=B5,
+=CE=9D=CE=AF=CE=BA=CE=BF=CF=82
+
+From - Thu Jul 16 11:05:00 2026
+From: =?utf-8?b?zpzOsc+Bzq/OsSDOms+Jzr3Pg8+EzrHOvc+Ezq/Ovc6/z4U=?= <maria.k@example.org>
+To: Alex Morgan <alex@example.com>
+Cc: =?utf-8?b?zp3Or866zr/PgiDOoM6xz4DOsc60z4zPgM6/z4XOu86/z4I=?= <nikos@example.test>
+Subject: =?utf-8?b?UmU6IM6Rzr3Osc66zrHOr869zrnPg863IM66zr/Phc62zq/Ovc6xz4I=?=
+Date: Thu, 16 Jul 2026 14:05:00 +0300
+Message-ID: <msg-032-2.24f17b36@example.org>
+In-Reply-To: <msg-032-1.5f08a4b3@example.test>
+References: <msg-032-1.5f08a4b3@example.test>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Γεια σου Alex,
+
+Ας κανονίσουμε φαγητό την επόμενη εβδομάδα. Θα φέρω τα κλειδιά το Σάββατο. Η πληρωμή έγινε σήμερα το πρωί. Συμφωνώ με την πρόταση της Μαρίας.
+
+Τα λέμε,
+Μαρία
+
+From - Fri Jul 17 13:10:00 2026
+From: =?utf-8?b?zprOsc+EzrXPgc6vzr3OsSDOks67zqzPh86/z4U=?= <katerina.v@example.net>
+To: Alex Morgan <alex@example.com>
+Cc: =?utf-8?b?zpPOuc+Oz4HOs86/z4IgzpTOt868zrfPhM+Bzq/Ov8+F?= <giorgos@example.test>
+Subject: =?utf-8?b?UmU6IM6Rzr3Osc66zrHOr869zrnPg863IM66zr/Phc62zq/Ovc6xz4I=?=
+Date: Fri, 17 Jul 2026 16:10:00 +0300
+Message-ID: <msg-032-3.b58b66ea@example.net>
+In-Reply-To: <msg-032-2.24f17b36@example.org>
+References: <msg-032-1.5f08a4b3@example.test>
+ <msg-032-2.24f17b36@example.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Γεια σου Alex,
+
+Το συνεργείο είπε ότι το αυτοκίνητο θα είναι έτοιμο την Τρίτη. Ας κανονίσουμε φαγητό την επόμενη εβδομάδα. Σου στέλνω τις φωτογραφίες απόψε.
+
+Τα λέμε,
+Κατερίνα
+
+From - Mon Feb 16 09:00:00 2026
+From: =?utf-8?b?zpXOu86tzr3OtyDOk861z4nPgc6zzq/Ov8+F?= <eleni.g@example.org>
+To: Alex Morgan <alex@example.com>
+Subject: =?utf-8?b?zpPOtc69zq3OuM67zrnOsSDPhM63z4IgzpXOu86tzr3Ot8+C?=
+Date: Mon, 16 Feb 2026 12:00:00 +0300
+Message-ID: <msg-033-1.12093586@example.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+=CE=93=CE=B5=CE=B9=CE=B1 =CF=83=CE=BF=CF=85 Alex,
+
+=CE=A4=CE=BF =CE=AD=CE=B3=CE=B3=CF=81=CE=B1=CF=86=CE=BF =CE=B5=CE=AF=CE=BD=
+=CE=B1=CE=B9 =CE=AD=CF=84=CE=BF=CE=B9=CE=BC=CE=BF =CE=BA=CE=B1=CE=B9 =CF=84=
+=CE=BF =CE=AD=CF=83=CF=84=CE=B5=CE=B9=CE=BB=CE=B1 =CF=83=CF=84=CE=BF=CE=BD =
+=CE=BB=CE=BF=CE=B3=CE=B9=CF=83=CF=84=CE=AE. =CE=97 =CF=80=CE=BB=CE=B7=CF=81=
+=CF=89=CE=BC=CE=AE =CE=AD=CE=B3=CE=B9=CE=BD=CE=B5 =CF=83=CE=AE=CE=BC=CE=B5=
+=CF=81=CE=B1 =CF=84=CE=BF =CF=80=CF=81=CF=89=CE=AF. =CE=A4=CE=BF =CF=83=CF=
+=85=CE=BD=CE=B5=CF=81=CE=B3=CE=B5=CE=AF=CE=BF =CE=B5=CE=AF=CF=80=CE=B5 =CF=
+=8C=CF=84=CE=B9 =CF=84=CE=BF =CE=B1=CF=85=CF=84=CE=BF=CE=BA=CE=AF=CE=BD=CE=
+=B7=CF=84=CE=BF =CE=B8=CE=B1 =CE=B5=CE=AF=CE=BD=CE=B1=CE=B9 =CE=AD=CF=84=CE=
+=BF=CE=B9=CE=BC=CE=BF =CF=84=CE=B7=CE=BD =CE=A4=CF=81=CE=AF=CF=84=CE=B7.
+
+=CE=A4=CE=B1 =CE=BB=CE=AD=CE=BC=CE=B5,
+=CE=95=CE=BB=CE=AD=CE=BD=CE=B7
+
+From - Tue Feb 17 11:05:00 2026
+From: =?utf-8?b?zprOsc+EzrXPgc6vzr3OsSDOks67zqzPh86/z4U=?= <katerina.v@example.net>
+To: Alex Morgan <alex@example.com>
+Cc: =?utf-8?b?zpPOuc+Oz4HOs86/z4IgzpTOt868zrfPhM+Bzq/Ov8+F?= <giorgos@example.test>
+Subject: =?utf-8?b?UmU6IM6TzrXOvc6tzrjOu865zrEgz4TOt8+CIM6VzrvOrc69zrfPgg==?=
+Date: Tue, 17 Feb 2026 14:05:00 +0300
+Message-ID: <msg-033-2.32ea597d@example.net>
+In-Reply-To: <msg-033-1.12093586@example.org>
+References: <msg-033-1.12093586@example.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+=CE=93=CE=B5=CE=B9=CE=B1 =CF=83=CE=BF=CF=85 Alex,
+
+=CE=95=CF=85=CF=87=CE=B1=CF=81=CE=B9=CF=83=CF=84=CF=8E =CF=80=CE=BF=CE=BB=
+=CF=8D =CE=B3=CE=B9=CE=B1 =CF=84=CE=B1 =CE=BD=CE=AD=CE=B1. =CE=A3=CF=85=CE=
+=BC=CF=86=CF=89=CE=BD=CF=8E =CE=BC=CE=B5 =CF=84=CE=B7=CE=BD =CF=80=CF=81=CF=
+=8C=CF=84=CE=B1=CF=83=CE=B7 =CF=84=CE=B7=CF=82 =CE=9C=CE=B1=CF=81=CE=AF=CE=
+=B1=CF=82.
+
+=CE=A4=CE=B1 =CE=BB=CE=AD=CE=BC=CE=B5,
+=CE=9A=CE=B1=CF=84=CE=B5=CF=81=CE=AF=CE=BD=CE=B1
+
+From - Wed Feb 18 13:10:00 2026
+From: =?utf-8?b?zpPOuc+Oz4HOs86/z4IgzpTOt868zrfPhM+Bzq/Ov8+F?= <giorgos@example.test>
+To: Alex Morgan <alex@example.com>
+Cc: =?utf-8?b?zpzOsc+Bzq/OsSDOms+Jzr3Pg8+EzrHOvc+Ezq/Ovc6/z4U=?= <maria.k@example.org>
+Subject: =?utf-8?b?UmU6IM6TzrXOvc6tzrjOu865zrEgz4TOt8+CIM6VzrvOrc69zrfPgg==?=
+Date: Wed, 18 Feb 2026 16:10:00 +0300
+Message-ID: <msg-033-3.82aa9174@example.test>
+In-Reply-To: <msg-033-2.32ea597d@example.net>
+References: <msg-033-1.12093586@example.org>
+ <msg-033-2.32ea597d@example.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+=CE=93=CE=B5=CE=B9=CE=B1 =CF=83=CE=BF=CF=85 Alex,
+
+=CE=95=CF=85=CF=87=CE=B1=CF=81=CE=B9=CF=83=CF=84=CF=8E =CF=80=CE=BF=CE=BB=
+=CF=8D =CE=B3=CE=B9=CE=B1 =CF=84=CE=B1 =CE=BD=CE=AD=CE=B1. =CE=A3=CE=BF=CF=
+=85 =CF=83=CF=84=CE=AD=CE=BB=CE=BD=CF=89 =CF=84=CE=B9=CF=82 =CF=86=CF=89=CF=
+=84=CE=BF=CE=B3=CF=81=CE=B1=CF=86=CE=AF=CE=B5=CF=82 =CE=B1=CF=80=CF=8C=CF=
+=88=CE=B5. =CE=97 =CF=80=CE=BB=CE=B7=CF=81=CF=89=CE=BC=CE=AE =CE=AD=CE=B3=
+=CE=B9=CE=BD=CE=B5 =CF=83=CE=AE=CE=BC=CE=B5=CF=81=CE=B1 =CF=84=CE=BF =CF=80=
+=CF=81=CF=89=CE=AF. =CE=A3=CF=85=CE=BC=CF=86=CF=89=CE=BD=CF=8E =CE=BC=CE=B5=
+ =CF=84=CE=B7=CE=BD =CF=80=CF=81=CF=8C=CF=84=CE=B1=CF=83=CE=B7 =CF=84=CE=B7=
+=CF=82 =CE=9C=CE=B1=CF=81=CE=AF=CE=B1=CF=82.
+
+=CE=A4=CE=B1 =CE=BB=CE=AD=CE=BC=CE=B5,
+=CE=93=CE=B9=CF=8E=CF=81=CE=B3=CE=BF=CF=82
+
+From - Thu Apr 30 09:00:00 2026
+From: =?utf-8?b?zpXOu86tzr3OtyDOk861z4nPgc6zzq/Ov8+F?= <eleni.g@example.org>
+To: Alex Morgan <alex@example.com>
+Subject: =?utf-8?b?zpHOvc6xzrrOsc6vzr3Ouc+DzrcgzrrOv8+FzrbOr869zrHPgg==?=
+Date: Thu, 30 Apr 2026 12:00:00 +0300
+Message-ID: <msg-034-1.3db517fc@example.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Γεια σου Alex,
+
+Το έγγραφο είναι έτοιμο και το έστειλα στον λογιστή. Ο καιρός στη Θεσσαλονίκη ήταν υπέροχος.
+
+Τα λέμε,
+Ελένη
+
+From - Fri May 01 11:05:00 2026
+From: =?utf-8?b?zpPOuc+Oz4HOs86/z4IgzpTOt868zrfPhM+Bzq/Ov8+F?= <giorgos@example.test>
+To: Alex Morgan <alex@example.com>
+Cc: =?utf-8?b?zpzOsc+Bzq/OsSDOms+Jzr3Pg8+EzrHOvc+Ezq/Ovc6/z4U=?= <maria.k@example.org>
+Subject: =?utf-8?b?UmU6IM6Rzr3Osc66zrHOr869zrnPg863IM66zr/Phc62zq/Ovc6xz4I=?=
+Date: Fri, 01 May 2026 14:05:00 +0300
+Message-ID: <msg-034-2.54e0bd37@example.test>
+In-Reply-To: <msg-034-1.3db517fc@example.org>
+References: <msg-034-1.3db517fc@example.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+=CE=93=CE=B5=CE=B9=CE=B1 =CF=83=CE=BF=CF=85 Alex,
+
+=CE=9F =CE=BA=CE=B1=CE=B9=CF=81=CF=8C=CF=82 =CF=83=CF=84=CE=B7 =CE=98=CE=B5=
+=CF=83=CF=83=CE=B1=CE=BB=CE=BF=CE=BD=CE=AF=CE=BA=CE=B7 =CE=AE=CF=84=CE=B1=
+=CE=BD =CF=85=CF=80=CE=AD=CF=81=CE=BF=CF=87=CE=BF=CF=82. =CE=97 =CF=80=CE=
+=BB=CE=B7=CF=81=CF=89=CE=BC=CE=AE =CE=AD=CE=B3=CE=B9=CE=BD=CE=B5 =CF=83=CE=
+=AE=CE=BC=CE=B5=CF=81=CE=B1 =CF=84=CE=BF =CF=80=CF=81=CF=89=CE=AF. =CE=A3=
+=CF=85=CE=BC=CF=86=CF=89=CE=BD=CF=8E =CE=BC=CE=B5 =CF=84=CE=B7=CE=BD =CF=80=
+=CF=81=CF=8C=CF=84=CE=B1=CF=83=CE=B7 =CF=84=CE=B7=CF=82 =CE=9C=CE=B1=CF=81=
+=CE=AF=CE=B1=CF=82.
+
+=CE=A4=CE=B1 =CE=BB=CE=AD=CE=BC=CE=B5,
+=CE=93=CE=B9=CF=8E=CF=81=CE=B3=CE=BF=CF=82

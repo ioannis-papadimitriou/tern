@@ -1,0 +1,9 @@
+{
+  "name": "tern",
+  "description": "tern native-messaging host (relays Thunderbird <-> ternd)",
+  "path": "@NMHOST_PATH@",
+  "type": "stdio",
+  "allowed_extensions": [
+    "tern@tern.invalid"
+  ]
+}

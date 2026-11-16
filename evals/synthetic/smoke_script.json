@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "requests": [
+    {
+      "tool_calls": [
+        {
+          "name": "search_messages",
+          "arguments": {
+            "query": "Acme invoice INV-0042",
+            "limit": 10
+          }
+        }
+      ],
+      "expect": {
+        "contains": [
+          "When is the Acme invoice INV-0042 due and who sent the reminder?"
+        ]
+      }
+    },
+    {
+      "content": "Acme invoice INV-0042 (EUR 1,240.00) is due on 15 April 2026 [ca20f5b069f8a8eec269b0e50cbf82cda8896811ab89e1eed85f993b8ebf732e]. The reminder was sent by Dana Whitfield of the Acme Supplies accounts team [mid: e6d2ae082619fcd814c79d1b3628c73bf9c5b4240af87f65a54ab3b33bf3000c]. It was paid in full last week [deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef], and the bank details changed to a new IBAN 【7b16c110ce53752d011d6689051ca561c8b4c3b950e933fa45faf490840215ed】.",
+      "split_at": [
+        62,
+        230,
+        318,
+        422
+      ],
+      "expect": {
+        "contains": [
+          "ca20f5b069f8a8eec269b0e50cbf82cda8896811ab89e1eed85f993b8ebf732e",
+          "e6d2ae082619fcd814c79d1b3628c73bf9c5b4240af87f65a54ab3b33bf3000c"
+        ],
+        "absent": [
+          "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+        ]
+      }
+    }
+  ]
+}

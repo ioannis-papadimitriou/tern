@@ -1,0 +1,30 @@
+# tern daemon (ternd) as a systemd user service (plan 08b step 6, A9).
+#
+# Template: replace the placeholder in ExecStart with the absolute path of the interpreter in
+# tern's venv (the same command tern-nmhost spawns), install the result as
+# ~/.config/systemd/user/ternd.service, then `systemctl --user daemon-reload` and
+# `systemctl --user enable --now ternd`. `tern install` (plan 15) replaces this hand install.
+#
+# ternd logs to <state dir>/ternd.log (no --foreground). No network ordering or socket
+# directives: ternd listens only on its Unix socket and reaches LM Studio over loopback.
+# No Environment= on purpose: TERN_HOME stays unset, so the real paths apply.
+# Start the unit before Thunderbird: if tern-nmhost already spawned a ternd, this one finds the
+# instance lock held and exits 0 (the unit then shows inactive).
+# Start limit: a ternd that fails at every start (a broken config, a non-loopback model URL
+# raising EgressDenied) restarts every RestartSec=5 s; 5 starts within 120 s put the unit in the
+# failed state (systemd's default 5 in 10 s never trips at that spacing). After fixing the cause:
+# `systemctl --user reset-failed ternd && systemctl --user start ternd`.
+
+[Unit]
+Description=tern daemon (local mail index and assistant)
+StartLimitIntervalSec=120
+StartLimitBurst=5
+
+[Service]
+Type=simple
+ExecStart=@TERN_PYTHON@ -m tern.daemon.main
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

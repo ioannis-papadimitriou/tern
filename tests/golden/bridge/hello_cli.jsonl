@@ -1,0 +1,7 @@
+{"transcript":"hello_cli","client":"socket","description":"A cli client (tern bridge ping) on the daemon socket: hello without profile_id, then bridge.ping; a string id is echoed as a string."}
+{"from":"client","msg":{"jsonrpc":"2.0","id":1,"method":"hello","params":{"protocol":"tern-bridge/1","minor":0,"role":"cli","version":"0.1.0","capabilities":[]}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":1,"result":{"protocol":"tern-bridge/1","minor":0,"role":"daemon","version":"0.0.0-golden","capabilities":[]}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":2,"method":"bridge.ping","params":{}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":2,"result":{}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":"p-3","method":"bridge.ping","params":{}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":"p-3","result":{}}}

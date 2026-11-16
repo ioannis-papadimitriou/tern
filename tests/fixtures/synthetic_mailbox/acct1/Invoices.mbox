@@ -1,0 +1,346 @@
+From - Thu Mar 26 10:00:00 2026
+From: Acme Billing <billing@acme.example.com>
+To: Alex Morgan <alex@example.com>
+Subject: Acme invoice INV-0042 (March 2026)
+Date: Thu, 26 Mar 2026 10:00:00 +0000
+Message-ID: <inv-0042@acme.example.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=_tern_synthetic_0001_4384932a"
+
+--=_tern_synthetic_0001_4384932a
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Dear Alex Morgan,
+
+Please find attached Acme invoice INV-0042 for services in March 2026.
+Amount due: EUR 1,240.00
+Due date: 15 April 2026
+Pay to IBAN GR00 0110 1250 0000 0001 2300 695 (Acme Supplies Ltd).
+
+Acme Billing
+--=_tern_synthetic_0001_4384932a
+Content-Type: application/pdf; name="INV-0042.pdf"
+Content-Disposition: attachment; filename="INV-0042.pdf"
+Content-Transfer-Encoding: base64
+
+JVBERi0xLjQKJSBzeW50aGV0aWMgYXR0YWNobWVudCwgbm90IGEgcmVhbCBkb2N1bWVudAolJUVP
+Rgo=
+--=_tern_synthetic_0001_4384932a--
+
+From - Wed Jul 29 10:00:00 2026
+From: Acme Billing <billing@acme.example.com>
+To: Alex Morgan <alex@example.com>
+Subject: Acme invoice INV-0077 (July 2026)
+Date: Wed, 29 Jul 2026 10:00:00 +0000
+Message-ID: <inv-0077@acme.example.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Dear Alex Morgan,
+
+Acme invoice INV-0077 for services in July 2026.
+Amount due: EUR 860.00
+Due date: 15 August 2026
+Pay to IBAN GR00 0110 1250 0000 0001 2300 695.
+
+Acme Billing
+
+From - Thu Jan 08 09:00:00 2026
+From: Acme Billing <billing@acme.example.com>
+To: Alex Morgan <alex@example.com>
+Subject: Acme Billing invoice INV-0013
+Date: Thu, 08 Jan 2026 09:00:00 +0000
+Message-ID: <inv-0013.8102c0fa@acme.example.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=_tern_synthetic_0002_7a26774e"
+
+--=_tern_synthetic_0002_7a26774e
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Dear Alex Morgan,
+
+Invoice INV-0013 is attached.
+Amount due: EUR 508.56
+
+Acme Billing
+--=_tern_synthetic_0002_7a26774e
+Content-Type: application/pdf; name="INV-0013.pdf"
+Content-Disposition: attachment; filename="INV-0013.pdf"
+Content-Transfer-Encoding: base64
+
+JVBERi0xLjQKJSBzeW50aGV0aWMgYXR0YWNobWVudCwgbm90IGEgcmVhbCBkb2N1bWVudAolJUVP
+Rgo=
+--=_tern_synthetic_0002_7a26774e--
+
+From - Mon Feb 02 09:00:00 2026
+From: Northwind Books <orders@northwind.example.net>
+To: Alex Morgan <alex@example.com>
+Subject: Northwind Books invoice INV-0027
+Date: Mon, 02 Feb 2026 09:00:00 +0000
+Message-ID: <inv-0027.af3993a6@northwind.example.net>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=_tern_synthetic_0003_9e2ca795"
+
+--=_tern_synthetic_0003_9e2ca795
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Dear Alex Morgan,
+
+Invoice INV-0027 is attached.
+Amount due: EUR 113.10
+
+Northwind Books
+--=_tern_synthetic_0003_9e2ca795
+Content-Type: application/pdf; name="INV-0027.pdf"
+Content-Disposition: attachment; filename="INV-0027.pdf"
+Content-Transfer-Encoding: base64
+
+JVBERi0xLjQKJSBzeW50aGV0aWMgYXR0YWNobWVudCwgbm90IGEgcmVhbCBkb2N1bWVudAolJUVP
+Rgo=
+--=_tern_synthetic_0003_9e2ca795--
+
+From - Fri Feb 27 09:00:00 2026
+From: =?utf-8?b?zpfOu861zrrPhM+BzrnOus6uIM6Vz4TOsc65z4HOtc6vzrEgzpHPhM+EzrnOus6uz4I=?= <logariasmoi@power.example.org>
+To: Alex Morgan <alex@example.com>
+Subject: =?utf-8?b?zpvOv86zzrHPgc65zrHPg868z4zPgiDPgc61z43OvM6xz4TOv8+CIElO?=
+ =?utf-8?b?Vi0wMDQx?=
+Date: Fri, 27 Feb 2026 09:00:00 +0000
+Message-ID: <inv-0041.18f22441@power.example.org>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=_tern_synthetic_0004_2c876d8e"
+
+--=_tern_synthetic_0004_2c876d8e
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+=CE=91=CE=B3=CE=B1=CF=80=CE=B7=CF=84=CE=AD =CF=80=CE=B5=CE=BB=CE=AC=CF=84=
+=CE=B7,
+
+=CE=9F =CE=BB=CE=BF=CE=B3=CE=B1=CF=81=CE=B9=CE=B1=CF=83=CE=BC=CF=8C=CF=82 I=
+NV-0041 =CE=B5=CF=80=CE=B9=CF=83=CF=85=CE=BD=CE=AC=CF=80=CF=84=CE=B5=CF=84=
+=CE=B1=CE=B9.
+=CE=A0=CE=BF=CF=83=CF=8C =CF=80=CE=BB=CE=B7=CF=81=CF=89=CE=BC=CE=AE=CF=82: =
+213.23 =CE=B5=CF=85=CF=81=CF=8E
+
+=CE=97=CE=BB=CE=B5=CE=BA=CF=84=CF=81=CE=B9=CE=BA=CE=AE =CE=95=CF=84=CE=B1=
+=CE=B9=CF=81=CE=B5=CE=AF=CE=B1 =CE=91=CF=84=CF=84=CE=B9=CE=BA=CE=AE=CF=82
+--=_tern_synthetic_0004_2c876d8e
+Content-Type: application/pdf; name="INV-0041.pdf"
+Content-Disposition: attachment; filename="INV-0041.pdf"
+Content-Transfer-Encoding: base64
+
+JVBERi0xLjQKJSBzeW50aGV0aWMgYXR0YWNobWVudCwgbm90IGEgcmVhbCBkb2N1bWVudAolJUVP
+Rgo=
+--=_tern_synthetic_0004_2c876d8e--
+
+From - Tue Mar 24 09:00:00 2026
+From: Acme Billing <billing@acme.example.com>
+To: Alex Morgan <alex@example.com>
+Subject: Acme Billing invoice INV-0047
+Date: Tue, 24 Mar 2026 09:00:00 +0000
+Message-ID: <inv-0047.b2a3fa67@acme.example.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=_tern_synthetic_0005_0837b5ad"
+
+--=_tern_synthetic_0005_0837b5ad
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Dear Alex Morgan,
+
+Invoice INV-0047 is attached.
+Amount due: EUR 524.84
+
+Acme Billing
+--=_tern_synthetic_0005_0837b5ad
+Content-Type: application/pdf; name="INV-0047.pdf"
+Content-Disposition: attachment; filename="INV-0047.pdf"
+Content-Transfer-Encoding: base64
+
+JVBERi0xLjQKJSBzeW50aGV0aWMgYXR0YWNobWVudCwgbm90IGEgcmVhbCBkb2N1bWVudAolJUVP
+Rgo=
+--=_tern_synthetic_0005_0837b5ad--
+
+From - Sat Apr 18 09:00:00 2026
+From: Northwind Books <orders@northwind.example.net>
+To: Alex Morgan <alex@example.com>
+Subject: Northwind Books invoice INV-0057
+Date: Sat, 18 Apr 2026 09:00:00 +0000
+Message-ID: <inv-0057.34712036@northwind.example.net>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=_tern_synthetic_0006_3c2b3106"
+
+--=_tern_synthetic_0006_3c2b3106
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Dear Alex Morgan,
+
+Invoice INV-0057 is attached.
+Amount due: EUR 855.07
+
+Northwind Books
+--=_tern_synthetic_0006_3c2b3106
+Content-Type: application/pdf; name="INV-0057.pdf"
+Content-Disposition: attachment; filename="INV-0057.pdf"
+Content-Transfer-Encoding: base64
+
+JVBERi0xLjQKJSBzeW50aGV0aWMgYXR0YWNobWVudCwgbm90IGEgcmVhbCBkb2N1bWVudAolJUVP
+Rgo=
+--=_tern_synthetic_0006_3c2b3106--
+
+From - Wed May 13 09:00:00 2026
+From: =?utf-8?b?zpfOu861zrrPhM+BzrnOus6uIM6Vz4TOsc65z4HOtc6vzrEgzpHPhM+EzrnOus6uz4I=?= <logariasmoi@power.example.org>
+To: Alex Morgan <alex@example.com>
+Subject: =?utf-8?b?zpvOv86zzrHPgc65zrHPg868z4zPgiDPgc61z43OvM6xz4TOv8+CIElO?=
+ =?utf-8?b?Vi0wMDYy?=
+Date: Wed, 13 May 2026 09:00:00 +0000
+Message-ID: <inv-0062.3f610d38@power.example.org>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=_tern_synthetic_0007_2729bd51"
+
+--=_tern_synthetic_0007_2729bd51
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+=CE=91=CE=B3=CE=B1=CF=80=CE=B7=CF=84=CE=AD =CF=80=CE=B5=CE=BB=CE=AC=CF=84=
+=CE=B7,
+
+=CE=9F =CE=BB=CE=BF=CE=B3=CE=B1=CF=81=CE=B9=CE=B1=CF=83=CE=BC=CF=8C=CF=82 I=
+NV-0062 =CE=B5=CF=80=CE=B9=CF=83=CF=85=CE=BD=CE=AC=CF=80=CF=84=CE=B5=CF=84=
+=CE=B1=CE=B9.
+=CE=A0=CE=BF=CF=83=CF=8C =CF=80=CE=BB=CE=B7=CF=81=CF=89=CE=BC=CE=AE=CF=82: =
+209.91 =CE=B5=CF=85=CF=81=CF=8E
+
+=CE=97=CE=BB=CE=B5=CE=BA=CF=84=CF=81=CE=B9=CE=BA=CE=AE =CE=95=CF=84=CE=B1=
+=CE=B9=CF=81=CE=B5=CE=AF=CE=B1 =CE=91=CF=84=CF=84=CE=B9=CE=BA=CE=AE=CF=82
+--=_tern_synthetic_0007_2729bd51
+Content-Type: application/pdf; name="INV-0062.pdf"
+Content-Disposition: attachment; filename="INV-0062.pdf"
+Content-Transfer-Encoding: base64
+
+JVBERi0xLjQKJSBzeW50aGV0aWMgYXR0YWNobWVudCwgbm90IGEgcmVhbCBkb2N1bWVudAolJUVP
+Rgo=
+--=_tern_synthetic_0007_2729bd51--
+
+From - Sun Jun 07 09:00:00 2026
+From: Acme Billing <billing@acme.example.com>
+To: Alex Morgan <alex@example.com>
+Subject: Acme Billing invoice INV-0072
+Date: Sun, 07 Jun 2026 09:00:00 +0000
+Message-ID: <inv-0072.13c68bf5@acme.example.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=_tern_synthetic_0008_6155a83e"
+
+--=_tern_synthetic_0008_6155a83e
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Dear Alex Morgan,
+
+Invoice INV-0072 is attached.
+Amount due: EUR 535.59
+
+Acme Billing
+--=_tern_synthetic_0008_6155a83e
+Content-Type: application/pdf; name="INV-0072.pdf"
+Content-Disposition: attachment; filename="INV-0072.pdf"
+Content-Transfer-Encoding: base64
+
+JVBERi0xLjQKJSBzeW50aGV0aWMgYXR0YWNobWVudCwgbm90IGEgcmVhbCBkb2N1bWVudAolJUVP
+Rgo=
+--=_tern_synthetic_0008_6155a83e--
+
+From - Thu Jul 02 09:00:00 2026
+From: Northwind Books <orders@northwind.example.net>
+To: Alex Morgan <alex@example.com>
+Subject: Northwind Books invoice INV-0073
+Date: Thu, 02 Jul 2026 09:00:00 +0000
+Message-ID: <inv-0073.0fd9bc84@northwind.example.net>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=_tern_synthetic_0009_0e2a1847"
+
+--=_tern_synthetic_0009_0e2a1847
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Dear Alex Morgan,
+
+Invoice INV-0073 is attached.
+Amount due: EUR 701.22
+
+Northwind Books
+--=_tern_synthetic_0009_0e2a1847
+Content-Type: application/pdf; name="INV-0073.pdf"
+Content-Disposition: attachment; filename="INV-0073.pdf"
+Content-Transfer-Encoding: base64
+
+JVBERi0xLjQKJSBzeW50aGV0aWMgYXR0YWNobWVudCwgbm90IGEgcmVhbCBkb2N1bWVudAolJUVP
+Rgo=
+--=_tern_synthetic_0009_0e2a1847--
+
+From - Mon Jul 27 09:00:00 2026
+From: =?utf-8?b?zpfOu861zrrPhM+BzrnOus6uIM6Vz4TOsc65z4HOtc6vzrEgzpHPhM+EzrnOus6uz4I=?= <logariasmoi@power.example.org>
+To: Alex Morgan <alex@example.com>
+Subject: =?utf-8?b?zpvOv86zzrHPgc65zrHPg868z4zPgiDPgc61z43OvM6xz4TOv8+CIElO?=
+ =?utf-8?b?Vi0wMDgx?=
+Date: Mon, 27 Jul 2026 09:00:00 +0000
+Message-ID: <inv-0081.b9b49cd2@power.example.org>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=_tern_synthetic_0010_06a577ec"
+
+--=_tern_synthetic_0010_06a577ec
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+=CE=91=CE=B3=CE=B1=CF=80=CE=B7=CF=84=CE=AD =CF=80=CE=B5=CE=BB=CE=AC=CF=84=
+=CE=B7,
+
+=CE=9F =CE=BB=CE=BF=CE=B3=CE=B1=CF=81=CE=B9=CE=B1=CF=83=CE=BC=CF=8C=CF=82 I=
+NV-0081 =CE=B5=CF=80=CE=B9=CF=83=CF=85=CE=BD=CE=AC=CF=80=CF=84=CE=B5=CF=84=
+=CE=B1=CE=B9.
+=CE=A0=CE=BF=CF=83=CF=8C =CF=80=CE=BB=CE=B7=CF=81=CF=89=CE=BC=CE=AE=CF=82: =
+800.61 =CE=B5=CF=85=CF=81=CF=8E
+
+=CE=97=CE=BB=CE=B5=CE=BA=CF=84=CF=81=CE=B9=CE=BA=CE=AE =CE=95=CF=84=CE=B1=
+=CE=B9=CF=81=CE=B5=CE=AF=CE=B1 =CE=91=CF=84=CF=84=CE=B9=CE=BA=CE=AE=CF=82
+--=_tern_synthetic_0010_06a577ec
+Content-Type: application/pdf; name="INV-0081.pdf"
+Content-Disposition: attachment; filename="INV-0081.pdf"
+Content-Transfer-Encoding: base64
+
+JVBERi0xLjQKJSBzeW50aGV0aWMgYXR0YWNobWVudCwgbm90IGEgcmVhbCBkb2N1bWVudAolJUVP
+Rgo=
+--=_tern_synthetic_0010_06a577ec--
+
+From - Fri Aug 21 09:00:00 2026
+From: Acme Billing <billing@acme.example.com>
+To: Alex Morgan <alex@example.com>
+Subject: Acme Billing invoice INV-0084
+Date: Fri, 21 Aug 2026 09:00:00 +0000
+Message-ID: <inv-0084.d1cd15e2@acme.example.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=_tern_synthetic_0011_85ef01fa"
+
+--=_tern_synthetic_0011_85ef01fa
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Dear Alex Morgan,
+
+Invoice INV-0084 is attached.
+Amount due: EUR 747.86
+
+Acme Billing
+--=_tern_synthetic_0011_85ef01fa
+Content-Type: application/pdf; name="INV-0084.pdf"
+Content-Disposition: attachment; filename="INV-0084.pdf"
+Content-Transfer-Encoding: base64
+
+JVBERi0xLjQKJSBzeW50aGV0aWMgYXR0YWNobWVudCwgbm90IGEgcmVhbCBkb2N1bWVudAolJUVP
+Rgo=
+--=_tern_synthetic_0011_85ef01fa--

@@ -1,0 +1,5 @@
+{"transcript":"hello_extension","client":"extension","description":"The extension (through tern-nmhost) says hello with its profile_id; the daemon answers with its own hello (no profile_id); the extension then resyncs approvals.pending."}
+{"from":"client","msg":{"jsonrpc":"2.0","id":1,"method":"hello","params":{"protocol":"tern-bridge/1","minor":0,"role":"extension","version":"0.1.0","capabilities":["mail.read"],"profile_id":"6f1c2b0e-8a4d-4c3e-9b2a-1d5e7f9a0b3c"}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":1,"result":{"protocol":"tern-bridge/1","minor":0,"role":"daemon","version":"0.0.0-golden","capabilities":[]}}}
+{"from":"client","msg":{"jsonrpc":"2.0","id":2,"method":"approvals.pending","params":{}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":2,"result":[]}}

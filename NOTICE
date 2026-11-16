@@ -1,0 +1,10 @@
+tern
+Copyright 2026 the tern authors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This product includes thunderbird-mcp (commit 4921d1e), vendored as
+src/tern/tbmcp/ (Python modules and the agent skills under src/tern/tbmcp/skills/), with changes
+listed in src/tern/tbmcp/__init__.py.
+Copyright (c) 2026 Andres Gimenez. Licensed under the MIT License; the full license text is in
+src/tern/tbmcp/LICENSE.

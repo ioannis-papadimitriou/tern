@@ -1,0 +1,4 @@
+{"transcript":"error_hello_invalid","client":"socket","description":"An extension hello without profile_id is invalid_params; the daemon then closes the connection."}
+{"from":"client","msg":{"jsonrpc":"2.0","id":1,"method":"hello","params":{"protocol":"tern-bridge/1","minor":0,"role":"extension","version":"0.1.0","capabilities":[]}}}
+{"from":"tern","msg":{"jsonrpc":"2.0","id":1,"error":{"code":-32602,"message":"<root>: value_error","data":{"name":"invalid_params"}}}}
+{"event":"closed"}

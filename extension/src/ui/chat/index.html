@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>tern</title>
+    <link rel="stylesheet" href="chat.css" />
+    <script type="module" src="main.js"></script>
+  </head>
+  <body>
+    <div id="app" data-sidebar="default" data-artifact="closed">
+      <nav id="sidebar" aria-label="Chats"></nav>
+      <div id="main">
+        <header id="header"></header>
+        <main id="log" aria-live="polite"></main>
+        <div id="dock">
+          <div id="overlay"></div>
+          <form id="composer" autocomplete="off">
+            <textarea
+              id="input"
+              rows="1"
+              maxlength="8000"
+              placeholder="Ask about your mail"
+              aria-label="Message (Enter sends, Shift+Enter adds a line)"
+            ></textarea>
+            <div id="actions"></div>
+          </form>
+        </div>
+      </div>
+      <aside id="artifact" aria-label="Artifact"></aside>
+    </div>
+  </body>
+</html>

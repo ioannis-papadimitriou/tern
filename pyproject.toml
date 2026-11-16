@@ -1,0 +1,92 @@
+[project]
+name = "tern"
+version = "0.1.0"
+description = "Local-first AI layer for Thunderbird: index, chat, triage, draft and file mail with local models"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+requires-python = ">=3.12,<3.13"
+classifiers = [
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3.12",
+]
+# sqlite-vec is pre-1.0: exact pin (its API may change between 0.1.x releases).
+dependencies = [
+    "mcp>=2.3,<3",
+    "pydantic>=2.14,<3",
+    "pydantic-settings>=2.16,<3",
+    "platformdirs>=4.14,<5",
+    "sqlite-vec==0.1.9",
+    "httpx>=0.28,<0.29",
+    # Vendored thunderbird-mcp calendar recurrence (tern.tbmcp.calendar_db).
+    "python-dateutil>=2.9,<3",
+    # read_attachment: PDF text (pure Python, BSD).
+    "pypdf>=7.1,<8",
+]
+
+[project.scripts]
+ternd = "tern.daemon.main:main"
+tern = "tern.cli:main"
+tern-nmhost = "tern.bridge.nmhost:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2,<10",
+    "pytest-asyncio>=1.5,<2",
+    "ruff>=0.17.5,<0.18",
+    "pyright>=1.1.414,<1.2",
+]
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14"]
+build-backend = "uv_build"
+
+# ---- pytest (the Makefile filters on these markers) ----
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "smoke: tiny end-to-end pipeline run (make smoke)",
+    "slow: wall-clock budgets; make test-slow only (not in make check)",
+    "heavy: expensive functional tests; make check runs them, make check-fast skips them",
+]
+asyncio_default_fixture_loop_scope = "function"
+xfail_strict = true
+
+# ---- pyright ----
+[tool.pyright]
+pythonVersion = "3.12"
+typeCheckingMode = "standard"
+include = ["src", "tests", "scripts"]
+# An explicit exclude replaces pyright's defaults, so they are repeated here.
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/.*",
+]
+venvPath = "."
+venv = ".venv"
+
+# ---- ruff ----
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# Smoke harness: single-letter `l` loop variables; long contract docstrings.
+"tests/smoke/test_smoke.py" = ["E741"]
+"tests/smoke/adapter.py" = ["E501"]
+
+[tool.ruff.format]
+# Generated or frozen files: `make fmt` must never rewrite them.
+exclude = [
+    "tests/smoke/test_smoke.py",
+    "evals/**",
+    "contracts/**",
+    "tests/fixtures/**",
+    "tests/golden/**",
+    "scripts/gen_synthetic_mailbox.py",
+    # Not protected: Markdown code blocks are design sketches, laid out by hand.
+    "**/*.md",
+]

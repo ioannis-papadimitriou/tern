@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+# Node / extension
+node_modules/
+extension/dist/
+*.xpi
+# Local AI-assistant tooling and old local experiment data
+.mcp.json
+spikes/
+# Safety net: real mail and index databases must never land in the repo.
+*.mbox
+*.eml
+*.msf
+*.db
+*.db-*
+*.sqlite
+*.sqlite*
+index.db*
+audit.db*
+# Thunderbird mbox files have no extension: folder names, and *.sbd/ subfolder dirs
+Inbox
+INBOX
+Sent
+Sent Mail
+Sent Messages
+Drafts
+Trash
+Junk
+Spam
+Archives
+Templates
+Unsent Messages
+# ...but source dirs named like mailboxes (extension/src/ui/Drafts/) are code. Directories only,
+# one per name above, before *.sbd/ so that still wins; a stray mbox FILE named Drafts stays ignored.
+!/extension/src/**/Inbox/
+!/extension/src/**/INBOX/
+!/extension/src/**/Sent/
+!/extension/src/**/Sent Mail/
+!/extension/src/**/Sent Messages/
+!/extension/src/**/Drafts/
+!/extension/src/**/Trash/
+!/extension/src/**/Junk/
+!/extension/src/**/Spam/
+!/extension/src/**/Archives/
+!/extension/src/**/Templates/
+!/extension/src/**/Unsent Messages/
+*.sbd/
+# Committed synthetic inputs are the only exceptions: the fixture mailbox and the synthetic eval sets.
+!tests/fixtures/synthetic_mailbox/**
+!evals/synthetic/**
+# Tool caches and repo-local temp dirs
+.cache/
+.tmp-*/
+pytest-of-*/
+runs/
+.env
+.env.*
+secrets/
