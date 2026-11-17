@@ -21,7 +21,7 @@ SUBPACKAGES = [
 def test_package_version() -> None:
     import tern
 
-    assert tern.__version__ == "0.1.0"
+    assert tern.__version__ == "0.2.0"
 
 
 @pytest.mark.parametrize("name", SUBPACKAGES)

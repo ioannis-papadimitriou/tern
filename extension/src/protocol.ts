@@ -3,8 +3,8 @@
 // is the source of truth and exports the frozen JSON schema.
 
 export const PROTOCOL = "tern-bridge/1";
-/** The newest minor this extension speaks (tern-bridge/1.2, decisions #39). */
-export const MINOR = 2;
+/** The newest minor this extension speaks (tern-bridge/1.3: the chat model picker). */
+export const MINOR = 3;
 
 // TB reads at most 1 MiB per host→extension message; tern keeps frames < 512 KiB and the host
 // splits larger messages into bridge.chunk notifications (S1, framing.py).
@@ -403,6 +403,27 @@ export interface ApprovalDecided {
   status: ApprovalStatus;
 }
 
+// tern-bridge/1.3: the chat model picker (chat.models, chat.select_model; e→d requests).
+
+/** A chat model loaded on one of ternd's model servers. `key` is opaque (chat.select_model). */
+export interface ChatModel {
+  key: string;
+  model: string;
+  server: string;
+  label: string;
+}
+
+/** `chat.models` / `chat.select_model` result. `selected`: null when that model is not listed. */
+export interface ChatModels {
+  models: ChatModel[];
+  selected: string | null;
+}
+
+/** `chat.select_model` params. */
+export interface ChatSelectModelParams {
+  key: string;
+}
+
 // ---------------------------------------------------------------------------------------------
 // Chat tab ↔ background, over one runtime port per open tab (name CHAT_PORT_NAME in tb/api.ts).
 // Extension-internal, NOT tern-bridge: the background's ChatRouter (background/chat.ts) turns
@@ -428,12 +449,17 @@ export type PageRequest =
   /** A citation chip: open the message in Thunderbird (ui.open_mid; bridge 1.1). */
   | { type: "open"; req: number; mid: string }
   /** daemon.info (bridge 1.1). */
-  | { type: "info"; req: number };
+  | { type: "info"; req: number }
+  /** chat.models (bridge 1.3). */
+  | { type: "models"; req: number }
+  /** chat.select_model (bridge 1.3). */
+  | { type: "select_model"; req: number; key: string };
 
 export type PageReply =
   | { type: "turn"; req: number; turn_id: string }
   | { type: "status_result"; req: number; status: IndexStatus }
   | { type: "info_result"; req: number; info: DaemonInfo }
+  | { type: "models_result"; req: number; models: ChatModels }
   | { type: "approve_result"; req: number; status: ApprovalStatus }
   | { type: "ok"; req: number }
   | { type: "error"; req: number; name: ErrorName; message: string };
@@ -453,6 +479,8 @@ export type PageEvent =
       args: Record<string, unknown>;
       expires_at: string;
     }
+  /** chat.models, fetched by the background after each successful `info` (bridge 1.3). */
+  | { type: "models"; models: ChatModels }
   /** The daemon session ended: running turns are lost, and so may be the conversation. */
   | { type: "session_end" };
 

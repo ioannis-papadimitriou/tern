@@ -18,7 +18,7 @@ from tern import cli
 from tern.bridge.protocol import MINOR, export_schema
 
 CONTRACTS = Path(__file__).resolve().parents[2] / "contracts"
-VERSIONS = ("1.0", "1.1", "1.2")
+VERSIONS = ("1.0", "1.1", "1.2", "1.3")
 
 
 @pytest.mark.parametrize("version", VERSIONS)

@@ -1,11 +1,12 @@
 // Validate values against the frozen tern-bridge/1.N contract files (the pydantic exports):
-// 1.0 by default, 1.1 or 1.2 on request (plan 07 part B, #39; supersets, older shapes identical).
+// 1.0 by default, 1.1, 1.2 or 1.3 on request (plan 07 part B, #39; supersets, older shapes identical).
 // Supports exactly the JSON-schema keywords that file uses; an unknown keyword is an error, so a
 // future export cannot silently pass unchecked.
 
 import contractJson from "../../contracts/tern-bridge-1.0.schema.json";
 import contract11Json from "../../contracts/tern-bridge-1.1.schema.json";
 import contract12Json from "../../contracts/tern-bridge-1.2.schema.json";
+import contract13Json from "../../contracts/tern-bridge-1.3.schema.json";
 
 type Schema = Record<string, unknown>;
 
@@ -14,12 +15,13 @@ interface Contract {
   methods: Record<string, { params: Schema; result?: Schema; kind: string; direction: string }>;
 }
 
-export type Version = "1.0" | "1.1" | "1.2";
+export type Version = "1.0" | "1.1" | "1.2" | "1.3";
 
 const CONTRACTS: Record<Version, Contract> = {
   "1.0": contractJson as unknown as Contract,
   "1.1": contract11Json as unknown as Contract,
   "1.2": contract12Json as unknown as Contract,
+  "1.3": contract13Json as unknown as Contract,
 };
 
 /** The contract whose $defs `check` resolves (set for the duration of one check). */

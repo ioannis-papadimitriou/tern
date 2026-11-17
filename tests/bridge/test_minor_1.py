@@ -72,9 +72,9 @@ async def daemon() -> AsyncIterator[tuple[BridgeServer, Path, list[str]]]:
     await srv.wait_closed()
 
 
-def test_this_build_speaks_minor_2_and_still_builds_a_1_1_daemon() -> None:
-    assert MINOR == 2  # tern-bridge/1.2 (#39)
-    assert _server(MINOR).minor == 2
+def test_this_build_speaks_minor_3_and_still_builds_a_1_1_daemon() -> None:
+    assert MINOR == 3  # tern-bridge/1.3 (the chat model picker)
+    assert _server(MINOR).minor == 3
     assert _server().minor == 1
 
 

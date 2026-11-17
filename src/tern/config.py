@@ -95,6 +95,11 @@ class TernConfig(BaseSettings):
     chat_base_url: str = "http://127.0.0.1:47831/v1"
     #: Chat model id (the S3-adopted model, #15 amendment 2026-11-13).
     chat_model: str = "iq3_xxs"
+    #: More chat servers whose *loaded* models the chat tab offers in its model picker, next to
+    #: the models of ``chat_base_url`` (`tern.llm.models`). Default: LM Studio's default port.
+    #: Each must pass the loopback egress guard (#9), else it is skipped. [] = only
+    #: ``chat_base_url``.
+    chat_extra_base_urls: list[str] = Field(default_factory=lambda: ["http://127.0.0.1:1234/v1"])
     chat_temperature: float = Field(default=0.0, ge=0, le=2)
     chat_seed: int = Field(default=0, ge=0)
     #: `max_tokens` of each chat request (reasoning included); `finish_reason "length"` is

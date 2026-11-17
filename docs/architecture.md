@@ -170,6 +170,17 @@ A superset of 1.1 (every older shape unchanged; `chat.send` keeps its 1.0 params
 
 - **What `manual` asks.** Every tool call of the turn below W2 opens an ask approval in the engine's approvals queue (§6): no row while it waits, then the same rows by outcome as a W2/W3 approval (`approved` and the call runs; `denied`/`user_denied`, `timeout`/`expired`, `denied`/`cancelled`), and a refusal reaches the model as an error tool result while the turn goes on. W2/W3 calls keep their own approval (the engine's notifier, plan 12); `bypass` never lifts it (#10's per-action confirmation).
 
+**`tern-bridge/1.3` (frozen: `contracts/tern-bridge-1.3.schema.json`; the chat model picker)**
+
+A superset of 1.2 (every older shape unchanged). A peer below 1.3 gets `method_not_available` for these; the tab then shows no picker.
+
+| Dir | Method | Params → Result | Tier |
+|---|---|---|---|
+| e→d | `chat.models` | roles `extension`, `cli`; `{}` → `{models:[{key, model, server, label}], selected: key\|null}`: the chat models **loaded** on `chat_base_url` and `chat_extra_base_urls` (`tern.llm.models`; LM Studio's native API says which are loaded, other servers list what they serve; embedding models left out; a server that is down or fails the egress guard is skipped). `selected` is null when the model new turns use is not listed | — |
+| e→d | `chat.select_model` | roles `extension`, `cli`; `{key}` → as `chat.models`; a key not among the loaded models → `invalid_params`. ternd-wide until ternd restarts; each turn uses the model selected when it starts. `daemon.info` and `index.status` then name the picked model | — |
+
+The extension's router asks `chat.models` itself after each successful `daemon.info` on a 1.3 session and pushes the list to that tab (a `models` page event); opening the picker's menu asks again.
+
 **Planned 1.N additions (each owned by the plan that needs it; frozen there)**
 
 | Minor | Owner | Method | Params → Result | Tier |

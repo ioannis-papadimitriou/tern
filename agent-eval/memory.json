@@ -1,0 +1,24 @@
+{
+  "_method": "Measured on one RTX 3090 (24 GiB) + 94 GiB RAM, Linux. vram_gib: GPU memory in use with the model loaded minus the desktop's use just before loading (3.4-3.6 GiB: Xorg, browser). ram_gib: system RAM the model itself needs. LM Studio models are fully offloaded to the GPU, so no weights or KV cache are in RAM: 0 (the llama-server process adds about 0.3-0.4 GiB of runtime memory plus reclaimable file pages, whatever the model). Strata: the drop in used system RAM when its instance was stopped (its engine keeps MoE experts resident in RAM).",
+  "agent-eval-strata-iq3xxs": {
+    "name": "Qwen3.8-Flash-Next",
+    "context": 524288,
+    "vram_gib": 15.6,
+    "ram_gib": 46.0,
+    "detail": "IQ3_XXS on Strata, 512k context"
+  },
+  "agent-eval-lmstudio-gptoss20b": {
+    "name": "gpt-oss-20b",
+    "context": 131072,
+    "vram_gib": 14.6,
+    "ram_gib": 0.0,
+    "detail": "MXFP4 on LM Studio, 131k context"
+  },
+  "agent-eval-lmstudio-bonsai2-27b-180k": {
+    "name": "Bonsai 2 27B",
+    "context": 180224,
+    "vram_gib": 19.9,
+    "ram_gib": 0.0,
+    "detail": "Q2_0 on LM Studio, 180k context"
+  }
+}

@@ -166,7 +166,7 @@ def test_schema_export_is_deterministic_and_complete() -> None:
     for entry in doc["methods"].values():
         assert entry["params"]["$ref"].removeprefix("#/$defs/") in doc["$defs"]
     with pytest.raises(ValueError):
-        p.export_schema("1.3")
+        p.export_schema("1.4")
 
 
 # ---- minor 1 (plan 07 part B, plan 08b; decisions #37) --------------------------------------
@@ -177,7 +177,7 @@ MINOR_1 = {"tools.list", "tools.call", "audit.status", "ui.open_mid", "daemon.in
 def test_minor_1_adds_exactly_its_methods_and_this_build_speaks_it() -> None:
     assert p.MINOR >= 1  # 2 since #39
     assert {n for n, s in p.METHODS.items() if s.minor == 1} == MINOR_1
-    assert {s.minor for s in p.METHODS.values()} == {0, 1, 2}  # 2: decisions #39
+    assert {s.minor for s in p.METHODS.values()} == {0, 1, 2, 3}  # 2: #39; 3: model picker
     for name in MINOR_1:
         assert p.method_spec(name, 1) is p.METHODS[name]
         with pytest.raises(p.BridgeError) as exc:
@@ -311,7 +311,7 @@ MINOR_2 = {"chat.start", "chat.approval", "chat.approve"}
 
 
 def test_minor_2_is_spoken_and_exported() -> None:
-    assert (p.MINOR, p.SCHEMA_MINOR) == (2, 2)
+    assert p.MINOR >= 2 and p.SCHEMA_MINOR >= 2  # 3 since the model picker
     assert {n for n, s in p.METHODS.items() if s.minor == 2} == MINOR_2
     for name in MINOR_2:
         assert p.method_spec(name, 2) is p.METHODS[name]
@@ -404,3 +404,55 @@ def test_chat_approval_keeps_the_args_whole_on_the_wire_and_never_echoes_them() 
     with pytest.raises(p.BridgeError) as exc:
         p.validate_params(p.ChatApproval, {**wire, "tier": SENTINEL})
     assert SENTINEL not in str(exc.value)
+
+
+# ---- minor 3 (the chat model picker) ----------------------------------------------------------
+
+MINOR_3 = {"chat.models", "chat.select_model"}
+
+
+def test_minor_3_is_spoken_and_exported() -> None:
+    assert (p.MINOR, p.SCHEMA_MINOR) == (3, 3)
+    assert {n for n, s in p.METHODS.items() if s.minor == 3} == MINOR_3
+    for name in MINOR_3:
+        spec = p.method_spec(name, 3)
+        assert (spec.kind, spec.direction, spec.roles, spec.result) == (
+            "request",
+            "e2d",
+            {"extension", "cli"},
+            p.ChatModels,
+        )
+        for older in (0, 1, 2):
+            with pytest.raises(p.BridgeError) as exc:
+                p.method_spec(name, older)
+            assert exc.value.name == "method_not_available"
+
+
+def test_the_1_3_export_is_a_superset_of_1_2_with_older_shapes_unchanged() -> None:
+    old, new = p.export_schema("1.2"), p.export_schema("1.3")
+    assert (new["minor"], new["$id"]) == (3, "tern-bridge-1.3")
+    assert set(new["methods"]) == set(old["methods"]) | MINOR_3
+    for name, entry in old["methods"].items():
+        assert new["methods"][name] == entry
+    for name, schema in old["$defs"].items():
+        assert new["$defs"][name] == schema
+    assert new["errors"] == old["errors"]
+
+
+def test_chat_models_shapes() -> None:
+    ok = p.validate_params(
+        p.ChatModels,
+        {
+            "models": [{"key": "k", "model": "m", "server": "Strata", "label": "M"}],
+            "selected": None,
+        },
+    )
+    assert ok.selected is None and ok.models[0].key == "k"
+    for bad in ({"key": ""}, {}, {"key": "k", "x": 1}):
+        with pytest.raises(p.BridgeError):
+            p.validate_params(p.ChatSelectModelParams, bad)
+
+
+def test_chat_models_keeps_a_null_selected_on_the_wire() -> None:
+    # dump() drops None fields; selected is required by the 1.3 contract, so it stays as null.
+    assert p.dump(p.ChatModels(models=[], selected=None)) == {"models": [], "selected": None}

@@ -93,8 +93,8 @@ def test_leftover_socket_file_is_replaced(tern_home: Path) -> None:
 async def test_cli_hello_and_ping(sock: Path) -> None:
     c = await connect(sock, "cli")
     assert (
-        c.hello_result["role"] == "daemon" and c.hello_result["minor"] == 2
-    )  # tern-bridge/1.2 (#39)
+        c.hello_result["role"] == "daemon" and c.hello_result["minor"] == 3
+    )  # tern-bridge/1.3 (model picker)
     assert await c.peer.request("bridge.ping", {}, timeout=2) == {}
     await c.close()
 

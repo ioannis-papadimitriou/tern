@@ -18,6 +18,11 @@ a new method, because a minor never changes a 1.0 method's params and ``chat.sen
 fields); in a ``manual`` turn ternd sends ``chat.approval`` before each tool call runs and the
 client answers ``chat.approve``.
 
+Minor 3 (``tern-bridge/1.3``; ``contracts/tern-bridge-1.3.schema.json``): the chat model picker.
+``chat.models`` lists the chat models loaded on the configured servers (``tern.llm.models``) and
+the selected one; ``chat.select_model`` selects one for every turn that starts after it (ternd
+wide, until ternd restarts; ``daemon.info``'s ``chat_model`` then names it).
+
 Messages are JSON-RPC 2.0. Both sides send ``hello`` first. Errors carry a §3 error name in
 ``error.data.name``.
 """
@@ -36,7 +41,9 @@ from pydantic import (
     Field,
     JsonValue,
     RootModel,
+    SerializerFunctionWrapHandler,
     ValidationError,
+    model_serializer,
     model_validator,
 )
 from pydantic.json_schema import models_json_schema
@@ -44,11 +51,11 @@ from pydantic.json_schema import models_json_schema
 from tern._model import BoundaryModel
 
 PROTOCOL = "tern-bridge/1"
-MINOR = 2  # the newest minor this build speaks
+MINOR = 3  # the newest minor this build speaks
 #: The newest minor whose models and methods this build defines and exports. Above :data:`MINOR`
 #: while a new minor waits for its frozen contract file (1.2 was staged so, decisions #39, until
 #: ``contracts/tern-bridge-1.2.schema.json`` was committed).
-SCHEMA_MINOR = 2
+SCHEMA_MINOR = 3
 
 # ---------------------------------------------------------------------------------------------
 # Errors
@@ -786,6 +793,44 @@ class ChatApproveParams(BoundaryModel):
 
 
 # ---------------------------------------------------------------------------------------------
+# Minor 3: the chat model picker
+
+# Docstrings of these models become ``description`` strings in the frozen 1.3 schema.
+
+
+class ChatModel(BoundaryModel):
+    """A chat model loaded on one of the daemon's configured model servers. key is opaque: pass
+    it to chat.select_model."""
+
+    key: str
+    model: str
+    server: str
+    label: str
+
+
+class ChatModels(BoundaryModel):
+    """The loaded chat models (servers in config order) and the key of the model new turns use.
+    selected is null when that model is not among the listed ones (e.g. its server is down)."""
+
+    models: list[ChatModel]
+    selected: str | None
+
+    @model_serializer(mode="wrap")
+    def _keep_selected(self, handler: SerializerFunctionWrapHandler) -> Any:
+        # selected is required: written as null when None, also under dump()'s exclude_none.
+        out = handler(self)
+        if isinstance(out, dict) and self.selected is None:
+            out["selected"] = None
+        return out
+
+
+class ChatSelectModelParams(BoundaryModel):
+    """Use the model with this key (from chat.models) for every chat turn that starts later."""
+
+    key: str = Field(min_length=1)
+
+
+# ---------------------------------------------------------------------------------------------
 # Method table
 
 Direction = Literal["d2e", "e2d", "any", "cli2d", "host2e", "mcp2d"]
@@ -883,6 +928,16 @@ _SPECS: tuple[MethodSpec, ...] = (
         ApprovalDecided,
         frozenset({"extension", "cli"}),
         minor=2,
+    ),
+    # minor 3 (the chat model picker)
+    _req("chat.models", "e2d", Empty, ChatModels, frozenset({"extension", "cli"}), minor=3),
+    _req(
+        "chat.select_model",
+        "e2d",
+        ChatSelectModelParams,
+        ChatModels,
+        frozenset({"extension", "cli"}),
+        minor=3,
     ),
 )
 

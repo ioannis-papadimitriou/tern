@@ -18,6 +18,12 @@
 //   out as chat.send (what bypass means), and a `manual` one is refused `method_not_available`
 //   without sending anything: ternd could not ask, and running tools unasked is never a silent
 //   fallback. A `send` without a mode is chat.send, as before 1.2.
+// - Model picker, bridge 1.3: `models` → chat.models and `select_model {key}` →
+//   chat.select_model, each → `models_result`. On a session below 1.3 both answer
+//   `method_not_available` and nothing is sent (the tab shows no picker). After an `info` answer
+//   or `status` answer on a 1.3 session the router also asks chat.models itself and sends the tab a
+//   `models` event (a failure there is logged only: the tab just shows no picker yet), so the
+//   picker follows models being loaded and unloaded.
 // - chat.approval goes to the owning tab only (malformed: dropped with a log line, so no card can
 //   show what ternd did not send). `approve` → chat.approve for a turn this tab owns
 //   (another tab's or an unknown turn: `invalid_params`, nothing sent) → `approve_result {status}`.
@@ -38,6 +44,8 @@ import {
   BridgeError,
   type ChatApproveParams,
   type ChatMode,
+  type ChatModel,
+  type ChatModels,
   type ChatSendParams,
   type ChatStartParams,
   type DaemonInfo,
@@ -107,6 +115,9 @@ export const OPEN_MINOR = 1;
 
 /** The minor that has chat.start, chat.approval and chat.approve (staged, decisions #39). */
 export const MODE_MINOR = 2;
+
+/** The minor that has chat.models and chat.select_model (the model picker). */
+export const MODEL_MINOR = 3;
 
 export const MANUAL_NEEDS_MINOR =
   "manual mode needs tern-bridge 1.2, which this ternd does not speak; nothing was sent";
@@ -180,8 +191,33 @@ export function parsePageRequest(x: unknown): Parsed {
       break;
     case "info":
       return { ok: true, msg: { type: "info", req } };
+    case "models":
+      return { ok: true, msg: { type: "models", req } };
+    case "select_model":
+      if (nonEmpty(x.key)) return { ok: true, msg: { type: "select_model", req, key: x.key } };
+      break;
   }
   return { ok: false, req };
+}
+
+/** A ChatModels value, validated and copied (unknown fields dropped); null when malformed. */
+export function parseChatModels(x: unknown): ChatModels | null {
+  if (!isObject(x) || !Array.isArray(x.models)) return null;
+  if (!(x.selected === null || typeof x.selected === "string")) return null;
+  const models: ChatModel[] = [];
+  for (const m of x.models) {
+    if (
+      !isObject(m) ||
+      typeof m.key !== "string" ||
+      typeof m.model !== "string" ||
+      typeof m.server !== "string" ||
+      typeof m.label !== "string"
+    ) {
+      return null;
+    }
+    models.push({ key: m.key, model: m.model, server: m.server, label: m.label });
+  }
+  return { models, selected: x.selected };
 }
 
 /** The scheme of `url` for a log line: a known scheme, "other", or "unparseable". */
@@ -348,6 +384,10 @@ export class ChatRouter {
       this.reply(tab, msg.req, "method_not_available", "needs tern-bridge 1.1 (ternd is older)");
       return;
     }
+    if ((msg.type === "models" || msg.type === "select_model") && this.bridge.minor < MODEL_MINOR) {
+      this.reply(tab, msg.req, "method_not_available", "needs tern-bridge 1.3 (ternd is older)");
+      return;
+    }
     if (msg.type === "send" && !tab.infoChecked) {
       this.log("send refused: model setting not checked in this session");
       this.reply(tab, msg.req, "unavailable", "model setting not checked; ask info first");
@@ -393,6 +433,10 @@ export class ChatRouter {
         result = await this.bridge.request("ui.open_mid", { ...params });
       } else if (msg.type === "info") {
         result = await this.bridge.request("daemon.info", {});
+      } else if (msg.type === "models") {
+        result = await this.bridge.request("chat.models", {});
+      } else if (msg.type === "select_model") {
+        result = await this.bridge.request("chat.select_model", { key: msg.key });
       } else {
         result = await this.bridge.request("index.status", {});
       }
@@ -407,7 +451,13 @@ export class ChatRouter {
     else if (msg.type === "cancel" || msg.type === "open")
       this.post(tab, { type: "ok", req: msg.req });
     else if (msg.type === "info") this.info(tab, msg.req, result, session);
-    else this.post(tab, { type: "status_result", req: msg.req, status: result as IndexStatus });
+    else if (msg.type === "models" || msg.type === "select_model")
+      this.models(tab, msg.req, result);
+    else {
+      this.post(tab, { type: "status_result", req: msg.req, status: result as IndexStatus });
+      // A model loaded or unloaded since: the picker follows each status refresh.
+      if (session === this.session && this.bridge.minor >= MODEL_MINOR) void this.pushModels(tab);
+    }
   }
 
   /** daemon.info's reply, checked: a malformed one fails the request (never a guessed banner). */
@@ -425,6 +475,37 @@ export class ChatRouter {
     // Only an answer from the current session counts (the tab drops older replies anyway).
     if (session === this.session) tab.infoChecked = true;
     this.post(tab, { type: "info_result", req, info });
+    if (session === this.session && this.bridge.minor >= MODEL_MINOR) void this.pushModels(tab);
+  }
+
+  /** chat.models → a `models` event to `tab` (still open, same session); failures logged only. */
+  private async pushModels(tab: Tab): Promise<void> {
+    const session = this.session;
+    let result: unknown;
+    try {
+      result = await this.bridge.request("chat.models", {});
+    } catch (err) {
+      if (!(err instanceof BridgeError)) throw err;
+      this.log(`models failed: ${err.code}`);
+      return;
+    }
+    const models = parseChatModels(result);
+    if (models === null) {
+      this.log("chat.models answered with an invalid reply");
+      return;
+    }
+    if (tab.open && session === this.session) this.post(tab, { type: "models", models });
+  }
+
+  /** chat.models / chat.select_model's reply, checked: a malformed one fails the request. */
+  private models(tab: Tab, req: number, result: unknown): void {
+    const models = parseChatModels(result);
+    if (models === null) {
+      this.log("chat.models answered with an invalid reply");
+      this.reply(tab, req, "unavailable", "ternd sent an invalid reply");
+      return;
+    }
+    this.post(tab, { type: "models_result", req, models });
   }
 
   /** chat.approve's reply, checked: a malformed one fails the request (never a guessed status). */

@@ -208,12 +208,19 @@ def ui_open_mid_handler(registry: Registry) -> Handler:
     return handle
 
 
-def daemon_info_handler(cfg: config.TernConfig, on_read: Callable[[Peer], None]) -> Handler:
+def daemon_info_handler(
+    cfg: config.TernConfig,
+    on_read: Callable[[Peer], None],
+    chat_model: Callable[[], str] | None = None,
+) -> Handler:
     """``on_read(peer)`` runs before the reply: ``ChatHost.info_read``, so remote-model chat is
-    allowed only on a connection that has read ``remote_llm`` (its tab shows the banner)."""
+    allowed only on a connection that has read ``remote_llm`` (its tab shows the banner).
+    ``chat_model()``: the model new turns use (``ChatHost.chat_model``, the picker's choice);
+    None: ``cfg.chat_model``."""
 
     async def handle(peer: Peer, params: Empty) -> DaemonInfo:
         on_read(peer)
-        return DaemonInfo(remote_llm=cfg.allow_remote_llm, chat_model=cfg.chat_model)
+        model = cfg.chat_model if chat_model is None else chat_model()
+        return DaemonInfo(remote_llm=cfg.allow_remote_llm, chat_model=model)
 
     return handle

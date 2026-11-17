@@ -35,10 +35,18 @@
 //   "Allow all for this turn" send `approve` once (the card is disabled while it waits and after
 //   the answer). A card still undecided when its turn ends is closed (its call was refused or the
 //   turn stopped). Cards are not saved.
+// - Model picker (bridge 1.3): the background sends a `models` event (chat.models: the chat models
+//   loaded on ternd's model servers) each time this tab's `info` or `status` succeeds; opening the picker's
+//   menu asks `models` again, so a model loaded meanwhile shows up. The header shows a dropdown when there is a choice
+//   (more than one model, or one that is not the selected one); picking one sends `select_model`,
+//   which ternd applies to every turn that starts afterwards. `method_not_available` (ternd below
+//   1.3) hides the picker for that bridge session.
 
 import {
   type ApprovalStatus,
   type ChatMode,
+  type ChatModel,
+  type ChatModels,
   ERROR_CODES,
   type ErrorName,
   type IndexStatus,
@@ -166,7 +174,23 @@ export type Waiting =
   | { readonly kind: "open"; readonly mid: string }
   /** `forSend`: asked because a send was refused (its failure gets a notice). */
   | { readonly kind: "info"; readonly forSend: boolean }
-  | { readonly kind: "approve"; readonly approvalId: string };
+  | { readonly kind: "approve"; readonly approvalId: string }
+  | { readonly kind: "models" }
+  | { readonly kind: "select_model"; readonly key: string };
+
+/** What the tab knows of the chat models ternd can use (bridge 1.3, chat.models). */
+export type ModelsState =
+  /** Not asked yet in this bridge session, or the last ask failed. */
+  | { readonly kind: "unknown" }
+  /** ternd is below 1.3: no picker. */
+  | { readonly kind: "unsupported" }
+  | {
+      readonly kind: "known";
+      readonly models: readonly ChatModel[];
+      readonly selected: string | null;
+      /** The key a `select_model` is on its way for, or null. */
+      readonly selecting: string | null;
+    };
 
 /** What the tab knows of ternd's model setting (daemon.info). */
 export type InfoState =
@@ -216,12 +240,20 @@ export interface ChatState {
   readonly copied: string | null;
   /** The shown chat's permission mode (decisions #39). */
   readonly mode: ChatMode;
+  /** The chat models ternd offers (the header's model picker). */
+  readonly models: ModelsState;
+  /** The model picker's menu is open. */
+  readonly modelMenu: boolean;
 }
 
 export type Action =
   | { readonly type: "submit"; readonly text: string }
   /** The shown chat's mode, from the header's switch (applies from its next message). */
   | { readonly type: "set_mode"; readonly mode: ChatMode }
+  /** The model picker's button: open (and refresh the list) or close its menu. */
+  | { readonly type: "toggle_model_menu" }
+  /** A model in the picker's menu (applies to ternd's next turns). */
+  | { readonly type: "select_model"; readonly key: string }
   /** A button on an approval card of the running turn. */
   | {
       readonly type: "decide";
@@ -338,6 +370,8 @@ export function initialState(sessionId: string): ChatState {
     confirm: null,
     info: { kind: "unknown" },
     mode: DEFAULT_MODE,
+    models: { kind: "unknown" },
+    modelMenu: false,
   };
 }
 
@@ -418,6 +452,13 @@ class Draft {
     for (const w of this.state.waiting.values()) if (w.kind === "status") asked = true;
     if (!asked) this.request({ kind: "status" }, (req) => ({ type: "status", req }));
     if (this.state.info.kind === "unknown") this.info();
+  }
+
+  /** A chat.models request (at most one in flight; none while ternd is below 1.3). */
+  models(): void {
+    if (this.state.models.kind === "unsupported") return;
+    for (const w of this.state.waiting.values()) if (w.kind === "models") return;
+    this.request({ kind: "models" }, (req) => ({ type: "models", req }));
   }
 
   info(forSend = false): void {
@@ -523,6 +564,9 @@ class Draft {
       statusError: hadStatus ? reason : this.state.statusError,
       // ternd may come back with another config: ask again before the next send.
       info: forgotten(this.state.info),
+      // ...and with other models (or another bridge minor).
+      models: { kind: "unknown" },
+      modelMenu: false,
     };
   }
 
@@ -551,6 +595,13 @@ export function update(state: ChatState, action: Action): Update {
       break;
     case "set_mode":
       d.state = { ...d.state, mode: action.mode };
+      break;
+    case "toggle_model_menu":
+      d.state = { ...d.state, modelMenu: !d.state.modelMenu };
+      if (d.state.modelMenu) d.models();
+      break;
+    case "select_model":
+      selectModel(d, action.key);
       break;
     case "decide":
       decide(d, action.approvalId, action.decision, action.restOfTurn);
@@ -822,6 +873,48 @@ export function allChats(state: ChatState): Chat[] {
   ];
 }
 
+function selectModel(d: Draft, key: string): void {
+  const models = d.state.models;
+  d.state = { ...d.state, modelMenu: false };
+  if (models.kind !== "known" || models.selecting !== null) return;
+  if (key === models.selected || !models.models.some((m) => m.key === key)) return;
+  d.state = { ...d.state, models: { ...models, selecting: key } };
+  d.request({ kind: "select_model", key }, (req) => ({ type: "select_model", req, key }));
+}
+
+/** A chat.models / chat.select_model answer: the list, and daemon.info's model follows it. */
+function onModels(d: Draft, models: ChatModels): void {
+  d.state = {
+    ...d.state,
+    models: {
+      kind: "known",
+      models: models.models,
+      selected: models.selected,
+      selecting: null,
+    },
+  };
+  const picked = models.models.find((m) => m.key === models.selected);
+  const info = d.state.info;
+  if (picked !== undefined && info.kind === "known" && info.chatModel !== picked.model) {
+    d.state = { ...d.state, info: { ...info, chatModel: picked.model } };
+  }
+}
+
+/** The model the picker shows as chosen, or null. */
+export function selectedModel(state: ChatState): ChatModel | null {
+  const m = state.models;
+  if (m.kind !== "known") return null;
+  const key = m.selecting ?? m.selected;
+  return m.models.find((x) => x.key === key) ?? null;
+}
+
+/** Whether the header shows the model picker: ternd lists a choice to make. */
+export function showsModelPicker(state: ChatState): boolean {
+  const m = state.models;
+  if (m.kind !== "known") return false;
+  return m.models.length > 1 || (m.models.length === 1 && m.selected !== m.models[0]?.key);
+}
+
 function stop(d: Draft): void {
   const run = runningTurn(d.state);
   if (run === null || run.stopRequested) return;
@@ -838,6 +931,7 @@ function onMessage(d: Draft, msg: PageMessage): void {
     case "turn":
     case "status_result":
     case "info_result":
+    case "models_result":
     case "approve_result":
     case "ok":
     case "error":
@@ -902,6 +996,9 @@ function onMessage(d: Draft, msg: PageMessage): void {
       }
       return;
     }
+    case "models":
+      onModels(d, msg.models);
+      return;
     case "session_end":
       d.failAll("session_end");
       // ternd's sessions are gone: no chat's earlier turns are known to the assistant now.
@@ -939,6 +1036,11 @@ function onReply(d: Draft, msg: Reply): void {
         ...d.state,
         info: { kind: "known", remoteLlm: msg.info.remote_llm, chatModel: msg.info.chat_model },
       };
+      return;
+    case "models":
+    case "select_model":
+      if (msg.type !== "models_result") break;
+      onModels(d, msg.models);
       return;
     case "approve": {
       if (msg.type !== "approve_result") break;
@@ -1001,6 +1103,21 @@ function onError(d: Draft, w: Waiting, name: ErrorName | "internal", message: st
     case "openUrl":
       d.notice("error", `Could not open the link (${name}).`);
       return;
+    case "models":
+      // ternd below 1.3 has no picker; any other failure is asked again with the next status.
+      if (name === "method_not_available") {
+        d.state = { ...d.state, models: { kind: "unsupported" }, modelMenu: false };
+      }
+      return;
+    case "select_model": {
+      const models = d.state.models;
+      if (models.kind === "known") {
+        d.state = { ...d.state, models: { ...models, selecting: null } };
+      }
+      d.notice("error", `Could not switch the model (${name}); the previous model stays.`);
+      d.models(); // the list may have changed (a server went away)
+      return;
+    }
     case "open":
       if (name === "method_not_available") {
         d.notice("info", `${CHIP_NOTICE} (message ${shortMid(w.mid)}).`);
@@ -1033,6 +1150,18 @@ const isStr = (x: unknown): x is string => typeof x === "string";
 const isNum = (x: unknown): x is number => typeof x === "number" && Number.isFinite(x);
 const isReq = (x: unknown): x is number => typeof x === "number" && Number.isInteger(x);
 const isNullableStr = (x: unknown): boolean => x === null || isStr(x);
+
+/** A ChatModels value, validated and copied; null when malformed. */
+function parseChatModels(x: unknown): ChatModels | null {
+  if (!isObject(x) || !Array.isArray(x.models) || !isNullableStr(x.selected)) return null;
+  const models: ChatModel[] = [];
+  for (const m of x.models) {
+    if (!isObject(m) || !isStr(m.key) || !isStr(m.model) || !isStr(m.server) || !isStr(m.label))
+      return null;
+    models.push({ key: m.key, model: m.model, server: m.server, label: m.label });
+  }
+  return { models, selected: x.selected as string | null };
+}
 
 function isIndexStatus(x: unknown): x is IndexStatus {
   if (!isObject(x)) return false;
@@ -1072,6 +1201,12 @@ export function parsePageMessage(x: unknown): PageMessage | null {
             info: { remote_llm: x.info.remote_llm, chat_model: x.info.chat_model },
           }
         : null;
+    case "models_result": {
+      const models = isReq(x.req) ? parseChatModels(x.models) : null;
+      return models === null || !isReq(x.req)
+        ? null
+        : { type: "models_result", req: x.req, models };
+    }
     case "ok":
       return isReq(x.req) ? { type: "ok", req: x.req } : null;
     case "error":
@@ -1092,6 +1227,10 @@ export function parsePageMessage(x: unknown): PageMessage | null {
         : null;
     case "session_end":
       return { type: "session_end" };
+    case "models": {
+      const models = parseChatModels(x.models);
+      return models === null ? null : { type: "models", models };
+    }
     case "approve_result":
       return isReq(x.req) && isStr(x.status) && STATUSES.has(x.status)
         ? { type: "approve_result", req: x.req, status: x.status as ApprovalStatus }

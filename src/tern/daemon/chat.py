@@ -50,6 +50,14 @@ a ``chat.delta`` to it fails (``BridgeError``, whether or not ``closed`` is set 
 out of ``TurnHandle.result()`` (a tern bug) is logged at ERROR by type and sent as
 ``chat.error reason=internal``. Ended turns remember their peer by weak reference only.
 
+Model picker (``tern-bridge/1.3``): ``chat.models {}`` → ``{models, selected}``, the chat models
+loaded on the configured servers (``discover``, :func:`tern.llm.models.discover` in ternd) and the
+key of the model new turns use. ``chat.select_model {key}`` selects one of them (a key not among
+the loaded models → ``invalid_params``) and answers like ``chat.models``. The selection is ternd
+wide and lasts until ternd restarts; each turn takes the model selected when it starts (a running
+turn keeps its model). Selecting ``chat_base_url``/``chat_model`` goes back to the default client;
+any other model gets its own ``LLMClient`` (``make_llm``), kept until :meth:`ChatHost.shutdown`.
+
 Logging: turn ids, session keys, outcome codes and counts; never the user's text, the model's
 text or the ``session_id``.
 """
@@ -61,6 +69,7 @@ import hashlib
 import logging
 import weakref
 from collections import OrderedDict
+from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
 from datetime import UTC, datetime
 
@@ -75,6 +84,9 @@ from tern.bridge.protocol import (
     ChatDone,
     ChatErrorNotif,
     ChatMode,
+    ChatModel,
+    ChatModels,
+    ChatSelectModelParams,
     ChatSendParams,
     ChatStartParams,
     Empty,
@@ -84,6 +96,7 @@ from tern.bridge.protocol import (
 from tern.config import TernConfig
 from tern.index.store import Store
 from tern.llm.client import LLMClient
+from tern.llm.models import ModelChoice, choice_key
 from tern.perms.approvals import ApprovalCard, Approvals, ApprovalStatus, DecideRefused
 from tern.perms.audit import canonical_json
 from tern.tools.registry import Registry
@@ -197,6 +210,8 @@ class ChatHost:
         *,
         hold: Hold | None = None,
         approvals: Approvals | None = None,
+        discover: Callable[[], Awaitable[list[ModelChoice]]] | None = None,
+        make_llm: Callable[[str, str], LLMClient] | None = None,
     ) -> None:
         self._registry = registry
         #: The engine's approvals queue (``manual`` mode asks through it), or None: then a
@@ -220,6 +235,16 @@ class ChatHost:
         self._shut_down = False
         #: Connections that read ``daemon.info`` (weakly held; plan 07 step 8 review).
         self._informed: weakref.WeakSet[Peer] = weakref.WeakSet()
+        #: Lists the loaded chat models (bridge 1.3); None: the picker lists none.
+        self._discover = discover
+        #: Builds a client for a picked (base_url, model); None: only the default can be picked.
+        self._make_llm = make_llm
+        #: The default model's (base_url, model): ``chat_base_url``/``chat_model``.
+        self._default = (cfg.chat_base_url, cfg.chat_model)
+        #: The picked (base_url, model); the default until ``chat.select_model``.
+        self._selected = self._default
+        #: Clients of picked models other than the default, by (base_url, model).
+        self._clients: dict[tuple[str, str], LLMClient] = {}
 
     @property
     def running(self) -> int:
@@ -230,6 +255,16 @@ class ChatHost:
     def sessions(self) -> int:
         """How many sessions are held in memory."""
         return len(self._sessions)
+
+    @property
+    def chat_model(self) -> str:
+        """The id of the model new turns use (``daemon.info``'s ``chat_model``)."""
+        return self._selected[1]
+
+    def _current_llm(self) -> LLMClient:
+        if self._selected == self._default:
+            return self._llm
+        return self._clients[self._selected]
 
     def info_read(self, peer: Peer) -> None:
         """``peer`` read ``daemon.info`` (``remote_llm``) on this connection."""
@@ -249,6 +284,42 @@ class ChatHost:
     async def start(self, peer: Peer, params: ChatStartParams) -> TurnId:
         """The ``chat.start`` handler (bridge 1.2): ``chat.send`` with a permission mode."""
         return self._start(peer, "chat.start", params.session_id, params.text, params.mode)
+
+    async def models(self, peer: Peer, params: Empty) -> ChatModels:
+        """The ``chat.models`` handler (bridge 1.3, module docstring)."""
+        self._check_role(peer, "chat.models")
+        return self._listing(await self._loaded())
+
+    async def select_model(self, peer: Peer, params: ChatSelectModelParams) -> ChatModels:
+        """The ``chat.select_model`` handler (bridge 1.3, module docstring)."""
+        self._check_role(peer, "chat.select_model")
+        if self._shut_down:
+            raise BridgeError("unavailable", "ternd is shutting down")
+        loaded = await self._loaded()
+        choice = next((m for m in loaded if m.key == params.key), None)
+        if choice is None:
+            log.info("chat.select_model refused: not a loaded model")
+            raise BridgeError("invalid_params", "no loaded chat model has this key")
+        pick = (choice.base_url, choice.model)
+        if pick != self._default and pick not in self._clients:
+            if self._make_llm is None:
+                raise BridgeError("unavailable", "this ternd cannot switch chat models")
+            self._clients[pick] = self._make_llm(*pick)
+        self._selected = pick
+        log.info("chat model selected", extra={"server": choice.server, "model": choice.model})
+        return self._listing(loaded)
+
+    async def _loaded(self) -> list[ModelChoice]:
+        return [] if self._discover is None else await self._discover()
+
+    def _listing(self, loaded: list[ModelChoice]) -> ChatModels:
+        key = choice_key(*self._selected)
+        return ChatModels(
+            models=[
+                ChatModel(key=m.key, model=m.model, server=m.server, label=m.label) for m in loaded
+            ],
+            selected=key if any(m.key == key for m in loaded) else None,
+        )
 
     async def approve(self, peer: Peer, params: ChatApproveParams) -> ApprovalDecided:
         """The ``chat.approve`` handler (bridge 1.2, module docstring)."""
@@ -315,6 +386,7 @@ class ChatHost:
             log.info("chat.send refused: session busy", extra={"session_key": key})
             raise BridgeError("invalid_params", "a turn is already running in this session")
         session = self._session(key)
+        session.use_llm(self._current_llm())
         handle = session.start_turn(text, ask=ask)
         if ask is not None:
             ask.turn_id = handle.turn_id
@@ -375,6 +447,13 @@ class ChatHost:
         for pump in pumps:
             if not pump.cancelled() and (exc := pump.exception()) is not None:
                 raise exc
+
+    async def aclose(self) -> None:
+        """Close the clients of picked models (the default client is ternd's to close)."""
+        clients, self._clients = list(self._clients.values()), {}
+        self._selected = self._default
+        for client in clients:
+            await client.aclose()
 
     # -- internals ------------------------------------------------------------------------------
 

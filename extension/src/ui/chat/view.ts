@@ -17,6 +17,9 @@
 // In a manual turn each tool call shows an approval card: the tool, its tier and its arguments as
 // plain text (state.argsText: pretty JSON, hidden characters escaped; long ones folded behind
 // "Show all"), with Allow, Deny and "Allow all for this turn", disabled once decided.
+//
+// Model picker (bridge 1.3): when ternd lists a choice of chat models, the header shows a
+// dropdown button naming the selected model; its menu lists every loaded model with its server.
 
 import type { ChatMode, IndexStatus } from "../../protocol";
 import type { Block, Inline, ListItem, TableCell } from "../sanitize";
@@ -34,7 +37,9 @@ import {
   outcomeText,
   remoteBanner,
   runningTurn,
+  selectedModel,
   shortMid,
+  showsModelPicker,
   type Turn,
 } from "./state";
 import { type Child, h, type VNode } from "./vdom";
@@ -455,6 +460,7 @@ function barView(
       },
       status,
     ),
+    modelView(state, dispatch),
     modeView(state.mode, dispatch),
     h(
       "button",
@@ -470,6 +476,61 @@ function barView(
       },
       "New chat",
     ),
+  );
+}
+
+/**
+ * The model picker: a dropdown button naming the selected model and, while open, a menu of every
+ * loaded chat model ternd offers (label, then server). null while there is no choice to make.
+ */
+export function modelView(state: ChatState, dispatch: Dispatch): VNode | null {
+  const models = state.models;
+  if (models.kind !== "known" || !showsModelPicker(state)) return null;
+  const current = selectedModel(state);
+  const switching = models.selecting !== null;
+  const label = current === null ? "Choose a model" : current.label;
+  return h(
+    "div",
+    { class: "model-picker" },
+    h(
+      "button",
+      {
+        type: "button",
+        class: "model-button",
+        "aria-haspopup": "listbox",
+        "aria-expanded": state.modelMenu,
+        "aria-label": `Chat model: ${label}`,
+        "aria-busy": switching,
+        title:
+          current === null
+            ? "Choose the chat model for your next messages"
+            : `${current.label} on ${current.server}; applies from your next message`,
+        onClick: () => dispatch({ type: "toggle_model_menu" }),
+      },
+      h("span", { class: "model-name" }, switching ? `${label}…` : label),
+      h("span", { class: "model-caret", "aria-hidden": "true" }, "▾"),
+    ),
+    state.modelMenu
+      ? h(
+          "div",
+          { class: "model-menu", role: "listbox", "aria-label": "Chat models" },
+          models.models.map((m) =>
+            h(
+              "button",
+              {
+                type: "button",
+                role: "option",
+                class: m.key === current?.key ? "model-option chosen" : "model-option",
+                "aria-selected": m.key === current?.key,
+                title: m.model,
+                onClick: () => dispatch({ type: "select_model", key: m.key }),
+              },
+              h("span", { class: "model-label" }, m.label),
+              h("small", { class: "model-server" }, m.server),
+            ),
+          ),
+        )
+      : null,
   );
 }
 

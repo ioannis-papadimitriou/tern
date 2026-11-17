@@ -25,6 +25,7 @@ tern has two parts:
 
 - [Features](#features)
 - [How it works](#how-it-works)
+- [Choosing a model](#choosing-a-model)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Configuration](#configuration)
@@ -51,6 +52,8 @@ tern has two parts:
   tern flags them as *conflicting copies* and never cites them as fact.
 - **Per-chat permission modes.** *Manual* asks you before every tool call, with Allow, Deny or
   "Allow all for this turn". *Bypass* runs read-only tools without asking.
+- **Pick the model per message.** When Strata and LM Studio (or any other configured local server)
+  both have a chat model loaded, a dropdown in the tab's header switches between them.
 - **Saved chats**, Markdown tables, a side panel for long outputs, and Stop at any time.
 - **Its own full-text and vector index** of every message, kept current from Thunderbird's events.
   It powers `tern search` and the MCP tools.
@@ -91,6 +94,43 @@ tern has two parts:
   never stored.
 - **Model requests** go to a local OpenAI-compatible server on loopback. A remote URL is refused
   unless you explicitly allow it.
+
+## Choosing a model
+
+tern ships with an end-to-end agent eval ([`agent-eval/`](agent-eval/)): 25 tasks in English and
+Greek on the synthetic mailbox, run through the real agent loop and tools. The tasks cover lookups,
+lists and sums, threads, unread/starred state, attachments, a spoofed invoice, prompt injections
+and a question with no answer in the mailbox. Each was run twice at temperature 0 on one RTX 3090
+(24 GiB) with 94 GiB of RAM.
+
+![Bar charts comparing Qwen3.8-Flash-Next, gpt-oss-20b and Bonsai 2 27B on correctness, citations, speed, tool calls and memory](agent-eval/comparison.svg)
+
+| | Qwen3.8-Flash-Next IQ3_XXS (Strata, 512k) | gpt-oss-20b MXFP4 (LM Studio, 131k) | Bonsai 2 27B Q2_0 (LM Studio, 180k) |
+|---|---|---|---|
+| Correct: answer and citations | **100%** | 62% | 88% |
+| Answer text correct | **100%** | 78% | 96% |
+| Strict success (also within the tool-call cap) | 78% | 62% | **80%** |
+| Citations fully right | **100%** | 55% | 95% |
+| Wrong citations (stripped by tern) | **0%** | **0%** | 4% |
+| Tool calls per task | 4.7 | **2.7** | 3.2 |
+| Task time, median / p90 | 12.6 s / 26.6 s | **2.4 s / 4.9 s** | 16.2 s / 41.9 s |
+| Decode speed | 73 tok/s | **149 tok/s** | 48 tok/s |
+| GPU memory | 15.6 GiB | **14.6 GiB** | 19.9 GiB |
+| System RAM (model) | 46 GiB | **0** (all on GPU) | **0** (all on GPU) |
+
+- **Qwen3.8-Flash-Next on Strata** is the default and the most reliable: it never got an answer or
+  a citation wrong. Its strict misses are over-searching (10–15 tool calls on a few lookups).
+  It needs about 46 GiB of system RAM, because Strata keeps the model's experts there.
+- **Bonsai 2 27B** is close behind on quality and runs entirely on a 24 GiB card, but it is the
+  slowest. Its context is 180k here: at its 262k maximum the KV cache does not fit next to a
+  desktop session on a 24 GiB card.
+- **gpt-oss-20b** is about 5× faster but often cites short ids instead of full message ids (so the
+  chips cannot be shown), got a sum wrong, missed a spoofed payment request and gave up early on a
+  few searches.
+
+These numbers say nothing about quality on your real mail. Memory is measured as described in
+[`agent-eval/memory.json`](agent-eval/memory.json); all transcripts are in
+[`agent-eval/results/`](agent-eval/results/).
 
 ## Requirements
 
@@ -174,6 +214,11 @@ agent_context_budget_tokens = 16000             # about half of a 32k context
 In LM Studio, load the model with an explicit context length, e.g.
 `lms load <model> --context-length 32768`.
 
+**Both servers at once.** tern also looks for loaded models on LM Studio's default port
+(`chat_extra_base_urls`, default `["http://127.0.0.1:1234/v1"]`). When Strata and LM Studio both
+have a chat model loaded, the tern tab's header shows a model dropdown; the model you pick is used
+from your next message on, until ternd restarts. Set `chat_extra_base_urls = []` to turn this off.
+
 ### 5. Install the extension in Thunderbird
 
 ```sh
@@ -218,6 +263,7 @@ need this file for another server or to change a limit. The keys you are most li
 |---|---|---|
 | `chat_base_url` | `http://127.0.0.1:47831/v1` | OpenAI-compatible chat server (must be loopback) |
 | `chat_model` | `iq3_xxs` | chat model id |
+| `chat_extra_base_urls` | `["http://127.0.0.1:1234/v1"]` | more chat servers (loopback) whose loaded models the tab's model dropdown offers |
 | `chat_max_tokens` | `4096` | `max_tokens` per model request (reasoning included) |
 | `chat_request_timeout_s` | `120` | per-request timeout |
 | `agent_max_tool_calls` | `0` | tool calls per answer; `0` = no limit |
@@ -271,6 +317,11 @@ prefix, e.g. `TERN_HOME=~/tern-test uv run tern index status`. Start Thunderbird
   the extension's local storage.
 - **Refresh** updates the status line: message count, embedding backlog, sync lag, conflicting
   copies and the model in use.
+- **Model dropdown** (header): shown when more than one chat model is loaded across your servers
+  (Strata on `chat_base_url`, LM Studio on `chat_extra_base_urls`), or when the configured model is
+  not loaded. Each entry names the model and its server; your pick applies from the next message,
+  for every chat, until ternd restarts. Refresh (or opening the menu) re-reads which models are
+  loaded.
 
 Questions that work well:
 
@@ -397,10 +448,11 @@ src/tern/
   mcp/        `tern mcp` stdio server
   testing/    fakes and fixtures for tests and plugins (FakeBridge, FakeLLM, synthetic GLODA)
 extension/    the MailExtension (MV3): src/tb/api.ts is the only module that calls messenger.*
-contracts/    frozen JSON schemas of the bridge protocol (tern-bridge/1.0–1.2) and tool contract
+contracts/    frozen JSON schemas of the bridge protocol (tern-bridge/1.0–1.3) and tool contract
 docs/         architecture.md (design, contracts, threat model), mcp-clients.md
 packaging/    native-messaging host and systemd unit templates
 evals/        synthetic evaluation sets; configs/eval/ their configs
+agent-eval/   the agent eval's task set, published results, comparison figure (scripts/agent_eval/)
 tests/        mirrors src/; golden files, synthetic fixtures, smoke test
 ```
 

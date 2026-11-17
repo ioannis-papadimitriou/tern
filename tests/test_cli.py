@@ -71,7 +71,7 @@ def test_schema_prints_the_1_0_export(capsys: pytest.CaptureFixture[str]) -> Non
 
 
 def test_schema_unknown_version(capsys: pytest.CaptureFixture[str]) -> None:
-    assert cli.main(["bridge", "schema", "--version", "1.3"]) == 2
+    assert cli.main(["bridge", "schema", "--version", "1.4"]) == 2
     assert "unknown" in capsys.readouterr().err
 
 

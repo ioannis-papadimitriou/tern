@@ -1,0 +1,84 @@
+{
+  "name": "agent-eval-lmstudio-bonsai2-27b-180k",
+  "run_dir": "runs/20261117T205933Z_agent-eval-lmstudio-bonsai2-27b-180k",
+  "git": {
+    "commit": "2351ec597161cdfcd2b69ee444ecce37b5ec7732",
+    "branch": "main",
+    "dirty": true
+  },
+  "command": [
+    ".venv/bin/python",
+    "scripts/agent_eval/run.py",
+    "--base-url",
+    "http://127.0.0.1:1234/v1",
+    "--model",
+    "ternary-bonsai-2-27b",
+    "--label",
+    "lmstudio-bonsai2-27b-180k",
+    "--repeats",
+    "2",
+    "--note",
+    "LM Studio, Ternary Bonsai 2 27B Q2_0, 180224 ctx, full GPU, parallel 1"
+  ],
+  "eval_set": {
+    "name": "agent-eval",
+    "version": "1",
+    "path": "agent-eval/tasks-v1.jsonl",
+    "sha256": "3b40084b432d3033344822d57b5da3dff055370afefc6c4f800b9c231bb8ee25",
+    "tasks": [
+      "a01",
+      "a02",
+      "a03",
+      "a04",
+      "a05",
+      "a06",
+      "a07",
+      "a08",
+      "a09",
+      "a10",
+      "a11",
+      "a12",
+      "a13",
+      "a14",
+      "a15",
+      "a16",
+      "a17",
+      "a18",
+      "a19",
+      "a20",
+      "a21",
+      "a22",
+      "a23",
+      "a24",
+      "a25"
+    ]
+  },
+  "model": {
+    "id": "ternary-bonsai-2-27b",
+    "base_url": "http://127.0.0.1:1234/v1",
+    "server_entry": {
+      "id": "ternary-bonsai-2-27b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    }
+  },
+  "settings": {
+    "repeats": 2,
+    "temperature": 0.0,
+    "seed": 0,
+    "max_tokens": 4096,
+    "agent_max_tool_calls": 15,
+    "agent_turn_timeout_s": 600.0,
+    "chat_request_timeout_s": 600.0,
+    "agent_context_budget_tokens": 200000,
+    "today": "2026-11-17",
+    "tb_timezone": "UTC"
+  },
+  "env": {
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-149-generic-x86_64-with-glibc2.35"
+  },
+  "note": "LM Studio, Ternary Bonsai 2 27B Q2_0, 180224 ctx, full GPU, parallel 1",
+  "started_utc": "2026-11-17T20:59:33.047407+00:00",
+  "finished_utc": "2026-11-17T21:17:42.227093+00:00"
+}

@@ -1,0 +1,3233 @@
+{
+  "$defs": {
+    "Account": {
+      "additionalProperties": false,
+      "properties": {
+        "account_id": {
+          "title": "Account Id",
+          "type": "string"
+        },
+        "identities": {
+          "items": {
+            "$ref": "#/$defs/Identity"
+          },
+          "title": "Identities",
+          "type": "array"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id",
+        "name",
+        "type",
+        "identities"
+      ],
+      "title": "Account",
+      "type": "object"
+    },
+    "AccountList": {
+      "items": {
+        "$ref": "#/$defs/Account"
+      },
+      "title": "AccountList",
+      "type": "array"
+    },
+    "AccountSync": {
+      "additionalProperties": false,
+      "properties": {
+        "account_id": {
+          "title": "Account Id",
+          "type": "string"
+        },
+        "last_sync": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Sync"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id",
+        "name",
+        "last_sync"
+      ],
+      "title": "AccountSync",
+      "type": "object"
+    },
+    "ApprovalDecided": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "approved",
+            "denied",
+            "expired",
+            "targets_changed"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "title": "ApprovalDecided",
+      "type": "object"
+    },
+    "ApprovalList": {
+      "items": {
+        "$ref": "#/$defs/ApprovalRequested"
+      },
+      "title": "ApprovalList",
+      "type": "array"
+    },
+    "ApprovalRequested": {
+      "additionalProperties": false,
+      "properties": {
+        "approval_id": {
+          "title": "Approval Id",
+          "type": "string"
+        },
+        "args_view": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Args View",
+          "type": "object"
+        },
+        "expires_at": {
+          "format": "date-time",
+          "title": "Expires At",
+          "type": "string"
+        },
+        "nonce": {
+          "title": "Nonce",
+          "type": "string"
+        },
+        "provenance": {
+          "items": {
+            "$ref": "#/$defs/Provenance"
+          },
+          "title": "Provenance",
+          "type": "array"
+        },
+        "recipients": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/Recipient"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recipients"
+        },
+        "targets": {
+          "items": {
+            "$ref": "#/$defs/ApprovalTarget"
+          },
+          "title": "Targets",
+          "type": "array"
+        },
+        "tier": {
+          "enum": [
+            "R0",
+            "R1",
+            "W1",
+            "W2",
+            "W3"
+          ],
+          "title": "Tier",
+          "type": "string"
+        },
+        "tool": {
+          "title": "Tool",
+          "type": "string"
+        }
+      },
+      "required": [
+        "approval_id",
+        "nonce",
+        "tool",
+        "tier",
+        "targets",
+        "args_view",
+        "provenance",
+        "expires_at"
+      ],
+      "title": "ApprovalRequested",
+      "type": "object"
+    },
+    "ApprovalResolved": {
+      "additionalProperties": false,
+      "properties": {
+        "approval_id": {
+          "title": "Approval Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "approved",
+            "denied",
+            "expired",
+            "targets_changed"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "approval_id",
+        "status"
+      ],
+      "title": "ApprovalResolved",
+      "type": "object"
+    },
+    "ApprovalTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "format": "date-time",
+          "title": "Date",
+          "type": "string"
+        },
+        "folder": {
+          "title": "Folder",
+          "type": "string"
+        },
+        "from": {
+          "title": "From",
+          "type": "string"
+        },
+        "mid": {
+          "pattern": "^(x-)?[0-9a-f]{64}$",
+          "title": "Mid",
+          "type": "string"
+        },
+        "subject": {
+          "title": "Subject",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mid",
+        "from",
+        "subject",
+        "date",
+        "folder"
+      ],
+      "title": "ApprovalTarget",
+      "type": "object"
+    },
+    "ApprovalsDecideParams": {
+      "additionalProperties": false,
+      "properties": {
+        "approval_id": {
+          "title": "Approval Id",
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "approve",
+            "deny"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "nonce": {
+          "title": "Nonce",
+          "type": "string"
+        },
+        "subset": {
+          "anyOf": [
+            {
+              "items": {
+                "pattern": "^(x-)?[0-9a-f]{64}$",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Subset"
+        }
+      },
+      "required": [
+        "approval_id",
+        "nonce",
+        "decision"
+      ],
+      "title": "ApprovalsDecideParams",
+      "type": "object"
+    },
+    "ArchiveParams": {
+      "additionalProperties": false,
+      "properties": {
+        "dest_folder_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dest Folder Id"
+        },
+        "tb_ids": {
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "minItems": 1,
+          "title": "Tb Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "tb_ids"
+      ],
+      "title": "ArchiveParams",
+      "type": "object"
+    },
+    "AttachmentInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "mime": {
+          "title": "Mime",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "size": {
+          "minimum": 0,
+          "title": "Size",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "mime",
+        "size"
+      ],
+      "title": "AttachmentInfo",
+      "type": "object"
+    },
+    "AuditEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "audit_id": {
+          "title": "Audit Id",
+          "type": "string"
+        },
+        "caller": {
+          "title": "Caller",
+          "type": "string"
+        },
+        "decision": {
+          "title": "Decision",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "tb_accepted",
+            "observed",
+            "error"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "target_count": {
+          "minimum": 0,
+          "title": "Target Count",
+          "type": "integer"
+        },
+        "tier": {
+          "enum": [
+            "R0",
+            "R1",
+            "W1",
+            "W2",
+            "W3"
+          ],
+          "title": "Tier",
+          "type": "string"
+        },
+        "tool": {
+          "title": "Tool",
+          "type": "string"
+        },
+        "ts": {
+          "format": "date-time",
+          "title": "Ts",
+          "type": "string"
+        },
+        "undo_token": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Undo Token"
+        },
+        "undone": {
+          "title": "Undone",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "audit_id",
+        "ts",
+        "caller",
+        "tool",
+        "tier",
+        "target_count",
+        "decision",
+        "status",
+        "undone"
+      ],
+      "title": "AuditEntry",
+      "type": "object"
+    },
+    "AuditList": {
+      "items": {
+        "$ref": "#/$defs/AuditEntry"
+      },
+      "title": "AuditList",
+      "type": "array"
+    },
+    "AuditListParams": {
+      "additionalProperties": false,
+      "properties": {
+        "caller": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Caller"
+        },
+        "limit": {
+          "default": 50,
+          "maximum": 200,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "since": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Since"
+        }
+      },
+      "title": "AuditListParams",
+      "type": "object"
+    },
+    "AuditStatus": {
+      "additionalProperties": false,
+      "properties": {
+        "pending_approvals": {
+          "minimum": 0,
+          "title": "Pending Approvals",
+          "type": "integer"
+        },
+        "stale_writes": {
+          "minimum": 0,
+          "title": "Stale Writes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "stale_writes",
+        "pending_approvals"
+      ],
+      "title": "AuditStatus",
+      "type": "object"
+    },
+    "ChatApproval": {
+      "additionalProperties": false,
+      "description": "A tool call of a manual-mode turn waits for the user's decision (chat.approve). args are\nthe call's validated arguments: model-chosen data, to be shown as text only. After\nexpires_at the call is refused as expired.",
+      "properties": {
+        "approval_id": {
+          "title": "Approval Id",
+          "type": "string"
+        },
+        "args": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Args",
+          "type": "object"
+        },
+        "expires_at": {
+          "format": "date-time",
+          "title": "Expires At",
+          "type": "string"
+        },
+        "nonce": {
+          "title": "Nonce",
+          "type": "string"
+        },
+        "tier": {
+          "enum": [
+            "R0",
+            "R1",
+            "W1",
+            "W2",
+            "W3"
+          ],
+          "title": "Tier",
+          "type": "string"
+        },
+        "tool": {
+          "title": "Tool",
+          "type": "string"
+        },
+        "turn_id": {
+          "title": "Turn Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "turn_id",
+        "approval_id",
+        "nonce",
+        "tool",
+        "tier",
+        "args",
+        "expires_at"
+      ],
+      "title": "ChatApproval",
+      "type": "object"
+    },
+    "ChatApproveParams": {
+      "additionalProperties": false,
+      "description": "The decision on a chat.approval of a turn of this connection. rest_of_turn (approve only):\nevery later tool call of the same turn runs without asking.",
+      "properties": {
+        "approval_id": {
+          "title": "Approval Id",
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "approve",
+            "deny"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "nonce": {
+          "title": "Nonce",
+          "type": "string"
+        },
+        "rest_of_turn": {
+          "default": false,
+          "title": "Rest Of Turn",
+          "type": "boolean"
+        },
+        "turn_id": {
+          "title": "Turn Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "turn_id",
+        "approval_id",
+        "nonce",
+        "decision"
+      ],
+      "title": "ChatApproveParams",
+      "type": "object"
+    },
+    "ChatDelta": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "turn_id": {
+          "title": "Turn Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "turn_id",
+        "text"
+      ],
+      "title": "ChatDelta",
+      "type": "object"
+    },
+    "ChatDone": {
+      "additionalProperties": false,
+      "properties": {
+        "citations": {
+          "items": {
+            "pattern": "^(x-)?[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Citations",
+          "type": "array"
+        },
+        "turn_id": {
+          "title": "Turn Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "turn_id",
+        "citations"
+      ],
+      "title": "ChatDone",
+      "type": "object"
+    },
+    "ChatErrorNotif": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "turn_id": {
+          "title": "Turn Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "turn_id",
+        "reason"
+      ],
+      "title": "ChatErrorNotif",
+      "type": "object"
+    },
+    "ChatModel": {
+      "additionalProperties": false,
+      "description": "A chat model loaded on one of the daemon's configured model servers. key is opaque: pass\nit to chat.select_model.",
+      "properties": {
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "server": {
+          "title": "Server",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "model",
+        "server",
+        "label"
+      ],
+      "title": "ChatModel",
+      "type": "object"
+    },
+    "ChatModels": {
+      "additionalProperties": false,
+      "description": "The loaded chat models (servers in config order) and the key of the model new turns use.\nselected is null when that model is not among the listed ones (e.g. its server is down).",
+      "properties": {
+        "models": {
+          "items": {
+            "$ref": "#/$defs/ChatModel"
+          },
+          "title": "Models",
+          "type": "array"
+        },
+        "selected": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Selected"
+        }
+      },
+      "required": [
+        "models",
+        "selected"
+      ],
+      "title": "ChatModels",
+      "type": "object"
+    },
+    "ChatSelectModelParams": {
+      "additionalProperties": false,
+      "description": "Use the model with this key (from chat.models) for every chat turn that starts later.",
+      "properties": {
+        "key": {
+          "minLength": 1,
+          "title": "Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "title": "ChatSelectModelParams",
+      "type": "object"
+    },
+    "ChatSendParams": {
+      "additionalProperties": false,
+      "properties": {
+        "session_id": {
+          "minLength": 1,
+          "title": "Session Id",
+          "type": "string"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "session_id",
+        "text"
+      ],
+      "title": "ChatSendParams",
+      "type": "object"
+    },
+    "ChatStartParams": {
+      "additionalProperties": false,
+      "description": "chat.send with a permission mode. manual: before each tool call of the turn runs, the\ndaemon sends chat.approval and waits for chat.approve; bypass: tool calls run without asking,\nas with chat.send. Neither lifts the per-action approval of W2/W3 tools.",
+      "properties": {
+        "mode": {
+          "enum": [
+            "manual",
+            "bypass"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "session_id": {
+          "minLength": 1,
+          "title": "Session Id",
+          "type": "string"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "session_id",
+        "text",
+        "mode"
+      ],
+      "title": "ChatStartParams",
+      "type": "object"
+    },
+    "Chunk": {
+      "additionalProperties": false,
+      "properties": {
+        "chunk_id": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Chunk Id",
+          "type": "string"
+        },
+        "data_b64": {
+          "title": "Data B64",
+          "type": "string"
+        },
+        "last": {
+          "title": "Last",
+          "type": "boolean"
+        },
+        "seq": {
+          "minimum": 0,
+          "title": "Seq",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "chunk_id",
+        "seq",
+        "last",
+        "data_b64"
+      ],
+      "title": "Chunk",
+      "type": "object"
+    },
+    "ComposeDetails": {
+      "additionalProperties": false,
+      "properties": {
+        "body_text": {
+          "title": "Body Text",
+          "type": "string"
+        },
+        "cc": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Cc",
+          "type": "array"
+        },
+        "subject": {
+          "title": "Subject",
+          "type": "string"
+        },
+        "to": {
+          "items": {
+            "type": "string"
+          },
+          "title": "To",
+          "type": "array"
+        }
+      },
+      "required": [
+        "to",
+        "cc",
+        "subject",
+        "body_text"
+      ],
+      "title": "ComposeDetails",
+      "type": "object"
+    },
+    "ComposeOpenParams": {
+      "additionalProperties": false,
+      "properties": {
+        "details": {
+          "$ref": "#/$defs/ComposeDetails"
+        },
+        "mode": {
+          "enum": [
+            "new",
+            "reply",
+            "forward",
+            "draft"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "ref_tb_id": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ref Tb Id"
+        }
+      },
+      "required": [
+        "mode",
+        "details"
+      ],
+      "title": "ComposeOpenParams",
+      "type": "object"
+    },
+    "DaemonInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "chat_model": {
+          "title": "Chat Model",
+          "type": "string"
+        },
+        "remote_llm": {
+          "title": "Remote Llm",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "remote_llm",
+        "chat_model"
+      ],
+      "title": "DaemonInfo",
+      "type": "object"
+    },
+    "DeleteParams": {
+      "additionalProperties": false,
+      "properties": {
+        "tb_ids": {
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "minItems": 1,
+          "title": "Tb Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "tb_ids"
+      ],
+      "title": "DeleteParams",
+      "type": "object"
+    },
+    "DeleteResult": {
+      "additionalProperties": false,
+      "properties": {
+        "trashed": {
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "title": "Trashed",
+          "type": "array"
+        }
+      },
+      "required": [
+        "trashed"
+      ],
+      "title": "DeleteResult",
+      "type": "object"
+    },
+    "DraftAttachment": {
+      "additionalProperties": false,
+      "properties": {
+        "content_b64": {
+          "title": "Content B64",
+          "type": "string"
+        },
+        "mime": {
+          "title": "Mime",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "mime",
+        "content_b64"
+      ],
+      "title": "DraftAttachment",
+      "type": "object"
+    },
+    "DraftSaveParams": {
+      "additionalProperties": false,
+      "properties": {
+        "attachments": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/DraftAttachment"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attachments"
+        },
+        "body_text": {
+          "title": "Body Text",
+          "type": "string"
+        },
+        "cc": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Cc",
+          "type": "array"
+        },
+        "identity_id": {
+          "title": "Identity Id",
+          "type": "string"
+        },
+        "in_reply_to_tb_id": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "In Reply To Tb Id"
+        },
+        "subject": {
+          "title": "Subject",
+          "type": "string"
+        },
+        "to": {
+          "items": {
+            "type": "string"
+          },
+          "title": "To",
+          "type": "array"
+        }
+      },
+      "required": [
+        "identity_id",
+        "to",
+        "cc",
+        "subject",
+        "body_text"
+      ],
+      "title": "DraftSaveParams",
+      "type": "object"
+    },
+    "DraftSaved": {
+      "additionalProperties": false,
+      "properties": {
+        "tb_id": {
+          "minimum": 0,
+          "title": "Tb Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tb_id"
+      ],
+      "title": "DraftSaved",
+      "type": "object"
+    },
+    "Empty": {
+      "additionalProperties": false,
+      "properties": {},
+      "title": "Empty",
+      "type": "object"
+    },
+    "ErrorData": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "enum": [
+            "unavailable",
+            "invalid_params",
+            "method_not_available",
+            "stale_id",
+            "targets_changed",
+            "tb_error",
+            "profile_mismatch",
+            "extension_already_connected",
+            "role_rejected",
+            "too_large",
+            "state_changed"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "tb_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tb Code"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "ErrorData",
+      "type": "object"
+    },
+    "ErrorResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "$ref": "#/$defs/RpcError"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Id"
+        },
+        "jsonrpc": {
+          "const": "2.0",
+          "default": "2.0",
+          "title": "Jsonrpc",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "error"
+      ],
+      "title": "ErrorResponse",
+      "type": "object"
+    },
+    "FindParams": {
+      "additionalProperties": false,
+      "properties": {
+        "header_message_id": {
+          "minLength": 1,
+          "title": "Header Message Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "header_message_id"
+      ],
+      "title": "FindParams",
+      "type": "object"
+    },
+    "Flags": {
+      "additionalProperties": false,
+      "properties": {
+        "flagged": {
+          "title": "Flagged",
+          "type": "boolean"
+        },
+        "junk": {
+          "title": "Junk",
+          "type": "boolean"
+        },
+        "read": {
+          "title": "Read",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "read",
+        "flagged",
+        "junk"
+      ],
+      "title": "Flags",
+      "type": "object"
+    },
+    "Folder": {
+      "additionalProperties": false,
+      "properties": {
+        "folder_id": {
+          "title": "Folder Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "special_use": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Special Use",
+          "type": "array"
+        },
+        "total": {
+          "minimum": 0,
+          "title": "Total",
+          "type": "integer"
+        },
+        "unread": {
+          "minimum": 0,
+          "title": "Unread",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "folder_id",
+        "path",
+        "name",
+        "special_use",
+        "total",
+        "unread"
+      ],
+      "title": "Folder",
+      "type": "object"
+    },
+    "FolderChanged": {
+      "additionalProperties": false,
+      "properties": {
+        "folder_id": {
+          "title": "Folder Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "folder_id"
+      ],
+      "title": "FolderChanged",
+      "type": "object"
+    },
+    "FolderList": {
+      "items": {
+        "$ref": "#/$defs/Folder"
+      },
+      "title": "FolderList",
+      "type": "array"
+    },
+    "FoldersListParams": {
+      "additionalProperties": false,
+      "properties": {
+        "account_id": {
+          "title": "Account Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id"
+      ],
+      "title": "FoldersListParams",
+      "type": "object"
+    },
+    "FoundList": {
+      "items": {
+        "$ref": "#/$defs/FoundLocation"
+      },
+      "title": "FoundList",
+      "type": "array"
+    },
+    "FoundLocation": {
+      "additionalProperties": false,
+      "properties": {
+        "flags": {
+          "$ref": "#/$defs/Flags"
+        },
+        "folder_id": {
+          "title": "Folder Id",
+          "type": "string"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Tags",
+          "type": "array"
+        },
+        "tb_id": {
+          "minimum": 0,
+          "title": "Tb Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tb_id",
+        "folder_id",
+        "flags",
+        "tags"
+      ],
+      "title": "FoundLocation",
+      "type": "object"
+    },
+    "FullMessage": {
+      "additionalProperties": false,
+      "properties": {
+        "attachments": {
+          "items": {
+            "$ref": "#/$defs/AttachmentInfo"
+          },
+          "title": "Attachments",
+          "type": "array"
+        },
+        "headers": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Headers",
+          "type": "object"
+        },
+        "text_parts": {
+          "items": {
+            "$ref": "#/$defs/TextPart"
+          },
+          "title": "Text Parts",
+          "type": "array"
+        }
+      },
+      "required": [
+        "headers",
+        "text_parts",
+        "attachments"
+      ],
+      "title": "FullMessage",
+      "type": "object"
+    },
+    "Hello": {
+      "additionalProperties": false,
+      "properties": {
+        "capabilities": {
+          "items": {
+            "enum": [
+              "mail.read",
+              "mail.write",
+              "drafts",
+              "contacts.read",
+              "contacts.write",
+              "calendar"
+            ],
+            "type": "string"
+          },
+          "title": "Capabilities",
+          "type": "array"
+        },
+        "minor": {
+          "minimum": 0,
+          "title": "Minor",
+          "type": "integer"
+        },
+        "profile_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Profile Id"
+        },
+        "protocol": {
+          "const": "tern-bridge/1",
+          "title": "Protocol",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "extension",
+            "daemon",
+            "mcp-proxy",
+            "cli"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol",
+        "minor",
+        "role",
+        "version",
+        "capabilities"
+      ],
+      "title": "Hello",
+      "type": "object"
+    },
+    "Identity": {
+      "additionalProperties": false,
+      "properties": {
+        "email": {
+          "title": "Email",
+          "type": "string"
+        },
+        "identity_id": {
+          "title": "Identity Id",
+          "type": "string"
+        },
+        "is_default": {
+          "title": "Is Default",
+          "type": "boolean"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "identity_id",
+        "email",
+        "name",
+        "is_default"
+      ],
+      "title": "Identity",
+      "type": "object"
+    },
+    "IndexStatus": {
+      "additionalProperties": false,
+      "properties": {
+        "accounts": {
+          "items": {
+            "$ref": "#/$defs/AccountSync"
+          },
+          "title": "Accounts",
+          "type": "array"
+        },
+        "conflicted": {
+          "minimum": 0,
+          "title": "Conflicted",
+          "type": "integer"
+        },
+        "embed_pending": {
+          "minimum": 0,
+          "title": "Embed Pending",
+          "type": "integer"
+        },
+        "headers_only": {
+          "minimum": 0,
+          "title": "Headers Only",
+          "type": "integer"
+        },
+        "lag_s": {
+          "title": "Lag S",
+          "type": "number"
+        },
+        "last_reconcile": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Reconcile"
+        },
+        "locations": {
+          "minimum": 0,
+          "title": "Locations",
+          "type": "integer"
+        },
+        "messages": {
+          "minimum": 0,
+          "title": "Messages",
+          "type": "integer"
+        },
+        "models": {
+          "$ref": "#/$defs/ModelIds"
+        },
+        "parse_failed": {
+          "minimum": 0,
+          "title": "Parse Failed",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "messages",
+        "locations",
+        "conflicted",
+        "parse_failed",
+        "headers_only",
+        "embed_pending",
+        "lag_s",
+        "last_reconcile",
+        "models",
+        "accounts"
+      ],
+      "title": "IndexStatus",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "MailDeleted": {
+      "additionalProperties": false,
+      "properties": {
+        "folder_id": {
+          "title": "Folder Id",
+          "type": "string"
+        },
+        "header_message_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Header Message Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "folder_id",
+        "header_message_ids"
+      ],
+      "title": "MailDeleted",
+      "type": "object"
+    },
+    "MailMoved": {
+      "additionalProperties": false,
+      "properties": {
+        "dst_folder_id": {
+          "title": "Dst Folder Id",
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/PageItem"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "src_folder_id": {
+          "title": "Src Folder Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "src_folder_id",
+        "dst_folder_id",
+        "items"
+      ],
+      "title": "MailMoved",
+      "type": "object"
+    },
+    "MailNew": {
+      "additionalProperties": false,
+      "properties": {
+        "folder_id": {
+          "title": "Folder Id",
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/PageItem"
+          },
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "required": [
+        "folder_id",
+        "items"
+      ],
+      "title": "MailNew",
+      "type": "object"
+    },
+    "MailUpdated": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/UpdatedItem"
+          },
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "title": "MailUpdated",
+      "type": "object"
+    },
+    "ModelIds": {
+      "additionalProperties": false,
+      "properties": {
+        "chat": {
+          "title": "Chat",
+          "type": "string"
+        },
+        "embed": {
+          "title": "Embed",
+          "type": "string"
+        },
+        "runtime_version": {
+          "title": "Runtime Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "chat",
+        "embed",
+        "runtime_version"
+      ],
+      "title": "ModelIds",
+      "type": "object"
+    },
+    "MoveParams": {
+      "additionalProperties": false,
+      "properties": {
+        "dest_folder_id": {
+          "title": "Dest Folder Id",
+          "type": "string"
+        },
+        "tb_ids": {
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "minItems": 1,
+          "title": "Tb Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "tb_ids",
+        "dest_folder_id"
+      ],
+      "title": "MoveParams",
+      "type": "object"
+    },
+    "MoveResult": {
+      "additionalProperties": false,
+      "properties": {
+        "moved": {
+          "items": {
+            "$ref": "#/$defs/Moved"
+          },
+          "title": "Moved",
+          "type": "array"
+        }
+      },
+      "required": [
+        "moved"
+      ],
+      "title": "MoveResult",
+      "type": "object"
+    },
+    "Moved": {
+      "additionalProperties": false,
+      "properties": {
+        "new_tb_id": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "New Tb Id"
+        },
+        "tb_id": {
+          "minimum": 0,
+          "title": "Tb Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tb_id"
+      ],
+      "title": "Moved",
+      "type": "object"
+    },
+    "Notification": {
+      "additionalProperties": false,
+      "properties": {
+        "jsonrpc": {
+          "const": "2.0",
+          "default": "2.0",
+          "title": "Jsonrpc",
+          "type": "string"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "params": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Params",
+          "type": "object"
+        }
+      },
+      "required": [
+        "method"
+      ],
+      "title": "Notification",
+      "type": "object"
+    },
+    "OpenMidParams": {
+      "additionalProperties": false,
+      "properties": {
+        "mid": {
+          "pattern": "^(x-)?[0-9a-f]{64}$",
+          "title": "Mid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mid"
+      ],
+      "title": "OpenMidParams",
+      "type": "object"
+    },
+    "OpenMidResult": {
+      "additionalProperties": false,
+      "properties": {
+        "folder_id": {
+          "title": "Folder Id",
+          "type": "string"
+        },
+        "opened": {
+          "const": true,
+          "title": "Opened",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "opened",
+        "folder_id"
+      ],
+      "title": "OpenMidResult",
+      "type": "object"
+    },
+    "Page": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/PageItem"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "next_cursor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Next Cursor"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "title": "Page",
+      "type": "object"
+    },
+    "PageItem": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "format": "date-time",
+          "title": "Date",
+          "type": "string"
+        },
+        "flags": {
+          "$ref": "#/$defs/Flags"
+        },
+        "header_message_id": {
+          "title": "Header Message Id",
+          "type": "string"
+        },
+        "headers_only": {
+          "title": "Headers Only",
+          "type": "boolean"
+        },
+        "size": {
+          "minimum": 0,
+          "title": "Size",
+          "type": "integer"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Tags",
+          "type": "array"
+        },
+        "tb_id": {
+          "minimum": 0,
+          "title": "Tb Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tb_id",
+        "header_message_id",
+        "date",
+        "size",
+        "flags",
+        "tags",
+        "headers_only"
+      ],
+      "title": "PageItem",
+      "type": "object"
+    },
+    "PageParams": {
+      "additionalProperties": false,
+      "properties": {
+        "cursor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cursor"
+        },
+        "folder_id": {
+          "title": "Folder Id",
+          "type": "string"
+        },
+        "from_date": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "From Date"
+        },
+        "to_date": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "To Date"
+        }
+      },
+      "required": [
+        "folder_id"
+      ],
+      "title": "PageParams",
+      "type": "object"
+    },
+    "PingExtensionParams": {
+      "additionalProperties": false,
+      "properties": {
+        "n": {
+          "maximum": 10000,
+          "minimum": 1,
+          "title": "N",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "n"
+      ],
+      "title": "PingExtensionParams",
+      "type": "object"
+    },
+    "PingStats": {
+      "additionalProperties": false,
+      "properties": {
+        "max_ms": {
+          "title": "Max Ms",
+          "type": "number"
+        },
+        "n": {
+          "title": "N",
+          "type": "integer"
+        },
+        "p50_ms": {
+          "title": "P50 Ms",
+          "type": "number"
+        },
+        "p90_ms": {
+          "title": "P90 Ms",
+          "type": "number"
+        },
+        "p99_ms": {
+          "title": "P99 Ms",
+          "type": "number"
+        }
+      },
+      "required": [
+        "n",
+        "p50_ms",
+        "p90_ms",
+        "p99_ms",
+        "max_ms"
+      ],
+      "title": "PingStats",
+      "type": "object"
+    },
+    "PrevState": {
+      "additionalProperties": false,
+      "properties": {
+        "flagged": {
+          "title": "Flagged",
+          "type": "boolean"
+        },
+        "read": {
+          "title": "Read",
+          "type": "boolean"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Tags",
+          "type": "array"
+        },
+        "tb_id": {
+          "minimum": 0,
+          "title": "Tb Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tb_id",
+        "tags",
+        "flagged",
+        "read"
+      ],
+      "title": "PrevState",
+      "type": "object"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "from": {
+          "title": "From",
+          "type": "string"
+        },
+        "mid": {
+          "pattern": "^(x-)?[0-9a-f]{64}$",
+          "title": "Mid",
+          "type": "string"
+        },
+        "subject": {
+          "title": "Subject",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mid",
+        "from",
+        "subject"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    },
+    "Raw": {
+      "additionalProperties": false,
+      "properties": {
+        "raw_b64": {
+          "title": "Raw B64",
+          "type": "string"
+        }
+      },
+      "required": [
+        "raw_b64"
+      ],
+      "title": "Raw",
+      "type": "object"
+    },
+    "Recipient": {
+      "additionalProperties": false,
+      "properties": {
+        "addr": {
+          "title": "Addr",
+          "type": "string"
+        },
+        "known": {
+          "title": "Known",
+          "type": "boolean"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "addr",
+        "name",
+        "known"
+      ],
+      "title": "Recipient",
+      "type": "object"
+    },
+    "Request": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Id"
+        },
+        "jsonrpc": {
+          "const": "2.0",
+          "default": "2.0",
+          "title": "Jsonrpc",
+          "type": "string"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "params": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Params",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "method"
+      ],
+      "title": "Request",
+      "type": "object"
+    },
+    "Response": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Id"
+        },
+        "jsonrpc": {
+          "const": "2.0",
+          "default": "2.0",
+          "title": "Jsonrpc",
+          "type": "string"
+        },
+        "result": {
+          "$ref": "#/$defs/JsonValue"
+        }
+      },
+      "required": [
+        "id",
+        "result"
+      ],
+      "title": "Response",
+      "type": "object"
+    },
+    "RpcError": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/$defs/ErrorData"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "data"
+      ],
+      "title": "RpcError",
+      "type": "object"
+    },
+    "SearchFilters": {
+      "additionalProperties": false,
+      "properties": {
+        "after": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "After"
+        },
+        "before": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Before"
+        },
+        "folder_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Folder Id"
+        },
+        "from": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "From"
+        },
+        "has_attachment": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Has Attachment"
+        }
+      },
+      "title": "SearchFilters",
+      "type": "object"
+    },
+    "SearchHit": {
+      "additionalProperties": false,
+      "description": "Same shape as the `search_messages` tool output (architecture §5).",
+      "properties": {
+        "date": {
+          "format": "date-time",
+          "title": "Date",
+          "type": "string"
+        },
+        "folders": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Folders",
+          "type": "array"
+        },
+        "from": {
+          "title": "From",
+          "type": "string"
+        },
+        "mid": {
+          "pattern": "^(x-)?[0-9a-f]{64}$",
+          "title": "Mid",
+          "type": "string"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "snippet": {
+          "title": "Snippet",
+          "type": "string"
+        },
+        "subject": {
+          "title": "Subject",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mid",
+        "date",
+        "from",
+        "subject",
+        "snippet",
+        "score",
+        "folders"
+      ],
+      "title": "SearchHit",
+      "type": "object"
+    },
+    "SearchHitList": {
+      "items": {
+        "$ref": "#/$defs/SearchHit"
+      },
+      "title": "SearchHitList",
+      "type": "array"
+    },
+    "SearchQueryParams": {
+      "additionalProperties": false,
+      "properties": {
+        "filters": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SearchFilters"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "limit": {
+          "default": 10,
+          "maximum": 50,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "query": {
+          "minLength": 1,
+          "title": "Query",
+          "type": "string"
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "title": "SearchQueryParams",
+      "type": "object"
+    },
+    "Tag": {
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "title": "Color",
+          "type": "string"
+        },
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "tag": {
+          "title": "Tag",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "tag",
+        "color"
+      ],
+      "title": "Tag",
+      "type": "object"
+    },
+    "TagCreateParams": {
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Color"
+        },
+        "tag": {
+          "minLength": 1,
+          "title": "Tag",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tag"
+      ],
+      "title": "TagCreateParams",
+      "type": "object"
+    },
+    "TagKey": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "title": "Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "title": "TagKey",
+      "type": "object"
+    },
+    "TagList": {
+      "items": {
+        "$ref": "#/$defs/Tag"
+      },
+      "title": "TagList",
+      "type": "array"
+    },
+    "TbIdParams": {
+      "additionalProperties": false,
+      "properties": {
+        "tb_id": {
+          "minimum": 0,
+          "title": "Tb Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tb_id"
+      ],
+      "title": "TbIdParams",
+      "type": "object"
+    },
+    "TextPart": {
+      "additionalProperties": false,
+      "properties": {
+        "mime": {
+          "title": "Mime",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mime",
+        "text"
+      ],
+      "title": "TextPart",
+      "type": "object"
+    },
+    "ToolCallError": {
+      "additionalProperties": false,
+      "description": "A refused or failed tool call: content-free code, reason and message.",
+      "properties": {
+        "code": {
+          "pattern": "^[a-z][a-z0-9_]{0,63}$",
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "pattern": "^[a-z][a-z0-9_]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "ToolCallError",
+      "type": "object"
+    },
+    "ToolCallParams": {
+      "additionalProperties": false,
+      "description": "client_name is a display label for the audit log only, never an id.",
+      "properties": {
+        "arguments": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Arguments",
+          "type": "object"
+        },
+        "client_name": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Client Name"
+        },
+        "tool": {
+          "title": "Tool",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tool",
+        "arguments"
+      ],
+      "title": "ToolCallParams",
+      "type": "object"
+    },
+    "ToolCallResult": {
+      "additionalProperties": false,
+      "description": "ok: output is set and error is absent; not ok: error is set and output is absent.",
+      "properties": {
+        "call_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Call Id"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ToolCallError"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "ok": {
+          "title": "Ok",
+          "type": "boolean"
+        },
+        "output": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output"
+        },
+        "untrusted_output": {
+          "title": "Untrusted Output",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "ok",
+        "untrusted_output"
+      ],
+      "title": "ToolCallResult",
+      "type": "object"
+    },
+    "ToolList": {
+      "additionalProperties": false,
+      "description": "Each entry is a tern-tool/1 tool metadata document; tools with a forbidden effect are not\nlisted.",
+      "properties": {
+        "tools": {
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/$defs/JsonValue"
+            },
+            "type": "object"
+          },
+          "title": "Tools",
+          "type": "array"
+        }
+      },
+      "required": [
+        "tools"
+      ],
+      "title": "ToolList",
+      "type": "object"
+    },
+    "TurnId": {
+      "additionalProperties": false,
+      "properties": {
+        "turn_id": {
+          "title": "Turn Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "turn_id"
+      ],
+      "title": "TurnId",
+      "type": "object"
+    },
+    "UndoParams": {
+      "additionalProperties": false,
+      "properties": {
+        "undo_token": {
+          "title": "Undo Token",
+          "type": "string"
+        }
+      },
+      "required": [
+        "undo_token"
+      ],
+      "title": "UndoParams",
+      "type": "object"
+    },
+    "UndoResult": {
+      "additionalProperties": false,
+      "properties": {
+        "undone": {
+          "title": "Undone",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "undone"
+      ],
+      "title": "UndoResult",
+      "type": "object"
+    },
+    "UpdateParams": {
+      "additionalProperties": false,
+      "properties": {
+        "add_tags": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Add Tags"
+        },
+        "flagged": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Flagged"
+        },
+        "read": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Read"
+        },
+        "remove_tags": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Remove Tags"
+        },
+        "tb_ids": {
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "minItems": 1,
+          "title": "Tb Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "tb_ids"
+      ],
+      "title": "UpdateParams",
+      "type": "object"
+    },
+    "UpdateResult": {
+      "additionalProperties": false,
+      "properties": {
+        "prev_state": {
+          "items": {
+            "$ref": "#/$defs/PrevState"
+          },
+          "title": "Prev State",
+          "type": "array"
+        }
+      },
+      "required": [
+        "prev_state"
+      ],
+      "title": "UpdateResult",
+      "type": "object"
+    },
+    "UpdatedItem": {
+      "additionalProperties": false,
+      "properties": {
+        "flags": {
+          "$ref": "#/$defs/Flags"
+        },
+        "folder_id": {
+          "title": "Folder Id",
+          "type": "string"
+        },
+        "header_message_id": {
+          "title": "Header Message Id",
+          "type": "string"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Tags",
+          "type": "array"
+        },
+        "tb_id": {
+          "minimum": 0,
+          "title": "Tb Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tb_id",
+        "folder_id",
+        "header_message_id",
+        "flags",
+        "tags"
+      ],
+      "title": "UpdatedItem",
+      "type": "object"
+    }
+  },
+  "$id": "tern-bridge-1.3",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "errors": {
+    "extension_already_connected": -32005,
+    "invalid_params": -32602,
+    "method_not_available": -32601,
+    "profile_mismatch": -32004,
+    "role_rejected": -32006,
+    "stale_id": -32001,
+    "state_changed": -32008,
+    "targets_changed": -32002,
+    "tb_error": -32003,
+    "too_large": -32007,
+    "unavailable": -32000
+  },
+  "framing": {
+    "encoding": "UTF-8 JSON",
+    "host_to_extension_max_frame_bytes": 524288,
+    "length_prefix": "u32 little-endian"
+  },
+  "methods": {
+    "approval.requested": {
+      "direction": "d2e",
+      "kind": "notification",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/ApprovalRequested"
+      }
+    },
+    "approval.resolved": {
+      "direction": "d2e",
+      "kind": "notification",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/ApprovalResolved"
+      }
+    },
+    "approvals.decide": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/ApprovalsDecideParams"
+      },
+      "result": {
+        "$ref": "#/$defs/ApprovalDecided"
+      },
+      "roles": [
+        "extension"
+      ]
+    },
+    "approvals.pending": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/Empty"
+      },
+      "result": {
+        "$ref": "#/$defs/ApprovalList"
+      }
+    },
+    "audit.list": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/AuditListParams"
+      },
+      "result": {
+        "$ref": "#/$defs/AuditList"
+      }
+    },
+    "audit.status": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 1,
+      "params": {
+        "$ref": "#/$defs/Empty"
+      },
+      "result": {
+        "$ref": "#/$defs/AuditStatus"
+      }
+    },
+    "audit.undo": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/UndoParams"
+      },
+      "result": {
+        "$ref": "#/$defs/UndoResult"
+      }
+    },
+    "bridge.chunk": {
+      "direction": "host2e",
+      "kind": "notification",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/Chunk"
+      }
+    },
+    "bridge.ping": {
+      "direction": "any",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/Empty"
+      },
+      "result": {
+        "$ref": "#/$defs/Empty"
+      }
+    },
+    "bridge.ping_extension": {
+      "direction": "cli2d",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/PingExtensionParams"
+      },
+      "result": {
+        "$ref": "#/$defs/PingStats"
+      },
+      "roles": [
+        "cli"
+      ]
+    },
+    "bridge.reconnected": {
+      "direction": "host2e",
+      "kind": "notification",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/Empty"
+      }
+    },
+    "chat.approval": {
+      "direction": "d2e",
+      "kind": "notification",
+      "minor": 2,
+      "params": {
+        "$ref": "#/$defs/ChatApproval"
+      }
+    },
+    "chat.approve": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 2,
+      "params": {
+        "$ref": "#/$defs/ChatApproveParams"
+      },
+      "result": {
+        "$ref": "#/$defs/ApprovalDecided"
+      },
+      "roles": [
+        "cli",
+        "extension"
+      ]
+    },
+    "chat.cancel": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/TurnId"
+      },
+      "result": {
+        "$ref": "#/$defs/Empty"
+      }
+    },
+    "chat.delta": {
+      "direction": "d2e",
+      "kind": "notification",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/ChatDelta"
+      }
+    },
+    "chat.done": {
+      "direction": "d2e",
+      "kind": "notification",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/ChatDone"
+      }
+    },
+    "chat.error": {
+      "direction": "d2e",
+      "kind": "notification",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/ChatErrorNotif"
+      }
+    },
+    "chat.models": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 3,
+      "params": {
+        "$ref": "#/$defs/Empty"
+      },
+      "result": {
+        "$ref": "#/$defs/ChatModels"
+      },
+      "roles": [
+        "cli",
+        "extension"
+      ]
+    },
+    "chat.select_model": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 3,
+      "params": {
+        "$ref": "#/$defs/ChatSelectModelParams"
+      },
+      "result": {
+        "$ref": "#/$defs/ChatModels"
+      },
+      "roles": [
+        "cli",
+        "extension"
+      ]
+    },
+    "chat.send": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/ChatSendParams"
+      },
+      "result": {
+        "$ref": "#/$defs/TurnId"
+      }
+    },
+    "chat.start": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 2,
+      "params": {
+        "$ref": "#/$defs/ChatStartParams"
+      },
+      "result": {
+        "$ref": "#/$defs/TurnId"
+      },
+      "roles": [
+        "cli",
+        "extension"
+      ]
+    },
+    "daemon.info": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 1,
+      "params": {
+        "$ref": "#/$defs/Empty"
+      },
+      "result": {
+        "$ref": "#/$defs/DaemonInfo"
+      },
+      "roles": [
+        "cli",
+        "extension"
+      ]
+    },
+    "event.folder.changed": {
+      "direction": "e2d",
+      "kind": "notification",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/FolderChanged"
+      }
+    },
+    "event.mail.deleted": {
+      "direction": "e2d",
+      "kind": "notification",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/MailDeleted"
+      }
+    },
+    "event.mail.moved": {
+      "direction": "e2d",
+      "kind": "notification",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/MailMoved"
+      }
+    },
+    "event.mail.new": {
+      "direction": "e2d",
+      "kind": "notification",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/MailNew"
+      }
+    },
+    "event.mail.updated": {
+      "direction": "e2d",
+      "kind": "notification",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/MailUpdated"
+      }
+    },
+    "hello": {
+      "direction": "any",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/Hello"
+      },
+      "result": {
+        "$ref": "#/$defs/Hello"
+      }
+    },
+    "index.status": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/Empty"
+      },
+      "result": {
+        "$ref": "#/$defs/IndexStatus"
+      }
+    },
+    "mail.accounts.list": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/Empty"
+      },
+      "result": {
+        "$ref": "#/$defs/AccountList"
+      }
+    },
+    "mail.archive": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/ArchiveParams"
+      },
+      "result": {
+        "$ref": "#/$defs/MoveResult"
+      }
+    },
+    "mail.compose.open": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/ComposeOpenParams"
+      },
+      "result": {
+        "$ref": "#/$defs/Empty"
+      }
+    },
+    "mail.delete": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/DeleteParams"
+      },
+      "result": {
+        "$ref": "#/$defs/DeleteResult"
+      }
+    },
+    "mail.draft.save": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/DraftSaveParams"
+      },
+      "result": {
+        "$ref": "#/$defs/DraftSaved"
+      }
+    },
+    "mail.folders.list": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/FoldersListParams"
+      },
+      "result": {
+        "$ref": "#/$defs/FolderList"
+      }
+    },
+    "mail.messages.find": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/FindParams"
+      },
+      "result": {
+        "$ref": "#/$defs/FoundList"
+      }
+    },
+    "mail.messages.full": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/TbIdParams"
+      },
+      "result": {
+        "$ref": "#/$defs/FullMessage"
+      }
+    },
+    "mail.messages.page": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/PageParams"
+      },
+      "result": {
+        "$ref": "#/$defs/Page"
+      }
+    },
+    "mail.messages.raw": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/TbIdParams"
+      },
+      "result": {
+        "$ref": "#/$defs/Raw"
+      }
+    },
+    "mail.move": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/MoveParams"
+      },
+      "result": {
+        "$ref": "#/$defs/MoveResult"
+      }
+    },
+    "mail.open": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/TbIdParams"
+      },
+      "result": {
+        "$ref": "#/$defs/Empty"
+      }
+    },
+    "mail.tags.create": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/TagCreateParams"
+      },
+      "result": {
+        "$ref": "#/$defs/TagKey"
+      }
+    },
+    "mail.tags.list": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/Empty"
+      },
+      "result": {
+        "$ref": "#/$defs/TagList"
+      }
+    },
+    "mail.update": {
+      "direction": "d2e",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/UpdateParams"
+      },
+      "result": {
+        "$ref": "#/$defs/UpdateResult"
+      }
+    },
+    "search.query": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 0,
+      "params": {
+        "$ref": "#/$defs/SearchQueryParams"
+      },
+      "result": {
+        "$ref": "#/$defs/SearchHitList"
+      }
+    },
+    "tools.call": {
+      "direction": "mcp2d",
+      "kind": "request",
+      "minor": 1,
+      "params": {
+        "$ref": "#/$defs/ToolCallParams"
+      },
+      "result": {
+        "$ref": "#/$defs/ToolCallResult"
+      },
+      "roles": [
+        "mcp-proxy"
+      ]
+    },
+    "tools.list": {
+      "direction": "mcp2d",
+      "kind": "request",
+      "minor": 1,
+      "params": {
+        "$ref": "#/$defs/Empty"
+      },
+      "result": {
+        "$ref": "#/$defs/ToolList"
+      },
+      "roles": [
+        "mcp-proxy"
+      ]
+    },
+    "ui.open_mid": {
+      "direction": "e2d",
+      "kind": "request",
+      "minor": 1,
+      "params": {
+        "$ref": "#/$defs/OpenMidParams"
+      },
+      "result": {
+        "$ref": "#/$defs/OpenMidResult"
+      },
+      "roles": [
+        "extension"
+      ]
+    }
+  },
+  "minor": 3,
+  "protocol": "tern-bridge/1",
+  "title": "tern-bridge/1.3 (tern-bridge/1 minor 3)"
+}

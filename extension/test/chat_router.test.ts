@@ -468,6 +468,124 @@ describe("ChatRouter: open and info (tern-bridge 1.1, plan 07 step 9b)", () => {
   });
 });
 
+const LISTING = {
+  models: [
+    { key: "http://127.0.0.1:47831/v1#iq3_xxs", model: "iq3_xxs", server: "Strata", label: "Q" },
+    { key: "http://127.0.0.1:1234/v1#gpt-oss", model: "gpt-oss", server: "LM Studio", label: "G" },
+  ],
+  selected: "http://127.0.0.1:47831/v1#iq3_xxs",
+};
+
+describe("ChatRouter: the model picker (tern-bridge 1.3)", () => {
+  it("the 1.3 types match the frozen 1.3 contract", () => {
+    expect(paramsErrors("chat.models", {}, "1.3")).toEqual([]);
+    expect(resultErrors("chat.models", LISTING, "1.3")).toEqual([]);
+    expect(paramsErrors("chat.select_model", { key: "k" }, "1.3")).toEqual([]);
+    expect(resultErrors("chat.select_model", { models: [], selected: null }, "1.3")).toEqual([]);
+    expect(paramsErrors("chat.select_model", { key: "" }, "1.3")).not.toEqual([]);
+  });
+
+  it("models → chat.models → models_result; select_model → chat.select_model {key}", async () => {
+    const { bridge, tab } = setup();
+    bridge.minor = 3;
+    const p = await tab();
+    bridge.calls = [];
+    p.posted.length = 0;
+    p.send({ type: "models", req: 2 });
+    await tick();
+    bridge.call("chat.models").resolve(LISTING);
+    await tick();
+    p.send({ type: "select_model", req: 3, key: "http://127.0.0.1:1234/v1#gpt-oss" });
+    await tick();
+    const sel = bridge.call("chat.select_model");
+    expect(sel.params).toEqual({ key: "http://127.0.0.1:1234/v1#gpt-oss" });
+    sel.resolve({ ...LISTING, selected: "http://127.0.0.1:1234/v1#gpt-oss" });
+    await tick();
+    expect(p.posted).toEqual([
+      { type: "models_result", req: 2, models: LISTING },
+      {
+        type: "models_result",
+        req: 3,
+        models: { ...LISTING, selected: "http://127.0.0.1:1234/v1#gpt-oss" },
+      },
+    ]);
+  });
+
+  it("an info answer on a 1.3 session pushes a models event to that tab", async () => {
+    const { bridge, tab } = setup();
+    bridge.minor = 3;
+    const p = await tab({ checked: false });
+    p.send({ type: "info", req: 1 });
+    await tick();
+    bridge.call("daemon.info").resolve({ remote_llm: false, chat_model: "iq3_xxs" });
+    await tick();
+    bridge.call("chat.models").resolve(LISTING);
+    await tick();
+    expect(p.posted.map((m) => m.type)).toEqual(["info_result", "models"]);
+    expect(p.of("models")[0]).toEqual({ type: "models", models: LISTING });
+  });
+
+  it("a status answer on a 1.3 session pushes a fresh models list", async () => {
+    const { bridge, tab } = setup();
+    bridge.minor = 3;
+    const p = await tab();
+    bridge.calls = [];
+    p.posted.length = 0;
+    p.send({ type: "status", req: 4 });
+    await tick();
+    bridge.call("index.status").resolve(sampleStatus);
+    await tick();
+    bridge.call("chat.models").resolve({ models: [], selected: null });
+    await tick();
+    expect(p.posted.map((m) => m.type)).toEqual(["status_result", "models"]);
+  });
+
+  it("below 1.3: no push after info, and models/select_model are method_not_available", async () => {
+    const { bridge, tab } = setup();
+    bridge.minor = 2;
+    const p = await tab();
+    p.send({ type: "models", req: 2 });
+    p.send({ type: "select_model", req: 3, key: "k" });
+    await tick();
+    expect(bridge.methods()).toEqual([]);
+    expect(p.of("error").map((e) => e.name)).toEqual([
+      "method_not_available",
+      "method_not_available",
+    ]);
+  });
+
+  it.each([[null], [{ models: [{ key: "k" }], selected: null }], [{ models: [], selected: 3 }]])(
+    "a malformed chat.models reply %j fails the request; a pushed one is dropped",
+    async (reply) => {
+      const { bridge, tab, logs } = setup();
+      bridge.minor = 3;
+      const p = await tab({ checked: false });
+      p.send({ type: "info", req: 1 });
+      await tick();
+      bridge.call("daemon.info").resolve({ remote_llm: false, chat_model: "m" });
+      await tick();
+      bridge.call("chat.models").resolve(reply);
+      await tick();
+      p.send({ type: "models", req: 2 });
+      await tick();
+      bridge.call("chat.models").resolve(reply);
+      await tick();
+      expect(p.posted.map((m) => m.type)).toEqual(["info_result", "error"]);
+      expect(logs.filter((l) => l.includes("chat.models"))).toHaveLength(2);
+    },
+  );
+
+  it("an empty select_model key is refused before the bridge", async () => {
+    const { bridge, tab } = setup();
+    bridge.minor = 3;
+    const p = await tab();
+    bridge.calls = [];
+    p.send({ type: "select_model", req: 5, key: "" });
+    await tick();
+    expect(bridge.methods()).toEqual([]);
+  });
+});
+
 describe("ChatRouter: the #9 send gate (plan 07 step 9b review)", () => {
   it("a tab that has not learned the model setting cannot send", async () => {
     const { bridge, tab, logs } = setup();

@@ -223,7 +223,7 @@ describe("hello and profile_id", () => {
     const hello = p.port.last("hello") as { params: Record<string, unknown> };
     expect(hello.params).toMatchObject({
       protocol: "tern-bridge/1",
-      minor: 2, // tern-bridge/1.2 (#39)
+      minor: 3, // tern-bridge/1.3 (the model picker)
       role: "extension",
       profile_id: UUID,
     });
@@ -464,9 +464,9 @@ describe("tern-bridge 1.1: negotiated minor and the step 3 review fixes (plan 07
   });
 
   it("the session uses the lower minor of ours and the daemon's", async () => {
-    expect(MINOR).toBe(2); // tern-bridge/1.2 (#39)
+    expect(MINOR).toBe(3); // tern-bridge/1.3 (the model picker)
     const newer = await helloWith(daemon(4));
-    expect([newer.b.minor, newer.hello.params.minor, newer.b.state]).toEqual([2, 2, "ready"]);
+    expect([newer.b.minor, newer.hello.params.minor, newer.b.state]).toEqual([3, 3, "ready"]);
     const older = await helloWith(daemon(0));
     expect([older.b.minor, older.b.state]).toEqual([0, "ready"]);
     const legacy = await helloWith(daemon(1), 0);

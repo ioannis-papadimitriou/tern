@@ -315,10 +315,18 @@ class LLMClient:
     """A streaming OpenAI-compatible chat client (loopback unless config allows a remote)."""
 
     def __init__(
-        self, cfg: TernConfig, *, transport: httpx.AsyncBaseTransport | None = None
+        self,
+        cfg: TernConfig,
+        *,
+        transport: httpx.AsyncBaseTransport | None = None,
+        base_url: str | None = None,
+        model: str | None = None,
     ) -> None:
-        base = check_url(cfg.chat_base_url, cfg)
-        self.model_id: str = cfg.chat_model
+        """``base_url``/``model`` override ``cfg.chat_base_url``/``cfg.chat_model`` (a model the
+        user picked in the chat tab, `tern.llm.models`); the egress guard applies either way."""
+        base = check_url(cfg.chat_base_url if base_url is None else base_url, cfg)
+        self.base_url: str = base
+        self.model_id: str = cfg.chat_model if model is None else model
         self._endpoint = base.rstrip("/") + "/chat/completions"
         self._temperature = cfg.chat_temperature
         self._seed = cfg.chat_seed

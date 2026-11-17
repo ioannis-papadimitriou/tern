@@ -376,6 +376,13 @@ class AgentSession:
         self._sent = 0
         self._active: TurnHandle | None = None
 
+    def use_llm(self, llm: LLMClient) -> None:
+        """Use ``llm`` from the next turn on (the chat tab's model picker). The history is kept:
+        it is plain chat messages, so another model can continue it."""
+        if self._active is not None and not self._active.done:
+            raise RuntimeError("a turn is running in this session")
+        self._llm = llm
+
     @property
     def tools(self) -> list[dict[str, Any]]:
         """The offered tools (OpenAI function format)."""

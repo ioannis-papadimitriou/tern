@@ -1,0 +1,100 @@
+{
+  "name": "agent-eval-strata-iq3xxs",
+  "run_dir": "runs/20261117T193857Z_agent-eval-strata-iq3xxs",
+  "git": {
+    "commit": "2351ec597161cdfcd2b69ee444ecce37b5ec7732",
+    "branch": "main",
+    "dirty": true
+  },
+  "command": [
+    ".venv/bin/python",
+    "scripts/agent_eval/run.py",
+    "--base-url",
+    "http://127.0.0.1:47831/v1",
+    "--model",
+    "iq3_xxs",
+    "--label",
+    "strata-iq3xxs",
+    "--repeats",
+    "2",
+    "--note",
+    "Strata, Qwen3.8-Flash-Next IQ3_XXS, 512k ctx"
+  ],
+  "eval_set": {
+    "name": "agent-eval",
+    "version": "1",
+    "path": "scripts/agent_eval/tasks-v1.jsonl",
+    "sha256": "3b40084b432d3033344822d57b5da3dff055370afefc6c4f800b9c231bb8ee25",
+    "tasks": [
+      "a01",
+      "a02",
+      "a03",
+      "a04",
+      "a05",
+      "a06",
+      "a07",
+      "a08",
+      "a09",
+      "a10",
+      "a11",
+      "a12",
+      "a13",
+      "a14",
+      "a15",
+      "a16",
+      "a17",
+      "a18",
+      "a19",
+      "a20",
+      "a21",
+      "a22",
+      "a23",
+      "a24",
+      "a25"
+    ]
+  },
+  "model": {
+    "id": "iq3_xxs",
+    "base_url": "http://127.0.0.1:47831/v1",
+    "server_entry": {
+      "id": "iq3_xxs",
+      "object": "model",
+      "owned_by": "strata",
+      "meta": {
+        "instanceId": "e093bce9-aa6c-4920-b542-86af35a54666",
+        "gpus": [
+          0
+        ],
+        "label": "Qwen3.8-Flash-Next IQ3_XXS",
+        "aliases": [
+          "iq3_xxs"
+        ]
+      }
+    }
+  },
+  "settings": {
+    "repeats": 2,
+    "temperature": 0.0,
+    "seed": 0,
+    "max_tokens": 4096,
+    "agent_max_tool_calls": 15,
+    "agent_turn_timeout_s": 600.0,
+    "chat_request_timeout_s": 600.0,
+    "agent_context_budget_tokens": 200000,
+    "today": "2026-11-17",
+    "tb_timezone": "UTC"
+  },
+  "env": {
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-149-generic-x86_64-with-glibc2.35"
+  },
+  "note": "Strata, Qwen3.8-Flash-Next IQ3_XXS, 512k ctx",
+  "started_utc": "2026-11-17T19:38:57.585524+00:00",
+  "finished_utc": "2026-11-17T19:51:19.516079+00:00",
+  "rescored": [
+    {
+      "utc": "2026-11-17T20:50:16.850219+00:00",
+      "from_sha256": "a361c02af9d8b6ca61b881a0f111e091f90e3f8ab004124c105ebb7af97b1cf5"
+    }
+  ]
+}

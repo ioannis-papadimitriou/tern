@@ -16,8 +16,9 @@ Fields of the frozen 1.0 ``IndexStatus`` and how each is filled (P7; architectur
 - ``embed_pending``: ``EmbedQueue.state.pending``. Embedding disabled (no queue) → ``0``, and
   ``models.embed`` → ``""`` (the config's own encoding of "disabled", #31 note); otherwise
   ``models.embed`` is ``cfg.embed_model``.
-- ``models.chat``: ``cfg.chat_model``. ``models.runtime_version``: ``""`` = not reported (ternd
-  does not probe the model runtime; ``LMStudioShim`` is eval/doctor only, #35 P9).
+- ``models.chat``: the model new chat turns use (``ChatHost.chat_model``: ``cfg.chat_model``
+  until the chat tab's model picker selects another). ``models.runtime_version``: ``""`` = not
+  reported (ternd does not probe the model runtime; ``LMStudioShim`` is eval/doctor only, #35 P9).
 - ``lag_s``: :meth:`tern.index.service.IngestService.event_lag_s`, the age of the oldest TB
   event received and not yet applied (``0.0`` when caught up).
 
@@ -126,6 +127,7 @@ def read_status(
     cfg: TernConfig,
     *,
     now: float,
+    chat_model: str | None = None,
 ) -> WireIndexStatus:
     """The 1.0 ``IndexStatus`` (see the module docstring); ``now`` is a ``time.monotonic()``
     reading for ``lag_s``. Synchronous: nothing else runs on the loop while it reads."""
@@ -162,7 +164,9 @@ def read_status(
         lag_s=service.event_lag_s(now),
         last_reconcile=_utc(last),
         models=ModelIds(
-            chat=cfg.chat_model, embed=embed_model, runtime_version=RUNTIME_NOT_REPORTED
+            chat=cfg.chat_model if chat_model is None else chat_model,
+            embed=embed_model,
+            runtime_version=RUNTIME_NOT_REPORTED,
         ),
         accounts=accounts,
     )
@@ -175,6 +179,7 @@ def index_status_handler(
     cfg: TernConfig,
     *,
     monotonic: Callable[[], float] = time.monotonic,
+    chat_model: Callable[[], str] | None = None,
 ) -> Handler:
     """The ``index.status`` handler over the engine's read-only ``index``, the ingest service
     (``lag_s``) and the embed queue (None when embedding is disabled). A role outside
@@ -184,6 +189,7 @@ def index_status_handler(
         if peer.role not in STATUS_ROLES:
             log.warning("index.status refused for role", extra={"role": peer.role})
             raise BridgeError("role_rejected", f"index.status is not allowed for role {peer.role}")
-        return read_status(index, service, embed, cfg, now=monotonic())
+        model = None if chat_model is None else chat_model()
+        return read_status(index, service, embed, cfg, now=monotonic(), chat_model=model)
 
     return handle

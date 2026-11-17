@@ -42,6 +42,7 @@ from tern.daemon.status import index_status_handler
 from tern.index.service import EVENT_METHODS, IngestService, cancel_and_wait
 from tern.index.source import IngestSource
 from tern.index.store import Store, index_path
+from tern.llm import models as llm_models
 from tern.llm.client import LLMClient
 from tern.perms.audit import AuditLog, audit_path
 from tern.perms.engine import Engine
@@ -72,6 +73,11 @@ def make_llm(cfg: config.TernConfig) -> LLMClient:
     """The production chat client: an ``LLMClient`` over ``cfg.chat_base_url`` (loopback unless
     the config allows a remote URL; ``EgressDenied`` otherwise, raised at construction)."""
     return LLMClient(cfg)
+
+
+def _picked_llm(cfg: config.TernConfig, base_url: str, model: str) -> LLMClient:
+    """A chat client for a model picked in the chat tab (``chat.select_model``)."""
+    return LLMClient(cfg, base_url=base_url, model=model)
 
 
 @dataclass
@@ -352,20 +358,29 @@ async def _serve(
         cfg,
         hold=embed.hold if embed is not None else None,
         approvals=engine.approvals,
+        discover=functools.partial(llm_models.discover, cfg),
+        make_llm=functools.partial(_picked_llm, cfg),
     )
     server.handlers["chat.send"] = chat.send
     server.handlers["chat.cancel"] = chat.cancel
     # tern-bridge/1.2, staged (decisions #39): reached only on a connection at minor >= 2.
     server.handlers["chat.start"] = chat.start
     server.handlers["chat.approve"] = chat.approve
-    server.handlers["index.status"] = index_status_handler(engine.index, service, embed, cfg)
+    # tern-bridge/1.3: the chat tab's model picker.
+    server.handlers["chat.models"] = chat.models
+    server.handlers["chat.select_model"] = chat.select_model
+    server.handlers["index.status"] = index_status_handler(
+        engine.index, service, embed, cfg, chat_model=lambda: chat.chat_model
+    )
     # tern-bridge/1.1 (decisions #37; tern.daemon.handlers).
     server.handlers["tools.list"] = tools_list_handler(registry)
     tool_calls = ToolCalls(registry)
     server.handlers["tools.call"] = tool_calls.handle
     server.handlers["audit.status"] = audit_status_handler(engine)
     server.handlers["ui.open_mid"] = ui_open_mid_handler(registry)
-    server.handlers["daemon.info"] = daemon_info_handler(cfg, chat.info_read)
+    server.handlers["daemon.info"] = daemon_info_handler(
+        cfg, chat.info_read, lambda: chat.chat_model
+    )
     daemon = Daemon(store, server, service, embed, stores.audit, engine, registry, chat, tool_calls)
     stop = stop if stop is not None else asyncio.Event()
     loop = asyncio.get_running_loop()
@@ -430,7 +445,10 @@ async def _shutdown_calls(chat: ChatHost, tool_calls: ToolCalls) -> None:
     """Chat turns, then MCP tool calls (each cancelled and awaited); the second runs even if the
     first raised."""
     try:
-        await chat.shutdown()
+        try:
+            await chat.shutdown()
+        finally:
+            await chat.aclose()
     finally:
         await tool_calls.shutdown()
 
